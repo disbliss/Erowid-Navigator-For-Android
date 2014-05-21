@@ -1,0 +1,71 @@
+/* Required - Don't Edit */
+#main-frame { border: 0px solid white; line-height: 1.2em; }
+	#message a:link { color: #ffdd00; }
+	#message a:visited { color: #ffdd00; }
+	#path a:link { color: #ee9900; }
+	#path a:visited { color: #ee9900; }	
+	
+/* Required - Editable */
+#main-frame { background-color: #000000; border-top: 1px solid black; height: auto; } /* sets background color of default sidenav or border */
+#content-outer-frame { background-color: #000000; border-left: 1px solid #000000; } /* sets background color of content area */ 
+																					/* border-left required in IE6 or single line headers won't show up */
+#content-body-frame { border: 0px solid red; }
+#content-messpath-frame {  }
+																										
+#footer-frame { background-color: #000000; } /* sets background color of footer.  set same as content area */
+body { background-color: #000000; } /* sets background color below footer on short pages.  set same as content area */
+
+#content-outer-frame { color: #aaaa77; } /* set font color of content area */
+	a:link { color: #8888bb; }
+	a:visited {color: #666699; }
+
+
+/* Title Section */
+.ts-substance-name-sub { font: 700 .95em arial,sans-serif; text-align: center; }
+.ts-author { margin-bottom: 18px; }
+
+.content-section { font: 700 11pt arial,sans-serif; border-top: 0px solid #777777; padding-top: 0px; } /* set border color same as ts-citation */
+
+
+/* Image Bar Sub-Headers - Colors Only - All Will Be Same Color */
+.section-title2 { font: 700 .95em arial,sans-serif; background-color: #2c3a2a; border-top: 2px solid #505550; border-bottom: 2px solid #505550;  } /* bar below title */
+.section-title1 { font: 700 .95em arial,sans-serif; background-color: #2c3a2a; border-top: 2px solid #505550; border-bottom: 2px solid #505550; margin-top: 45px; } 
+.section-title1 a:link { color: #5f5f7a; }
+.section-title1 a:visited { color: #5f5f7a; }
+
+
+/* Images - Page Body */
+.image-list ul { font: 700 .95em arial,sans-serif; }
+.cat1 { font: 700 .95em helvetica,arial,sans-serif; margin-left: 30px; margin-bottom: 10px; margin-top: 30px; letter-spacing: .1em; color: #aaaa77; }
+.cat2 { font: 700 .95em helvetica,arial,sans-serif; margin-left: 30px; margin-bottom: 0px; margin-top: 45px; letter-spacing: .1em; color: #aaaa77; text-decoration: underline; }
+
+.image { font: 700 .8em helvetica,arial,sans-serif; margin-left: 55px; letter-spacing: .05em; color: #cc9933; }
+	.image a:link {color: #669966; }
+	.image a:visited {color: #558855; }	
+.desc { font: 700 .75em arial,sans-serif; margin-left: 80px; color: #aaaa77; }
+.credit { font: 700 .75em arial,sans-serif; margin-left: 80px; margin-bottom: 8px; color: #aaaa77; }
+	.credit	a:link { color: #bb9955; }
+	.credit	a:visited {color: #bb9955; }
+
+.comment { font: 700 .7em arial,sans-serif; margin-left: 55px; margin-right: 100px; margin-bottom: 10px; }
+.caution { font: 700 .75em arial,sans-serif; margin-left: 80px; color: #cc6600; }	
+.image-right { float: right; margin-left: 10px; padding-top: 0px; padding-left: 0px; padding-bottom: 0px; border: 1px solid red; }
+
+.pa { font: 500 5pt arial,sans-serif; vertical-align: middle; color: #777744; text-decoration: none; }
+	a:link.pa { color: #555588; }
+	a:visited.pa { color: #555588; }
+
+
+/* Links & Disclaimer */
+.link-ext { font: 700 .9em arial,sans-serif; margin-left: 30px; }
+.link-int { font: 700 .9em arial,sans-serif; margin-left: 30px; }
+.link-int:after { content: " " url("/images/logo_small_db.gif"); } /* adds logo after local links in mozilla */
+
+.image-include { font: 700 .75em helvetica,arial,sans-serif; margin-left: 30px; margin-bottom: 8px; }
+
+
+/* Footer */
+.footer-backto { font: 700 8pt arial,sans-serif; text-align: center; }
+.footer1 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer2 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer-copyright { font: 700 .8em arial,sans-serif; color: #aaaaaa; }

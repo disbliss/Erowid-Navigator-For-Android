@@ -1,0 +1,94 @@
+body { margin: 0; padding: 0; font: 700 9pt arial,sans-serif; }
+#header-search { font: 500 9px arial,sans-serif; }
+#main-frame { font: 700 10pt arial,sans-serif; margin: 0; padding: 0; line-height: 1.2em;}
+#content-messpath-frame { width: 570px; padding-left : 27px; padding-right: 27px; margin-bottom: 15px; border-top: 1px solid transparent; }
+#message { font: 700 9.5pt arial,sans-serif; letter-spacing: .05em; margin-top: 4px; padding-top: 3px; padding-bottom: 3px; padding-left: 4px; padding-right: 4px; border: 0px solid black; }
+		
+/* Special header messages */
+#message-inner-lg { font: 700 12pt arial,sans-serif; letter-spacing: .1em; margin: 0px; padding: 1px; color: #000000; text-align: center; text-decoration: none; }
+#message-inner-md { font: 700 10pt arial,sans-serif; letter-spacing: .1em; margin: 0px; padding: 1px; color: #000000; text-align: center; text-decoration: none; }
+#message-inner-sm { font: 700 8pt arial,sans-serif; letter-spacing: .1em; margin: 0px; padding: 1px; color: #000000; text-align: center; text-decoration: none; }
+
+#path { font: 700 8pt arial,sans-serif; letter-spacing: .05em; padding-top: 6px; padding-left: 7px; border: 0px solid pink; }
+#content-body-frame { padding-top: 0px; padding-bottom: 37px; /*padding-left: 27px; padding-right: 27px;*/ padding-left: 5px; padding-right: 5px; border: 0px solid pink; }
+
+
+/* Standard Headers & Subheaders */
+.h1 { font: 2.4em helvetica,arial,sans-serif; }
+.h1b { font: 700 2.4em arial,sans-serif; }
+.h2 { font: 2.2em helvetica,arial,sans-serif; }
+.h2b { font: 700 2.2em arial,sans-serif; }
+.h3 { font: 2.0em helvetica,arial,sans-serif; }
+.h3b { font: 700 2.0em arial,sans-serif; }
+.h4 { font: 1.8em helvetica,arial,sans-serif; }
+.h4b { font: 700 1.8em arial,sans-serif; }
+.h5 { font: 1.6em helvetica,arial,sans-serif; margin-bottom: 8px; margin-top: 14px; }
+.h5b { font: 700 1.6em arial,sans-serif; }
+.h6 { font: 1.4em arial,sans-serif; margin-bottom: 4px; margin-top: 10px; }
+.h6b { font: 700 1.4em arial,sans-serif; }
+.h7 { font: 700 1.3em arial,sans-serif; margin-bottom: 4px; margin-top: 10px; }
+.h8 { font: 700 1.2em arial,sans-serif; margin-bottom: 2px; margin-top: 6px; }
+.h8u { font: 700 1.2em arial,sans-serif; margin-bottom: 2px; margin-top: 6px; text-decoration: underline; }
+.h9 { font: 700 1.1em arial,sans-serif; }
+.h9u { font: 700 1.0em arial,sans-serif; text-decoration: underline; }
+.h10 { font: 700 1.0em arial,sans-serif; }
+.sub { font-size: .8em; }
+sub { font-size: .8em; vertical-align: -25%; }
+.sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; margin-left: 0.1em; margin-right: 0.1em; }
+sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; margin-left: 0.1em; margin-right: 0.1em; }
+
+.ts-line { margin-bottom: 15px; }
+
+form { margin-bottom: 0px; }
+.center { text-align: center; }
+
+.image-right { float: right; padding-left: 25px; padding-right: 0px; padding-bottom: 25px; padding-top: 25px; }
+.image-right-top { float: right; padding-left: 25px; padding-right: 0px; padding-bottom: 25px; padding-top: 0px; }
+.image-left { float: left; padding-right: 25px;  padding-left: 0px; padding-bottom: 25px; padding-top: 25px; }
+.image-left-top { float: left; padding-right: 25px;  padding-left: 0px; padding-bottom: 25px; padding-top: 0px; }
+
+.trans { font: 500 10pt arial,sans-serif; text-align: center; margin-bottom: 5px; }
+.trans2 { font: 700 10pt arial,sans-serif; }
+
+.hyperreal_note { font: 700 10pt arial,sans-serif; text-align: center; }
+.old_credits { font: 700 10pt arial,sans-serif; text-align: center; }
+
+
+/* Links */
+.index-links-int { clear: both; text-align: center; }
+.index-links-ext { text-align: center; }
+
+.links-list { margin-top: 25px; }
+.pa { font: 500 6pt Arial, sans-serif; vertical-align: middle; color: #555555; text-decoration: none; padding-bottom: 4px; }
+.ish { font: 700 11pt helvetica,arial,sans-serif; }
+	.ish a:link { color: #555555; }
+	.ish a:visited { color: #555555; }
+.link-int, .link-ext { font: 700 10pt arial,sans-serif; }	
+	
+.offsite-outer { width: 350px; margin-top: 40px; margin-bottom: 5px; margin-left: auto; margin-right: auto; border: 2px solid #bbbbdd; }
+.offsite-inner { padding: 4px; margin: 2px; font: 700 11pt helvetica,arial,sans-serif; color: #c0c0bb; border: 1px solid #bbbbdd; }
+
+.quote-center { text-align: center; font: 700 9pt arial,sans-serif; }
+.quote-right { text-align: right; font: 700 9pt arial,sans-serif; }
+.quote-left { text-align: left; font: 700 9pt arial,sans-serif; }
+
+
+/* Footer */
+#footer-frame { bottom: 0px; margin-bottom: 0px; padding-bottom: 9px; clear: both; border: 0px solid lime; }
+.footer-backto { padding-bottom: 5px; padding-top: 2px; border-top: 1px solid black; }
+.footer1 { border: 0px solid green; }
+.footer2 { padding-right: 10px; border: 0px solid green; }
+.footer-copyright { text-align: center; padding-top: 3px; border: 0px solid green; }
+.correction-nomenu { font: 700 8pt arial,sans-serif; padding-top: 3px; color: #bbbbbb; }
+	.correction-nomenu a:link { color: #bbbbbb; }
+	.correction-nomenu a:visited { color: #bbbbbb; }
+.footer1 { font: 700 9pt arial,Sans-serif; } /* Last Edited */
+.footer2 { font: 700 9pt arial,Sans-serif; } /* Created By */
+.footer3 { font: 700 10pt arial,Sans-serif; } /* Back To ... */
+
+/* basic erowid lib classes */
+.erowidlib-error { font: 700 11pt arial, Sans-serif; color: yellow;}
+
+#switchDiv { font: 500 9pt arial; color: black;  position:absolute; right: 4px; top: 4px; padding:1px;}
+
+#redirected-message {  position:relative; border: 2px dotted black; margin: auto; width:250px; color: #330000; background-color: #c0c0c0;}

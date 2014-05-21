@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2" >
+
+	<TextView
+        android:id="@+id/psychoName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<ImageView
+        android:id="@+id/psyImage"
+        android:layout_width="225dp"
+        android:layout_height="150dp" />
+	
+	<TextView
+        android:id="@+id/psychoactiveDescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:text="Description:\nNot started loading..."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	<LinearLayout
+        android:id="@+id/buttonVerticalLayout"
+        android:layout_width="match_parent"
+    	android:layout_height="200dp"
+    	android:weightSum="1.0"
+    	android:orientation="vertical">
+    	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+    		android:layout_weight="0.25" >
+
+            <Button
+                android:id="@+id/basics_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:text="basics" />
+
+            <Button
+                android:id="@+id/effects_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:text="effects" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+    		android:layout_weight="0.25" >
+
+            <Button
+                android:id="@+id/images_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="images" />
+
+            <Button
+                android:id="@+id/health_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="health" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+    		android:layout_weight="0.25" >
+
+            <Button
+                android:id="@+id/law_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="law" />
+
+            <Button
+                android:id="@+id/dose_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="dose" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+    		android:layout_weight="0.25" >
+
+            <Button
+                android:id="@+id/chemistry_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="chemistry" />
+
+            <Button
+                android:id="@+id/research_chemical_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:text="research" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

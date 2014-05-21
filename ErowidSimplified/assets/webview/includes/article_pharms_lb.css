@@ -1,0 +1,47 @@
+/* Required - Don't Edit */
+#main-frame { border: 0px solid white; line-height: 1.2em; }
+	#message a:link { color: #990000; }
+	#message a:visited { color: #990000; }
+	#path a:link { color: #994400; }
+	#path a:visited { color: #994400; }	
+#content-messpath-frame { padding-left: 22px; }
+
+	
+/* Required - Editable */
+#main-frame { background-color: #061606; border-top: 1px solid black; } /* sets background color of default sidenav or border */
+#content-outer-frame { background-color: #998866; border-left: 1px solid #998866; } /* sets background color of content area */
+																					     /* border-left required in IE6 or single line headers won't show up */
+#footer-frame { background-color: #998866; } /* sets background color of footer.  set same as content area */
+body { background-color: #998866; } /* sets background color below footer on short pages.  set same as content area */
+	
+#content-outer-frame { font: 10.5pt arial,sans-serif; color: #000000; } /* set font of content area */
+	a:link { color: #110066; }
+	a:visited {color:  #3a3366; }
+
+
+/* Body */
+.ts-citation { font: 500 9pt arial,sans-serif; border-top: 2px solid #002244; padding-top: 5px; padding-bottom: 6px; }
+
+.content-section { border-top: 2px solid #002244; padding-top: 25px; } /* set border color same as ts-citation */
+.ts-line { margin-bottom: 12px; }
+
+hr {color: black; }
+
+.pullquote-left1 { float: left; width: 250px; padding: 5px; margin-top: 5px; margin-bottom: 5px;  margin-right: 13px;  border-top: 2px solid #222222; border-bottom: 2px solid #222222;}
+.pullquote-right1 { float: right; width: 250px; padding: 5px; margin-top: 5px; margin-bottom: 5px;  margin-left: 13px; border-top: 2px solid #222222; border-bottom: 2px solid #222222;}
+.pullquote-text { font: 700 10pt Trebuchet, Arial, sans-serif; text-align: justify; color: #222222; }
+.pullquote-sig { font: 700 9pt Trebuchet, Arial, sans-serif; text-align: right; color: #222222; padding-top: 4px; }
+
+
+/* Summary Pages */
+.section-title1 { background-color: #9f9faa; border-top: 2px solid #222255; border-bottom: 2px solid #222255; } 
+.section-title1 a:link { color: #5f5f7a; }
+.section-title1 a:visited { color: #5f5f7a; }
+		/* sets colors for smarts summary sub-heads */
+
+		
+/* Footer */
+.footer-backto { font: 700 8pt arial,sans-serif; text-align: center; }
+.footer1 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer2 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer-copyright { font: 700 .7em arial,sans-serif; color: #000000; }

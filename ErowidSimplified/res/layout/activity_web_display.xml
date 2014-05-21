@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <WebView
+        android:id="@+id/infoWebView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout 
+    	android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:paddingTop="6dp"
+    	android:paddingLeft="3dp"
+    	android:paddingRight="3dp"
+    	android:id="@+id/zoomButtonLinearLayout">
+	    <Button
+	        android:id="@+id/zoomOutButton"
+           	android:layout_width="match_parent"
+    		android:layout_weight=".5"
+	        android:layout_height="wrap_content"
+	        android:text="Zoom Out" 
+	        android:background="@android:drawable/btn_default"
+	        android:onClick="zoomOutButton_onClick"/>
+	
+	    <Button
+	        android:id="@+id/zoomInButton"
+           	android:layout_width="match_parent"
+    		android:layout_weight=".5"
+	        android:layout_height="wrap_content"
+	        android:text="Zoom In"
+	        android:background="@android:drawable/btn_default"
+	        android:onClick="zoomInButton_onClick" />
+	</LinearLayout>
+</LinearLayout>

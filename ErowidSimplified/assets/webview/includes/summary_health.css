@@ -1,0 +1,38 @@
+/* Effects Bar Sub-Headers - Colors Only - All Will Be Same Color */
+.section-title1 { background-color: #9b9f8d; border-top: 2px solid #224422; border-bottom: 2px solid #224422; } 
+.section-title1 a:link { color: #224422; }
+.section-title1 a:visited { color: #224422; }
+
+
+.notes-text { font: 500 10pt arial,sans-serif; }
+.deaths-text { font: 500 10pt arial,sans-serif; }
+.benefits-text { font: 500 10pt arial,sans-serif; }
+
+.warnings-list  { font: 500 10pt arial,sans-serif; list-style: circle; margin-left: 0px; padding-left: 25px; }
+.warnings-list li { margin-top: 15px; }
+.warnings-title { font: 700 10pt arial,sans-serif; }
+
+.cautions-list { font: 500 10pt arial,sans-serif; list-style: circle; margin-left: 0px; padding-left: 25px; }
+.cautions-list li { margin-top: 15px; }
+.cautions-title { font: 700 10pt arial,sans-serif; }
+
+.benefits-list  { font: 500 10pt arial,sans-serif; list-style: circle; margin-left: 0px; padding-left: 25px; }
+.benefits-list li { margin-top: 15px; }
+.benefits-title { font: 700 10pt arial,sans-serif; }
+
+.section-sub-title { font: 700 11pt arial,sans-serif; padding-bottom: 5px; text-decoration: none; }
+
+
+/* Deaths Pages */
+.death-ref-surround { border: 1px dotted gray; padding: 5 10 0 10; margin: 5 8 0 8; }
+.death-ref-surround .list { padding: 0 0 12 17; list-style: circle; }
+.erowid-note { padding-bottom: 14px; }
+.incident { font: 700 10pt arial,sans-serif; padding-bottom: 5px; padding-top: 4px;}
+.ref { padding-bottom: 4px; }
+.ref blockquote { margin-top: 5px;  } 
+
+/* References */
+.bottom-data-surround { margin-left: 0px; }
+.bottom-data-surround .refs { margin-top: 30px; }
+.refs-title-small { font: 500 1em arial,sans-serif; }
+

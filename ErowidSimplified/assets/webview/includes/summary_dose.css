@@ -1,0 +1,21 @@
+/* Dose Bar Sub-Headers - Colors Only - All Will Be Same Color */
+.section-title1 { background-color: #aa9999; border-top: 2px solid #772211; border-bottom: 2px solid #772211; } 
+.section-title1 a:link { color: #5f5f7a; }
+.section-title1 a:visited { color: #5f5f7a; }
+
+
+/* Dose */
+.dose-summary { font: 700 9pt arial,sans-serif; margin-bottom: 23px; border-color: #444444; background-color: #dddddd; }
+.dose-summary { border-width: 1px 1px 1px 1px; border-style: solid; }
+.ds-title { font: 700 10.5pt helvetica,arial,sans-serif; margins: 0px; padding: 4px 5px 0px 5px; background-color: #bbbbbb; text-align: center; border: 0px solid #444444; border-width: 1px 1px 0px 1px; }
+.ds-title2 { font: 700 10pt helvetica,arial,sans-serif; margins: 0px; padding: 0px 5px 3px 5px; background-color: #bbbbbb; text-align: center; border: 0px solid #444444; border-width: 0px 1px 1px 1px; letter-spacing: .05em; }
+.col1 { font: 700 9pt arial,sans-serif; width: 115px; padding: 3px 5px 3px 5px; border: 0px solid #444444; border-width: 1px 1px 1px 1px; } 
+.col2 { font: 700 9pt arial,sans-serif; width: 130px; padding: 3px 5px 3px 5px; border: 0px solid #444444; border-width: 1px 1px 1px 1px; text-align: center; } 
+.col3 { font: 700 9pt arial,sans-serif; width: 115px; padding: 3px 5px 3px 5px; border: 0px solid #444444; border-width: 1px 1px 1px 1px; text-align: center; } 
+
+.ds-thresh, .ds-light, .ds-common, .ds-strong, .ds-heavy { }
+
+.dose-text { padding-bottom: 12px; margin-top: 5px; }
+
+.bottom-data-surround { padding-top: 15px; }
+.refs-title { font: 700 11pt arial,sans-serif; text-transform: uppercase; text-decoration: none; }

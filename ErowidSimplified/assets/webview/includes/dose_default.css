@@ -1,0 +1,52 @@
+body { font-size: 80%; color: cccc99; }
+	body A:link { color: 40A0A0; }
+	body A:vlink { color: 40D0A0; }
+	
+.title { font: 700 1.5em Helvetica,Arial,Sans-serif; text-align: center; }
+.title_sub { font: 700 1.2em Helvetica,Arial,Sans-serif; text-align: center; }
+.author { font: 700 1em Arial,Sans-serif; margin-bottom: 12px; text-align: center; }
+
+.body1 { font: 700 1em arial,sans-serif; /*margin-left: 40px; margin-right: 40px;*/ margin-left: 5px; margin-right: 5px; margin-bottom: 30px; }
+.body2 { font: 1.1em Helvetica,Arial,Sans-serif; }
+.title_section { font: 700 12pt Helvetica,Arial,Sans-serif; margin-top: 20px; margin-bottom: 7px; text-decoration: underline; }
+
+.chart1 { font: 700 1.05em Helvetica,Arial,Sans-serif; padding-top: 2px; padding-bottom: 2px; margin-left: 40px; margin-right: 40px; color: cca122; text-align: center; }
+.chart1-sub { font: 700 .8em Helvetica,Arial,Sans-serif; padding-top: 2px; padding-bottom: 2px; margin-left: 40px; margin-right: 40px; color: cca122; text-align: center; }
+.chart2 { font: 700 .9em Arial,Sans-serif; text-align: center; }
+.chart3 { font: 700 .9em Arial,Sans-serif; text-align: center; }
+.chart4 { font: 700 .9em Arial,Sans-serif; text-align: center; margin-left: 10px; margin-right: 10px; color: cca122; }
+.chart5 { font: 700 .9em Arial,Sans-serif; }
+.chart6 { font: 700 .7em Arial,Sans-serif; }
+
+.cat1 { font: 700 1em Helvetica,Arial,Sans-serif; color: cca122; }
+.cat2 { font: 700 1.3em Helvetica,Arial,Sans-serif; color: cca122; }
+
+ol {margin-left: 0px; padding-left: 25px; }
+
+.onset { font: 700 1em Arial,Sans-serif; }
+.peak { font: 700 1em Arial,Sans-serif; }
+.peak-onset { font: 700 1em Arial,Sans-serif; }
+.duration { font: 700 1em Arial,Sans-serif; }
+.after { font: 700 1em Arial,Sans-serif; }
+.other { font: 700 1em Arial,Sans-serif; }
+
+.disclaimer1 { font: 700 .9em Helvetica,Arial,Sans-serif; color: cca122; }
+.disclaimer2 { font: 700 8pt Arial,Sans-serif; color: cca122; }
+
+.note-title { font: 700 1em Helvetica,Arial,Sans-serif; color: #cca122;  }
+
+.duration-note { font: 700 .8em arial, sans-serif;}
+
+/* Summary Links */
+.links-list { margin-top: 25px; }
+.ish { font: 700 11pt helvetica,arial,sans-serif; }
+.pa { font: 500 5pt Arial, sans-serif; vertical-align: middle; color: #555555; text-decoration: none; }
+	.ish a:link { color: #555555; }
+	.ish a:visited { color: #555555; }
+.link-int:after { content: " " url(/images/logo_small_lb.gif); } /* adds logo after local links in mozilla */
+	.more a:link { color: #110055; } /* set font color of more links */
+	.more a:visited { color: #110055; }
+
+.link-ext { font: 700 .9em arial,sans-serif; margin-left: 30px; }
+.link-int { font: 700 .9em arial,sans-serif; margin-left: 30px; }
+.link-int:after { content: " " url(/images/logo_small_db.gif); } /* adds logo after local links in mozilla */

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Constants for accessing the psyTableArray-->
+    <integer name="psy_table_name">0</integer>
+    <integer name="psy_table_cached">1</integer>
+    <integer name="psy_table_type">2</integer>
+    <integer name="psy_table_main">3</integer>
+    <integer name="psy_table_basics">4</integer>
+    <integer name="psy_table_images">5</integer>
+    <integer name="psy_table_law">6</integer>
+    <integer name="psy_table_dose">7</integer>
+    <integer name="psy_table_experiences">8</integer>
+    <integer name="psy_table_faqs">9</integer>
+    <integer name="psy_table_effects">10</integer>
+    <integer name="psy_table_chemistry">11</integer>
+    <integer name="psy_table_testing">12</integer>
+    <integer name="psy_table_timeline">13</integer>
+    <integer name="psy_table_history">14</integer>
+    <integer name="psy_table_spirit">15</integer>
+    <integer name="psy_table_cultivation">16</integer>
+    <integer name="psy_table_books">17</integer>
+    <integer name="psy_table_journal">18</integer>
+    <integer name="psy_table_writings">19</integer>
+    <integer name="psy_table_media">20</integer>
+</resources>

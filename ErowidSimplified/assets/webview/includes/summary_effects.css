@@ -1,0 +1,34 @@
+/* Effects Bar Sub-Headers - Colors Only - All Will Be Same Color */
+.section-title1 { background-color: #9b9f8d; border-top: 2px solid #224422; border-bottom: 2px solid #224422; } 
+.section-title1 a:link { color: #224422; }
+.section-title1 a:visited { color: #224422; }
+
+/* Effects */
+.duration-summary { margin-bottom: 23px; border-color: blue; background-color: #dddddd; }
+.ds-title { font: 700 10.5pt helvetica,arial,sans-serif; margins: 0px; padding: 4px 5px 0px 5px; background-color: #bbbfbb; text-align: center; border: 2px solid #445544; border-width: 2px 2px 0px 2px; }
+.ds-title2 { font: 700 10pt helvetica,arial,sans-serif; margins: 0px; padding: 0px 5px 3px 5px; background-color: #bbbfbb; text-align: center; border: 2px solid #445544; border-width: 0px 2px 2px 2px; letter-spacing: .05em; }
+.ds-title-bottom { font: 700 9pt helvetica,arial,sans-serif; margins: 0px; padding: 3px 5px 3px 5px; background-color: #bbbfbb; text-align: center; border: 2px solid #445544; border-width: 0px 2px 2px 2px; letter-spacing: .05em; }
+.ds-left { font: 700 9pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 5px; background-color: #dddddd; }
+.ds-left2 { font: 700 9pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 15px; background-color: #dddddd; color: #413333; }
+.ds-total, .ds-onset, .ds-up, .ds-plateau, .ds-down, .ds-after, .ds-hangover { font: 700 9pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 5px; background-color: #dddddd; }
+.col1 { width: 140px; border: 0px solid #444444; border-width: 0px 1px 2px 2px; } 
+.col2 { border: 0px solid #444444; border-width: 0px 2px 2px 1px; } 
+
+.table-spacer-h { width: 40px; }
+.duration-chart { border: 2px solid #000000; }
+
+.effects-text { padding-bottom: 12px; margin-top: 5px; }
+
+.effects-type { font: 700 10pt helvetica,arial,sans-serif; }
+.effects-item  { font: 700 9pt helvetica,arial,sans-serif; list-style: circle; margin-left: 0px; padding-left: 25px; }
+.effects-list-negative { padding-bottom: 10px; }
+.list-item  { font: 700 9pt helvetica,arial,sans-serif; list-style: circle; margin-left: 0px; padding-left: 25px; }
+
+.effects-exp-excerpt { margin-bottom: 16px; }
+
+
+/* References */
+.bottom-data-surround { margin-left: 0px; }
+.bottom-data-surround .refs { margin-top: 35px; }
+.refs-title { text-decoration: none; margin-left: 20px; }
+.refs-title-small { font: 500 1em arial,sans-serif; }

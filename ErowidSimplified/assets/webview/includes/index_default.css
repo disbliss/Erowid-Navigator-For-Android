@@ -1,0 +1,81 @@
+/* Required - Don't Edit */
+#main-frame { border: 0px solid white; line-height: 1.2em; }
+	#message a:link { color: #ccaa00; }
+	#message a:visited { color: #ccaa00; }
+	#path a:link { color: #af7733; }
+	#path a:visited { color: #af7733; }	
+
+
+/* Required - Editable */	
+#content-body-frame { text-align: center; margin-left: auto; margin-right: auto; }
+
+
+/* Title Section */
+.title-section { text-align: center; border: 0px solid blue; }
+.ts-title-pre { font: 700 14pt arial,sans-serif; text-align: center; }
+.ts-title { font: 700 19pt helvetica,arial,sans-serif; text-align: center; }
+.ts-substance-name { font: 700 21pt helvetica,arial,sans-serif; letter-spacing: .05em; text-align: center; margin-bottom: 5px;}
+.ts-title-sub { font: 700 14pt arial,sans-serif; text-align: center; margin-bottom: 20px; }
+.ts-space { margin-bottom: 12px; }
+
+
+/* Data Summary Card - On Section & Topic Indexes */
+.summary-card { width: 633px; margin-top: 15px; margin-left: auto; margin-right: auto; }
+	.summary-card:after { clear: both; }
+.summary-card-text-surround { text-align: left; padding-top: 14px; padding-bottom: 6px; padding-left: 14px; padding-right: 14px; }
+.summary-card-topic-image { float: right; margin-left: 15px; margin-bottom: 15px; padding-right: 0px; padding-top: 0px; }
+.sum-head1, .sum-head2, .sum-head3, .sum-head4, .sum-head5 { font: 700 10pt arial,sans-serif; text-align: left; padding-left: 5px; }
+.sum-head1, .sum-head2, .sum-head3 { width: 350px; border: 0px solid blue; }
+.sum-head4, .sum-head5 { }
+
+.summary-card-description { text-align: left; padding-top: 8px; padding-bottom: 8px; padding-left: 14px; padding-right: 8px; border: 0px solid blue; }
+.summary-card-section-image { float: right; }
+.summary-text { font: 700 9pt arial,sans-serif; height: 120px; width: 390px; margin-bottom: 4px; border: 0px solid yellow; }
+
+
+/* Topic Index Chart - On Section Indexes */
+.topic-chart-surround { text-align: left; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px; padding: 0px; border: 2px solid #8888aa; }
+.topic-chart-title { font: 700 9pt arial,sans-serif; letter-spacing: .05em; text-align: center; height: 25px; background-color: #888899; color: #000000; border: 1px solid #222222;}
+.topic-surround td { padding: 3px; background-color: #000000; color: #999999; }
+.topic-name { font: 700 9pt arial,sans-serif; width: 175px; letter-spacing: .05em; border: 1px solid #888891; }	
+.topic-common { font: 700 9pt arial,sans-serif; width: 210px; border: 1px solid #888891; }
+.topic-desc { font: 700 8pt arial,sans-serif; width: 200px; border: 1px solid #888891; }
+.topic-chart-surround a:link { color: #cc9900; }
+.topic-chart-surround a:visited { color: #cc7700; }
+
+
+/* Topic Summary Table - On Summary Indexes */
+.substance-link-table { text-align: center; border: 2px solid #8888aa; }
+.substance-link-table .cell-title { font: 700 10pt arial,sans-serif; height: 26px; }
+.substance-link-table th { font: 700 9pt arial,sans-serif; width: 106px; height: 24px; padding-left: 5px; padding-right: 5px; margin-bottom: 30px; color: #888888;}
+.substance-link-table td { font: 700 9pt arial,sans-serif; height: 24px; padding-left: 5px; padding-right: 5px; margin-bottom: 30px; color: #888888; }
+	.substance-link-table a:link { color: #cc9900; }
+	.substance-link-table a:visited { color: #cc7700; }
+
+
+/* Required - Defines Index Page Special Column Format  */
+.index-cols-line { }
+.index-links-cols { text-align: center; border: 0px solid red; }
+.links-cols-container1 { width: 260px; margin-left: auto; margin-right: auto; padding-top: 6px; padding-bottom: 6px; border: 0px solid blue; }
+.links-cols-container2 { width: 555px; text-align: center; margin-left: auto; margin-right: auto; padding-top: 6px; padding-bottom: 6px; border: 0px solid orange; }
+.links-cols-float { float: left; display: inline; width:250px; margin-top: 6px; margin-bottom: 6px; margin-left: 12px; margin-right: 12px; text-align: left; border: 0px solid yellow; }
+.links-cols-title { font: 700 10pt arial,sans-serif; padding-bottom: 1px; padding-top: 1px; border-bottom: 2px solid #bbccbb; border-right: 1px solid #bbccbb; }
+.links-cols-title2 { width: 223px; float: left; }
+	.links-cols-title a:link { color: #bbccbb; }
+	.links-cols-title a:visited { color: #bbccbb; }
+.links-cols-arrows { font: 700 8.5pt helvetica,arial,sans-serif; width: auto; margin-right: 1px; padding-bottom: 2px; position: relative; top: -2px; border: 0px solid blue; }
+.links-cols-description { font: 700 8.5pt arial,sans-serif; padding: 0px; color: #999933; margin-top: 2px; border: 0px solid purple; }
+.clear { clear: both; }
+
+
+/* Footer */
+.footer-backto { font: 700 8pt arial,sans-serif; text-align: center; }
+.footer1 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer2 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer-copyright { font: 700 .7em arial,sans-serif; color: #aaaaaa; }
+
+
+/* This is a test for Milonic 5 */
+/*.footer3 { font: 700 8pt arial,sans-serif; padding-top: 4px; color: #aaaaaa; }  
+	.footer3 a:link { color: #aaaaaa; }
+	.footer3 a:visited { color: #aaaaaa; }*/

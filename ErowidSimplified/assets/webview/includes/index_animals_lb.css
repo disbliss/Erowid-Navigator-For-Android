@@ -1,0 +1,89 @@
+/* Required - Don't Edit */
+#main-frame { border: 0px solid white; line-height: 1.2em; }
+	#message a:link { color: #ffaa00; }
+	#message a:visited { color: #ffaa00; }
+	#path a:link { color: #ee9900; }
+	#path a:visited { color: #ee9900; }	
+#content-messpath-frame {  }	
+
+
+/* Required - Editable */
+#main-frame { background-color: #000000; height: auto; border-top: 1px solid black; } /* sets background color of default sidenav or border */
+#content-outer-frame { background-color: #000000; border-left: 1px solid #000000; } /* sets background color of content area */ 
+														 /* border-left required in IE6 or single line headers won't show up */
+#footer-frame { background-color: #000000; } /* sets background color of footer.  set same as content area */
+body { background-color: #000000; } /* sets background color below footer on short pages.  set same as content area */
+#content-outer-frame { color: #b3b3b3; } /* set font color of content area */
+	a:link { color: #ee9900; } 
+	a:visited {color: #ee9900; }
+
+
+/* Data Summary Card - On Section & Topic Indexes */
+.summary-card { border-top: 4px solid #383636; border-left: 4px solid #343232; border-right: 4px solid #131111; border-bottom: 4px solid #131111; background-color: #261818; }
+.summary-card-text-surround { padding-left: 13px; }
+.summary-card-topic-image, .summary-card-section-image { border-left: 2px solid #4a4a4c; border-top: 2px solid #4a4a4c; border-right: 2px solid #2a2a2c; border-bottom: 2px solid #2a2a2c; }
+	.summary-card-topic-image a:link, a:visited { color: #bb3538; }
+.sum-head1, .sum-head2, .sum-head3, .sum-head4, .sum-head5 { color: #668866; border-bottom: 1px solid #668866; width: 345px;}
+.sum-head1 { margin-bottom: 5px; }
+.sum-head2 { margin-top: 12px; }
+
+.sum-common-name, .sum-effects { font: 700 9pt arial,sans-serif; text-align: left; width: 325px; margin-top: 5px; margin-bottom: 13px; margin-left: 16px; margin-right: 15px; }
+.sum-description, .sum-caution { font: 700 9pt arial,sans-serif; text-align: left; margin-top: 5px; margin-bottom: 13px; margin-left: 16px; margin-right: 15px; }
+.fgs-title-f, .fgs-title-g, .fgs-title-s { float: left; font: 700 9pt arial,sans-serif; letter-spacing: .08em; width: 70px; text-align: left; border: 0px solid blue; }
+.fgs-title-f { padding-left: 25px; padding-right: 6px; }
+.fgs-title-g { padding-left: 28px; padding-right: 3px; }
+.fgs-title-s { padding-left: 31px; }
+.family, .genus, .species { font: 700 9pt arial,sans-serif; width: auto; text-align: left; padding-left: 105px; padding-top: 1px; border: 0px solid red;}
+
+.summary-card-icon-surround { text-align: center; padding-top: 0px; padding-bottom: 10px; padding-left: 16px; padding-right: 16px; border: 0px solid #8888aa; }
+.summary-icon { display: inline; width: 75px; height: 75px; padding: 0px; margin-left: 1px; margin-right: 1px; margin-top: 0px; margin-bottom: 0px; border: 2px solid #bbbbbb; }
+	.summary-icon:hover { border: 2px solid #927f92; }
+img.summary-icon-spacer { display: inline; width: 75px; height: 75px; padding: 0px; margin-left: 1px; margin-right: 1px; margin-top: 0px; margin-bottom: 0px; border: 2px solid #000000; background-color: #101010; }
+
+
+/* Index Text Section - On Misc Indexes */	
+.index-text-outer { border-top: 2px solid #777777; border-bottom: 2px solid #777777; padding-top: 12px; padding-bottom: 12px; margin-bottom: 20px; }
+
+
+/* Topic Index Chart - On Section Indexes */
+.topic-chart-surround { border: 2px solid #886166; margin-bottom: 20px; }
+.topic-chart-title { text-align: center; background-color: #998b8e; color: #000000; border: 1px solid #222222;}
+.topic-surround td { background-color: #000000; color: #aaaaaa; border: 1px solid #886166; }
+	.topic-chart-surround a:link { color: #cc6f6f; }
+	.topic-chart-surround a:visited { color: #bb3538; }
+
+	
+/* Timely Message */
+.timely-message-surround {  }	
+.timely-message { font: 700 10pt arial,sans-serif; letter-spacing: .05em; width: 700px; margin-right: auto; margin-left: auto; margin-top: 25px; padding-top: 4px; padding-bottom: 4px; border: 0px solid #cc9f00; }
+	
+	
+/* Links */
+.links-list { margin-top: 25px; }
+	.links-list a:link { color: #cc6f6f; } 
+	.links-list a:visited {color: #bb3538; } 
+.pa { color: #555555; }
+.ish { }
+	.ish a:link { color: #555555; }
+	.ish a:visited { color: #555555; }
+.link-int, .link-ext, .non-link { color: #886666; } /* sets non-linked text in links-lists */	
+.link-int:after { content: " " url("/images/logo_small_db.gif"); } /* adds logo after local links in mozilla */
+	.more a:link { color: #8888aa; } /* set font color of more links */
+	.more a:visited { color: #8888aa; }	
+
+.offsite-outer { border: 2px solid #b3b3b3; }
+.offsite-inner { color: #b3b3b3; border: 1px solid #b3b3b3; }
+	
+
+/* Index Page Special Column Format  */
+	/* custom colors go here */
+
+
+/* Plants Image Index */
+.image-chart-cell { font: 700 9pt arial,sans-serif; height: 24px; text-align: center; }
+.image-chart-cell a { margin-left: 5px; margin-right: 5px; }
+
+
+/* Footer */
+.footer-backto { border: 0px solid black; }
+.footer-copyright { color: #aaaaaa; }

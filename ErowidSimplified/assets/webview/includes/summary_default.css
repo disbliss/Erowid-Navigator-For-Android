@@ -1,0 +1,63 @@
+#content-outer-frame { font: 500 10pt arial,sans-serif; }
+
+.ts-substance-name { font: 700 17pt helvetica,arial,sans-serif; letter-spacing: .03em; text-align: center; }
+.ts-substance-name-sub { font: 700 12pt helvetica,arial,sans-serif; text-align: center; }
+.ts-summary-type { font: 700 13pt helvetica,arial,sans-serif; text-align: center; }
+.ts-author { font: 700 10pt helvetica,arial,sans-serif; margin-top: 0px; margin-bottom: 12px; text-align: center; }
+
+.content-section { border-top: 0px solid #000000; padding-top: 0px; }
+.section-title1 { font: 700 12pt helvetica,arial,sans-serif; padding-top: 3px; padding-bottom: 0px; margin-top: 14px; margin-bottom: 16px; /*margin-left: -27px; margin-right: -27px;*/ padding-left: 27px; padding-right: 27px; text-align: left; }
+.section-title2 { font: 700 11pt helvetica,arial,sans-serif; padding-top: 1px; padding-bottom: 1px; margin-top: 14px; margin-bottom: 16px; margin-left: -27px; /*margin-right: -27px;*/ padding-left: 27px; padding-right: 27px; text-align: left; }
+		/* colors set in article_***_lb.css by section */
+ul { margin-top: 3px; }
+
+.multi-chart-surround td { vertical-align: top; }
+.caution { color: #440000; }
+
+
+/* Chemistry */
+.chemistry-summary-table { margin-bottom: 23px; }
+.chemistry-summary-left { font: 700 10pt arial,sans-serif; width: 160px; }
+.chemistry-summary-right { font: 700 9pt arial,sans-serif; }
+.formula { letter-spacing: .1em; }
+.sub { font: 700 7pt arial,sans-serif; vertical-align: sub; }
+
+
+/* Summary Links */
+.summary-links { text-align: left; padding-top: 8px; }
+.summary-references { text-align: left; padding-top: 15px; }
+.summary-references .references-list { font: 500 9pt arial,sans-serif; } 
+.thanks { font: 700 8pt arial,sans-serif; margin-top: 35px; }
+
+
+/* Misc */
+/*.disclaimer-summary1 { text-align: center; margin-bottom: 12px; }
+.disclaimer-summary2 { font: 700 9pt arial,sans-serif; width: 600px; text-align: center; color: #110000; background-color: #dddddd; padding: 4px; border: 1px solid black; }*/
+.disclaimer-summary2 { font: 700 0pt arial,sans-serif; }
+
+
+/* LINKS - NOTES - REFS - REV HISTORY */
+.bottom-data-surround { margin-top: 10px; }
+
+.links { }
+.links-title { font: 700 1.1em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.links li { font: 700 .8em arial,sans-serif; list-style-type: circle; margin-left: -12px; }
+
+.refs {  }
+.refs-title { font: 700 1.1em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.refs li { font: 500 .8em Arial, sans-serif; margin-bottom: 4px; margin-left: -8px; }
+.ref-sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; }
+
+.notes {  }
+.notes-title { font: 700 1.1em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.notes li { font: 500 .8em Arial, sans-serif; margin-bottom: 4px; margin-left: -8px; }
+.note-sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; }
+
+.credits {  }
+.credits-title { font: 700 1.1em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.credits li { font: 500 .8em Arial, sans-serif; margin-bottom: 4px; margin-left: -8px; }
+.credits-sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; }
+
+.rev-history { }
+.rev-history-title { font: 700 1.1em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.rev-history li { font: 500 8pt arial,sans-serif; margin-bottom: 4px; list-style-type: circle; margin-left: -12px; }

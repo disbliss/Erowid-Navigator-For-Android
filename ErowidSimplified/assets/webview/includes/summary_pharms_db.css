@@ -1,0 +1,42 @@
+/* Required - Don't Edit */
+#main-frame { border: 0px solid white; line-height: 1.2em; }
+	#message a:link { color: #cccccc; }
+	#message a:visited { color: #cccccc; }
+	#path a:link { color: #eeaa66; }
+	#path a:visited { color: #eeaa66; }	
+
+	
+/* Required - Editable */
+#main-frame { background-color: #061606; border-top: 1px solid black; } /* sets background color of default sidenav or border */
+#content-outer-frame { background-color: #000000; border-left: 1px solid #000000; } /* sets background color of content area */
+																					     /* border-left required in IE6 or single line headers won't show up */
+#footer-frame { background-color: #000000; } /* sets background color of footer.  set same as content area */
+body { background-color: #000000; } /* sets background color below footer on short pages.  set same as content area */
+	
+#content-outer-frame { font: 10.5pt arial,sans-serif; color: #ddddee; } /* set font of content area */
+	a:link { color: #8888dd; }
+	a:visited {color: #aaaacc; }
+
+.ts-citation-line1 { color: #002255; }
+.ts-citation { font: 500 9pt arial,sans-serif; }
+.ts-citation-line2 { color: #002255; margin-bottom: 15px; }
+
+.sub { font: 500 8pt arial,sans-serif; vertical-align: sub; display: inline; }
+
+
+/* Summary Links */
+.links-list { margin-top: 25px; }
+.ish { font: 700 11pt helvetica,arial,sans-serif; }
+.pa { font: 500 5pt Arial, sans-serif; vertical-align: middle; color: #555555; text-decoration: none; }
+	.ish a:link { color: #555555; }
+	.ish a:visited { color: #555555; }
+.link-int:after { content: " " url("/images/logo_small_lb.gif"); } /* adds logo after local links in mozilla */
+	.more a:link { color: #110055; } /* set font color of more links */
+	.more a:visited { color: #110055; }
+
+		
+/* Footer */
+.footer-backto { font: 700 8pt arial,sans-serif; text-align: center; color: #aaaaaa; }
+.footer1 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer2 { font: 700 8pt arial,sans-serif; color: #aaaaaa; }
+.footer-copyright { font: 700 .7em arial,sans-serif; color: #aaaaaa; }

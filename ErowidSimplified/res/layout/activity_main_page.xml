@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/navigationInstructionsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/reloadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:onClick="reloadButton_onClick"
+        android:background="@android:drawable/btn_default"
+        android:text="Load psychoactives" >
+    </Button>
+
+    <TextView
+        android:id="@+id/loadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0"
+        android:text="Loading psychoactives..."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" 
+        android:orientation="vertical" >
+
+        <Spinner
+            android:id="@+id/psyTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="fill_horizontal" />
+
+        <Spinner
+            android:id="@+id/psyChoiceSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="fill_horizontal" />
+
+        <!--
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="-2dp"
+            android:columnCount="2" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Type"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/psyTypeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="fill_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Drug"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/psyChoiceSpinner"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="fill_horizontal" />
+        </GridLayout>
+        -->
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+    </Space>
+
+    <!--
+   <LinearLayout 
+        android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+        android:orientation="horizontal"  
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/psyTypeLinearLayout">
+       
+    </LinearLayout>
+
+
+    <LinearLayout 
+        android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+        android:orientation="horizontal"  
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/psyChoiceLinearLayout"
+        android:layout_weight="1">
+
+    </LinearLayout>
+    -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@color/dark_grey" >
+    </TextView>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black" >
+
+	    <TextView
+	        android:id="@+id/aboutTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:textColor="@color/light_grey"
+	        android:text=""
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <!--
+	    <TextView
+	        android:id="@+id/donationInstructionsTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:text=""
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    -->
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:orientation="horizontal" >
+	
+	        <Button
+	            android:id="@+id/donateButton5"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:onClick="donateButton5_onClick"
+	            android:text="$5" 
+	            android:background="@android:drawable/btn_default"/>
+	
+	        <Button
+	            android:id="@+id/donateButton5"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:onClick="donateButton10_onClick"
+	            android:text="$10" 
+	            android:background="@android:drawable/btn_default"/>
+	
+	        <Button
+	            android:id="@+id/donateButton5"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:onClick="donateButton25_onClick"
+	            android:text="$25" 
+	            android:background="@android:drawable/btn_default"/>
+	    </LinearLayout>
+	</LinearLayout>
+</LinearLayout>

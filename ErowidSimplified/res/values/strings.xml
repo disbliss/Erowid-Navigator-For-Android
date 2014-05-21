@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Erowid Navigator</string>
+    <string name="app_name_short">Erowid</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_load_in_browser">Load in browser</string>
+    <string name="action_reload_list">Update list</string>
+    <string name="action_test_offline_page">Test offline page</string>
+    <string name="action_clear_page_test">Clear page test</string>
+    <string name="action_store_page_offline">Store page offline</string>
+    <string name="action_stored_content_manager">Access stored pages</string>
+    <string name="action_about">About</string>
+    <string name="action_search">Search</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="search_hint">Type a psychoactive</string>
+    <string name="search_label">Frogs</string>
+
+    <string-array name="psy_types_array">
+        <item>-<i>Type</i>-</item>
+        <item>Chemicals</item>
+        <item>Plants</item>
+        <item>Herbs</item>
+        <item>Pharms</item>
+        <item>Smarts</item>
+        <item>Animals</item>
+    </string-array>
+    <!-- <string name="psychoactive_spinner_text"><i>-Psychoactive-</i></string> -->
+
+    <string name="title_activity_about_page">AboutPageActivity</string>
+
+</resources>

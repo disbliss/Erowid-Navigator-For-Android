@@ -1,0 +1,52 @@
+body { font: 700 .8em Arial,sans-serif; }
+
+.content-section { padding:5px; }
+.title { font: 700 1.4em Helvetica,Arial,sans-serif; text-align: center; }
+.substance { font: 700 1.1em Helvetica,Arial,sans-serif; text-align: center; }
+.author { font: 700 .9em Helvetica,Arial,sans-serif; text-align: center; margin-bottom: 10px; }
+
+.erowid-note {font: 700 1.0em Arial, sans-serif; color: yellow;}
+.report-text-surround {margin: 15px; padding: 5px; margin-left:10px; }
+
+
+/* Substance Index Page */
+.exp-cat-table { padding-left: 16px; }
+.exp-cat-table td { font: 700 9pt arial; background-color: #111111; padding-left: 2px; }
+
+
+/* Report List Page */
+.exp-list-table td { font: 700 8pt arial; background-color: #111111; padding-left: 2px; }
+
+
+/* Review & Triage Stats */
+.stat-box { height: 260px; }
+.crewlist { border: 1px solid grey; width: 110px; padding: 3px; float: left; height: 200px; }
+.head-2day { font: 700 10pt arial, sans-serif; position: absolute; left: 10px; width: 280px; text-align: center; padding: 2px; border: 1px solid #666666; margin-bottom: 10px;}
+.head-2week { font: 700 10pt arial, sans-serif; position: absolute; left: 330px; width: 280px; text-align: center; padding: 2px;  border: 1px solid #666666; margin-bottom: 10px; }
+
+.review-twoday { font: 7pt arial,sans-serif; position: absolute; left: 10px; width: 140px; height: 200px; border: 1px solid blue; margin: 0px; margin-top: 12px; }
+.triage-twoday { font: 7pt arial,sans-serif; position: absolute; left: 155px; width: 140px; height: 200px; border: 1px solid blue; margin: 0px; margin-top: 12px; }
+.review-twoweek { font: 7pt arial,sans-serif; position: absolute; left: 330px; width: 140px; height: 200px; border: 1px solid blue; margin-top: 12px; }
+.triage-twoweek { font: 7pt arial,sans-serif; position: absolute; left: 475px; width: 140px; height: 200px; border: 1px solid blue;margin-top: 12px; }
+
+.team-table1 { font: 700 10pt arial,sans-serif; }
+
+.stat-entry { font: 8pt arial,sans-serif; padding: 3 5 0 5; }
+.stat-subtitle { font: 700 10pt arial,sans-serif; text-align: center; color: #000000; background-color: #b9b9b9; padding: 2px; }
+
+
+.stat-sm-head { font: 700 8pt arial, sans-serif; text-align: center; padding: 2px; padding-bottom: 3px; }
+.stat-sm-entry { font: 700 8pt arial,sans-serif; display: inline; }
+.stat-sm-subtitle { font: 700 9pt arial,sans-serif; text-align: center; color: #CCCC99; background-color: #0a1122; padding: 1px; border-bottom: 1px solid grey; }
+.triage td { padding: 1px 2px 1px 2px; }
+.review td { padding: 1px 2px 1px 2px; }
+
+.results-table { text-align:center; margin-left: auto; margin-right:auto; }
+.results-table td { font: 700 10pt arial,sans-serif; }
+.results-table a:link { color: yellow;}
+.results-table a:visited { color: yellow;}
+.results-table h9 { font: 500 8pt arial,sans-serif; color: yellow;}
+
+.error { font: 700 12pt arial,sans-serif; color: red;}
+
+.dosechart td {font:500 9pt arial,sans-serif;}

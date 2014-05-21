@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+     <item android:id="@+id/delete_page"
+          android:title="Delete Page"
+          android:showAsAction="ifRoom"/>
+     <!-- <item android:id="@+id/update_page"
+          android:title="Update Page"
+          android:showAsAction="ifRoom"/> -->
+</menu>

@@ -1,0 +1,32 @@
+/* Law Bar Sub-Headers - Colors Only - All Will Be Same Color */
+.section-title1 { background-color: #9f9faa; border-top: 2px solid #222255; border-bottom: 2px solid #222255; } 
+.section-title1 a:link { color: #5f5f7a; }
+.section-title1 a:visited { color: #5f5f7a; }
+
+
+/* Law */
+.law-summary { margin-bottom: 23px; border-color: blue; background-color: #dddddd; }
+.ls-title { font: 700 10.5pt helvetica,arial,sans-serif; margins: 0px; padding: 4px 5px 0px 5px; background-color: #bbbbbb; text-align: center; border: 2px solid #444444; border-width: 2px 2px 0px 2px; }
+.ls-title2 { font: 700 10pt helvetica,arial,sans-serif; margins: 0px; padding: 0px 5px 3px 5px; background-color: #bbbbbb; text-align: center; border: 2px solid #444444; border-width: 0px 2px 2px 2px; letter-spacing: .05em; }
+.col1 { border: 0px solid #444444; border-width: 0px 1px 2px 2px; } 
+.col2 { border: 0px solid #444444; border-width: 0px 2px 2px 1px; } 
+.ls-left1, .ls-left3 { font: 700 9pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 5px; background-color: #dddddd; }
+.ls-left2 { font: 700 9pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 5px; background-color: #dddddd; }
+.ls-left4, .ls-left5 { font: 700 8pt arial,sans-serif; width: 125px; padding: 3px 5px 3px 15px; background-color: #dddddd; color: #413333; }
+
+.law-controls, .law-schedule
+		{ font: 700 9pt arial,sans-serif; width: 165px; padding: 3px 5px 3px 5px; text-align: center; background-color: #dddddd; }
+.law-status { font: 700 9pt arial,sans-serif; width: 165px; padding: 3px 5px 3px 5px; text-align: center; background-color: #dddddd; }
+.law-schedule-class, .law-schedule-date 
+		{ font: 700 8pt arial,sans-serif; width: 165px; padding: 3px 5px 3px 5px; color: #413333; text-align: center; background-color: #dddddd; }
+
+.law-federal { margin-bottom: 26px; }
+.law-countries { margin-bottom: 26px; }
+.law-country-name { font: 700 10pt helvetica,arial,sans-serif; width: 450px; text-decoration: underline; }
+.law-country-text { font: 500 9pt arial,sans-serif; margin-left: 20px; padding-top: 2px; margin-bottom: 8px; }
+
+.law-states { margin-bottom: 26px; }
+.law-states-note { margin-bottom: 1em; }
+.law-state-name { font: 700 10pt helvetica,arial,sans-serif; width: 120px; text-decoration: underline; }
+.law-state-text { font: 500 9pt arial,sans-serif; margin-left: 20px; padding-top: 2px; margin-bottom: 8px; }
+.law-text { padding-bottom: 12px; margin-top: 5px; }

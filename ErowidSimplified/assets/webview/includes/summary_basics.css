@@ -1,0 +1,46 @@
+/* Required - Editable */
+#main-frame { background-color: #061606; border-top: 1px solid black; } /* sets background color of default sidenav or border */
+#content-outer-frame { background-color: #dad6cc; border-left: 1px solid #998866; } /* sets background color of content area */
+		     /* border-left required in IE6 or single line headers won't show up */
+#footer-frame { background-color: #dad6cc; } /* sets background color of footer.  set same as content area */
+body { background-color: #dad6cc; } /* sets background color below footer on short pages.  set same as content area */
+
+
+/* Basics Bar Sub-Headers - Colors Only - All Will Be Same Color */
+
+.section-title1 { background-color: #b8b8cc; border-top: 2px solid #222255; border-bottom: 2px solid #222255; } 
+	.section-title1 a:link { color: #5f5f7a; }
+	.section-title1 a:visited { color: #5f5f7a; }
+.section-title2 { font: 700 1em arial,sans-serif; color: #000000; margin-top: 15px; margin-bottom: 2px; } 
+	.section-title2 a:link { color: #111122; }
+	.section-title2 a:visited { color: #111122; }
+	a.pa:link { color: #666666; padding-bottom: 3px; }
+
+
+/* Basics */
+.basics-image { float: right; font: 700 .9em arial,sans-serif; padding-left: 25px; padding-bottom: 15px; text-align: center;}  
+.basics-image img { border: 3px solid #5f5f7a; margin-bottom: 6px; }
+.basics-text { font: 500 .95em arial,sans-serif; text-align: justify; }
+.basics-indent-text { /*margin-left: 30px;*/ margin-left: 10px; padding-left: 5px; margin-right: 5px; /*padding-left: 3px;*/ padding-bottom: 25px; }
+.basics-vault-link { font: 700 .9em arial,sans-serif; padding-top: 5px; padding-bottom: 10px; }
+.term-title { float: left; width: 115px; border: 0px solid blue; }
+.term-text { margin-left: 120px; border: 0px solid red; }
+
+
+/* LINKS - NOTES - REFS - REV HISTORY */
+.bottom-data-surround { margin-top: 10px; }
+
+.links { }
+.links-title { font: 700 .9em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.links li { font: 700 .8em arial,sans-serif; list-style-type: circle; margin-left: -12px; }
+
+.refs {  }
+.refs-title { font: 700 .9em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.refs ol { margin-top: 0px; }
+.refs li { font: 500 .8em Arial, sans-serif; margin-bottom: 4px; margin-left: -8px; }
+.ref-sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; }
+
+.notes {  }
+.notes-title { font: 700 .9em arial,sans-serif; text-decoration: underline; margin-bottom: 6px; }
+.notes li { font: 500 .8em Arial, sans-serif; margin-bottom: 4px; margin-left: -8px; }
+.note-sup { font: 500 .7em arial,sans-serif;  position: relative; font-size: 75%; top:-0.7ex; }
