@@ -1,38 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
     android:orientation="vertical" >
+    
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="#ffffff" />
 
     <TextView
         android:id="@+id/navigationInstructionsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="0"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:layout_marginLeft="8dp" 
+        android:layout_marginRight="8dp" 
+        android:layout_marginTop="8dp" 
+        android:layout_marginBottom="8dp" 
         android:id="@+id/reloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="reloadButton_onClick"
-        android:background="@android:drawable/btn_default"
-        android:text="Load psychoactives" >
+        android:background = "@drawable/roundedbutton"
+        android:text="  Load psychoactives  " >
     </Button>
 
     <TextView
         android:id="@+id/loadingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="0"
         android:text="Loading psychoactives..."
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -41,7 +49,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" 
+        android:layout_marginTop="5dp" 
+        android:layout_marginLeft="8dp" 
+        android:layout_marginRight="8dp" 
         android:orientation="vertical" >
 
         <Spinner
@@ -66,26 +76,26 @@
         android:layout_weight="1" >
     </Space>
 
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="@color/dark_grey" >
-    </TextView>
-
+    
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="#ffffff" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black" >
+        android:background="@color/dark_dark_blue"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
 	    <TextView
 	        android:id="@+id/aboutTextView"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="5dp"
-	        android:layout_marginRight="5dp"
-	        android:textColor="@color/light_grey"
+	        android:textColor="@color/dark_grey"
 	        android:text=""
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
 	
@@ -103,37 +113,43 @@
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="5dp"
-	        android:layout_marginLeft="5dp"
-	        android:layout_marginRight="5dp"
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal" 
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="4dp">
 	
 	        <Button
 	            android:id="@+id/donateButton5"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
+	            android:layout_marginRight="4dp"
 	            android:onClick="donateButton5_onClick"
 	            android:text="$5" 
-	            android:background="@android:drawable/btn_default"/>
+	            android:background = "@drawable/roundedbutton"/>
 	
 	        <Button
+	           
+        		android:layout_marginRight="4dp"
+        		android:layout_marginLeft="4dp"
 	            android:id="@+id/donateButton5"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
 	            android:onClick="donateButton10_onClick"
 	            android:text="$10" 
-	            android:background="@android:drawable/btn_default"/>
+	            android:background = "@drawable/roundedbutton"/>
 	
 	        <Button
+	            android:layout_marginLeft="4dp"
 	            android:id="@+id/donateButton5"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
 	            android:onClick="donateButton25_onClick"
 	            android:text="$25" 
-	            android:background="@android:drawable/btn_default"/>
-	    </LinearLayout>
+	            android:background = "@drawable/roundedbutton"/>
+	            <!-- android:background="@android:drawable/btn_default" -->
+	              
+        </LinearLayout>
 	</LinearLayout>
 </LinearLayout>

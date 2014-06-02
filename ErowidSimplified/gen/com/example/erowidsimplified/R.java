@@ -14,8 +14,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int background_color=0x7f050004;
+        public static final int background_color=0x7f050005;
         public static final int black=0x7f050002;
+        public static final int dark_dark_blue=0x7f050004;
         public static final int dark_grey=0x7f050001;
         public static final int dark_purple=0x7f050003;
         public static final int light_grey=0x7f050000;
@@ -31,11 +32,44 @@ public final class R {
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_browser=0x7f020001;
-        public static final int ic_erowid_white=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int test_report_image=0x7f020004;
+        public static final int ab_background_textured_erowid=0x7f020000;
+        public static final int ab_bottom_solid_erowid=0x7f020001;
+        public static final int ab_solid_erowid=0x7f020002;
+        public static final int ab_stacked_solid_erowid=0x7f020003;
+        public static final int ab_texture_tile_erowid=0x7f020004;
+        public static final int ab_transparent_erowid=0x7f020005;
+        public static final int btn_cab_done_default_erowid=0x7f020006;
+        public static final int btn_cab_done_erowid=0x7f020007;
+        public static final int btn_cab_done_focused_erowid=0x7f020008;
+        public static final int btn_cab_done_pressed_erowid=0x7f020009;
+        public static final int cab_background_bottom_erowid=0x7f02000a;
+        public static final int cab_background_top_erowid=0x7f02000b;
+        public static final int ic_action_search=0x7f02000c;
+        public static final int ic_browser=0x7f02000d;
+        public static final int ic_erowid_white=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int list_focused_erowid=0x7f020010;
+        public static final int list_pressed_erowid=0x7f020011;
+        public static final int menu_dropdown_panel_erowid=0x7f020012;
+        public static final int progress_bg_erowid=0x7f020013;
+        public static final int progress_horizontal_erowid=0x7f020014;
+        public static final int progress_primary_erowid=0x7f020015;
+        public static final int progress_secondary_erowid=0x7f020016;
+        public static final int roundedbutton=0x7f020017;
+        public static final int selectable_background_erowid=0x7f020018;
+        public static final int spinner_ab_default_erowid=0x7f020019;
+        public static final int spinner_ab_disabled_erowid=0x7f02001a;
+        public static final int spinner_ab_focused_erowid=0x7f02001b;
+        public static final int spinner_ab_pressed_erowid=0x7f02001c;
+        public static final int spinner_background_ab_erowid=0x7f02001d;
+        public static final int tab_indicator_ab_erowid=0x7f02001e;
+        public static final int tab_selected_erowid=0x7f02001f;
+        public static final int tab_selected_focused_erowid=0x7f020020;
+        public static final int tab_selected_pressed_erowid=0x7f020021;
+        public static final int tab_unselected_erowid=0x7f020022;
+        public static final int tab_unselected_focused_erowid=0x7f020023;
+        public static final int tab_unselected_pressed_erowid=0x7f020024;
+        public static final int test_report_image=0x7f020025;
     }
     public static final class id {
         public static final int aboutTextView=0x7f0c0007;
@@ -137,6 +171,10 @@ public final class R {
         public static final int title_activity_about_page=0x7f08000e;
     }
     public static final class style {
+        public static final int ActionBar_Solid_Erowid=0x7f0a0004;
+        public static final int ActionBar_Transparent_Erowid=0x7f0a0005;
+        public static final int ActionBarTabStyle_Erowid=0x7f0a0008;
+        public static final int ActionButton_CloseMode_Erowid=0x7f0a000b;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -164,7 +202,15 @@ public final class R {
  <item name="android:windowBackground">@color/background_color</item> 
          */
         public static final int AppTheme=0x7f0a0001;
+        public static final int DropDownListView_Erowid=0x7f0a0007;
+        public static final int DropDownNav_Erowid=0x7f0a0009;
         public static final int MediumTextOnBlack=0x7f0a0002;
+        public static final int PopupMenu_Erowid=0x7f0a0006;
+        public static final int ProgressBar_Erowid=0x7f0a000a;
+        public static final int Theme_Erowid=0x7f0a0003;
+        /**  this style is only referenced in a Light.DarkActionBar based theme 
+         */
+        public static final int Theme_Erowid_Widget=0x7f0a000c;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;

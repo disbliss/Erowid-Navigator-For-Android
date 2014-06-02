@@ -7,32 +7,43 @@
         android:id="@+id/infoWebView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
-    <LinearLayout 
-    	android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/zoomButtonLinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:paddingTop="6dp"
-    	android:paddingLeft="3dp"
-    	android:paddingRight="3dp"
-    	android:id="@+id/zoomButtonLinearLayout">
-	    <Button
-	        android:id="@+id/zoomOutButton"
-           	android:layout_width="match_parent"
-    		android:layout_weight=".5"
-	        android:layout_height="wrap_content"
-	        android:text="Zoom Out" 
-	        android:background="@android:drawable/btn_default"
-	        android:onClick="zoomOutButton_onClick"/>
-	
-	    <Button
-	        android:id="@+id/zoomInButton"
-           	android:layout_width="match_parent"
-    		android:layout_weight=".5"
-	        android:layout_height="wrap_content"
-	        android:text="Zoom In"
-	        android:background="@android:drawable/btn_default"
-	        android:onClick="zoomInButton_onClick" />
-	</LinearLayout>
+        android:background="@color/dark_dark_blue"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp" >
+
+        <Button
+            android:id="@+id/zoomOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight=".5"
+            android:background="@drawable/roundedbutton"
+            android:onClick="zoomOutButton_onClick"
+            android:text="Zoom Out" />
+
+        <Button
+            android:id="@+id/zoomInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight=".5"
+            android:background="@drawable/roundedbutton"
+            android:onClick="zoomInButton_onClick"
+            android:text="Zoom In" />
+    </LinearLayout>
+
 </LinearLayout>
