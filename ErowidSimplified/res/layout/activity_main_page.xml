@@ -48,51 +48,16 @@
             android:id="@+id/psyTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="fill_horizontal" />
+            android:layout_gravity="fill_horizontal" 
+            android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/psyChoiceSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="fill_horizontal" />
+            android:layout_gravity="fill_horizontal" 
+            android:visibility="gone"/>
 
-        <!--
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="-2dp"
-            android:columnCount="2" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Type"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/psyTypeSpinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Drug"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/psyChoiceSpinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="fill_horizontal" />
-        </GridLayout>
-        -->
     </LinearLayout>
 
     <Space
@@ -101,29 +66,6 @@
         android:layout_weight="1" >
     </Space>
 
-    <!--
-   <LinearLayout 
-        android:layout_marginLeft="5dp"
-	    android:layout_marginRight="5dp"
-        android:orientation="horizontal"  
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/psyTypeLinearLayout">
-       
-    </LinearLayout>
-
-
-    <LinearLayout 
-        android:layout_marginLeft="5dp"
-	    android:layout_marginRight="5dp"
-        android:orientation="horizontal"  
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/psyChoiceLinearLayout"
-        android:layout_weight="1">
-
-    </LinearLayout>
-    -->
 
     <TextView
         android:layout_width="fill_parent"

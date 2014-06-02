@@ -18,11 +18,11 @@ body { background-color: #dad6cc; } /* sets background color below footer on sho
 
 
 /* Basics */
-.basics-image { float: right; font: 700 .9em arial,sans-serif; padding-left: 25px; padding-bottom: 15px; text-align: center;}  
+.basics-image { /*float: right;*/ font: 700 /*.9*/0em arial,sans-serif; /*padding-left: 25px;*/ padding-bottom: 15px; text-align: center;}  
 .basics-image img { border: 3px solid #5f5f7a; margin-bottom: 6px; }
 .basics-text { font: 500 .95em arial,sans-serif; text-align: justify; }
 .basics-indent-text { /*margin-left: 30px;*/ margin-left: 10px; padding-left: 5px; margin-right: 5px; /*padding-left: 3px;*/ padding-bottom: 25px; }
-.basics-vault-link { font: 700 .9em arial,sans-serif; padding-top: 5px; padding-bottom: 10px; }
+.basics-vault-link { font: 700 /*.9*/0em arial,sans-serif; padding-top: 5px; padding-bottom: 10px; }
 .term-title { float: left; width: 115px; border: 0px solid blue; }
 .term-text { margin-left: 120px; border: 0px solid red; }
 

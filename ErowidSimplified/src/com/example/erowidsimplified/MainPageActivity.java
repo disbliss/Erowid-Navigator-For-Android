@@ -54,7 +54,7 @@ public class MainPageActivity extends Activity {
 	static boolean listPsyResumed = false; 	//has this page been resumed after going to another page
 	static boolean searchPopulated = false; //has the search content been populated
 	Menu theMenu; 
-          
+           
   
 	/**
 	 * On load, downloads web content for big array of psychoactive information chocies
@@ -260,10 +260,10 @@ public class MainPageActivity extends Activity {
 		    	webContentAsyncTask myWebFetch = new webContentAsyncTask();
 		    	myWebFetch.execute();
 		        return true;
-		    case R.id.action_about:
-				Intent intent2 = new Intent(getBaseContext(),AboutPageActivity.class);
-				startActivity(intent2);
-		        return true;
+		    // case R.id.action_about:
+			//	Intent intent2 = new Intent(getBaseContext(),AboutPageActivity.class);
+			//	startActivity(intent2);
+		    //    return true;
 		}
 		return false;
 
@@ -289,6 +289,10 @@ public class MainPageActivity extends Activity {
 			searchView.setSearchableInfo( 
 					searchManager.getSearchableInfo(getComponentName()));
 			searchPopulated = true;
+			Spinner psyTypeSpinner = (Spinner)findViewById(R.id.psyTypeSpinner);
+			psyTypeSpinner.setVisibility(View.VISIBLE);
+			Spinner psyChoiceSpinner = (Spinner)findViewById(R.id.psyChoiceSpinner);
+			psyChoiceSpinner.setVisibility(View.VISIBLE);
 		}
 		else
 		{	//this actually restarts the application to use the updated list.
@@ -328,11 +332,15 @@ public class MainPageActivity extends Activity {
 			}      
 		}
 		else 
-		{
+		{   //if there is a table and we are online
 			Button reloadButton = (Button)findViewById(R.id.reloadButton);
 			reloadButton.setVisibility(View.GONE);
 			TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView); 
 			loadingTextView.setVisibility(View.GONE);
+			Spinner psyTypeSpinner = (Spinner)findViewById(R.id.psyTypeSpinner);
+			psyTypeSpinner.setVisibility(View.VISIBLE);
+			Spinner psyChoiceSpinner = (Spinner)findViewById(R.id.psyChoiceSpinner);
+			psyChoiceSpinner.setVisibility(View.VISIBLE);
 		}
 	}
 	

@@ -14,9 +14,10 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int background_color=0x7f050003;
+        public static final int background_color=0x7f050004;
         public static final int black=0x7f050002;
         public static final int dark_grey=0x7f050001;
+        public static final int dark_purple=0x7f050003;
         public static final int light_grey=0x7f050000;
     }
     public static final class dimen {
@@ -37,41 +38,41 @@ public final class R {
         public static final int test_report_image=0x7f020004;
     }
     public static final class id {
-        public static final int aboutTextView=0x7f0c0006;
-        public static final int action_about=0x7f0c001e;
+        public static final int aboutTextView=0x7f0c0007;
         public static final int action_load_in_browser=0x7f0c0020;
-        public static final int action_reload_list=0x7f0c001d;
+        public static final int action_reload_list=0x7f0c001e;
         public static final int action_search=0x7f0c001f;
         public static final int action_store_page_offline=0x7f0c0021;
-        public static final int action_stored_manager=0x7f0c001c;
-        public static final int basics_button=0x7f0c000c;
-        public static final int buttonVerticalLayout=0x7f0c000b;
-        public static final int chemistry_button=0x7f0c0012;
+        public static final int action_stored_manager=0x7f0c001d;
+        public static final int basics_button=0x7f0c000d;
+        public static final int buttonVerticalLayout=0x7f0c000c;
+        public static final int chemistry_button=0x7f0c0013;
         public static final int delete_page=0x7f0c0022;
-        public static final int donateButton5=0x7f0c0007;
-        public static final int dose_button=0x7f0c0011;
-        public static final int effects_button=0x7f0c000d;
-        public static final int health_button=0x7f0c000f;
-        public static final int id=0x7f0c0019;
-        public static final int images_button=0x7f0c000e;
-        public static final int infoWebView=0x7f0c0015;
-        public static final int item=0x7f0c001a;
-        public static final int law_button=0x7f0c0010;
-        public static final int linearLayout1=0x7f0c001b;
-        public static final int loadingTextView=0x7f0c0003;
-        public static final int navigationInstructionsTextView=0x7f0c0001;
-        public static final int psyChoiceSpinner=0x7f0c0005;
-        public static final int psyImage=0x7f0c0009;
-        public static final int psyTypeSpinner=0x7f0c0004;
-        public static final int psychoName=0x7f0c0008;
-        public static final int psychoactiveDescription=0x7f0c000a;
-        public static final int reloadButton=0x7f0c0002;
-        public static final int research_chemical_button=0x7f0c0013;
-        public static final int storedListView=0x7f0c0014;
-        public static final int testWebView=0x7f0c0000;
-        public static final int zoomButtonLinearLayout=0x7f0c0016;
-        public static final int zoomInButton=0x7f0c0018;
-        public static final int zoomOutButton=0x7f0c0017;
+        public static final int donateButton5=0x7f0c0008;
+        public static final int dose_button=0x7f0c0012;
+        public static final int effects_button=0x7f0c000e;
+        public static final int health_button=0x7f0c0010;
+        public static final int id=0x7f0c001a;
+        public static final int images_button=0x7f0c000f;
+        public static final int infoWebView=0x7f0c0016;
+        public static final int item=0x7f0c001b;
+        public static final int law_button=0x7f0c0011;
+        public static final int linearLayout1=0x7f0c001c;
+        public static final int loadingTextView=0x7f0c0004;
+        public static final int navigationInstructionsTextView=0x7f0c0002;
+        public static final int psyChoiceSpinner=0x7f0c0006;
+        public static final int psyImage=0x7f0c000a;
+        public static final int psyTypeSpinner=0x7f0c0005;
+        public static final int psychoName=0x7f0c0009;
+        public static final int psychoactiveDescription=0x7f0c000b;
+        public static final int reloadButton=0x7f0c0003;
+        public static final int research_chemical_button=0x7f0c0014;
+        public static final int storedListView=0x7f0c0015;
+        public static final int textView1=0x7f0c0000;
+        public static final int textView2=0x7f0c0001;
+        public static final int zoomButtonLinearLayout=0x7f0c0017;
+        public static final int zoomInButton=0x7f0c0019;
+        public static final int zoomOutButton=0x7f0c0018;
     }
     public static final class integer {
         public static final int psy_table_basics=0x7f070004;

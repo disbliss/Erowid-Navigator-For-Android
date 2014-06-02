@@ -23,8 +23,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 public class SharedMethods {
  	
@@ -47,7 +51,7 @@ public class SharedMethods {
 	 * @param pageType - the type of web-page being processed (e.g. basic, images, law, etc.)
 	 * @return the modified html
 	 */
-	public String fixHTML(String htmlText, String pageType)
+	public String fixHTML(String htmlText, String pageType, Context context)
 	{
 		/* 
 		 * General HTML parsing section
@@ -85,8 +89,15 @@ public class SharedMethods {
 		}
 		else if(pageType.equals("basics"))
 		{
-			//TODO: deal with the image better.
-			htmlText = htmlText.replaceAll("(<img [^>]* width=\")([0-9]*)(\"[^>]*>)","$1"+345+"$3"); //replaces all image width with 300, which is not the best fix for showing an image
+			////unused window size code
+			//WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+			//Display display = wm.getDefaultDisplay();
+			//Point size = new Point();
+			//display.getSize(size);
+			//int width = size.x;
+			//int height = size.y;
+			
+			htmlText = htmlText.replaceAll("(<img [^>]* width=\")([0-9]*)(\"[^>]*>)","$1"+225+"$3"); //replaces all image width with 345, which is not the best fix for showing an image
 			htmlText = htmlText.replaceAll("(<img [^>]* )(height=\"[0-9]*\")([^>]*>)","$1$3");// removes all image height
 			
 		}   

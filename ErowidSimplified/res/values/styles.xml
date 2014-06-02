@@ -18,10 +18,8 @@
         <!-- <item name="android:windowBackground">@color/background_color</item> -->
     </style>
     
-    <style name="MediumTextOnBlack" parent="@android:style/TextAppearance.Medium">
-
-    </style>
-
+    <style name="MediumTextOnBlack" parent="@android:style/TextAppearance.Medium"/>
+    
     <color name="background_color">#dad6cc</color>
     
 </resources>

@@ -276,16 +276,16 @@ public class WebDisplayActivity extends Activity {
 			super.onPostExecute(result);
 
 			//Gets the html to be fixed, depending on the type of page loaded.
-			rawHtmlContent = m.fixHTML(rawHtmlContent, chosenPageType);
-			m.downloadErowidImages(rawHtmlContent, pageURL, getFilesDir().getAbsolutePath());
+			rawHtmlContent = m.fixHTML(rawHtmlContent, chosenPageType, getBaseContext());
+			m.downloadErowidImages(rawHtmlContent, pageURL, getFilesDir().getAbsolutePath());  
 			
 			//Tells the web code where to look for css & images which are stored locally.
 			String filesPath =  "file://" + getFilesDir().getAbsolutePath()+"/"; //this path loads images right, but this one does css "file:///android_asset/webview/"
 			
 			infoWebView.loadDataWithBaseURL(filesPath , rawHtmlContent, "text/html", "UTF-8", null);
 			pageFullyLoaded = true;
-			
-		}  
+			 
+		}    
 	}
 	
 	/**
