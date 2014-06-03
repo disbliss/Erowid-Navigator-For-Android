@@ -6,25 +6,25 @@
     
     <View
     android:layout_width="fill_parent"
-    android:layout_height="1dip"
-    android:background="#ffffff" />
+    android:layout_height="2dip"
+    android:background="#4A4A15" />
 
     <TextView
         android:id="@+id/navigationInstructionsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="0"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:layout_marginLeft="8dp" 
-        android:layout_marginRight="8dp" 
-        android:layout_marginTop="8dp" 
-        android:layout_marginBottom="8dp" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="10dp" 
+        android:layout_marginTop="10dp" 
+        android:layout_marginBottom="10dp" 
         android:id="@+id/reloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,9 +38,9 @@
         android:id="@+id/loadingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="0"
         android:text="Loading psychoactives..."
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -50,22 +50,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" 
-        android:layout_marginLeft="8dp" 
-        android:layout_marginRight="8dp" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="10dp" 
         android:orientation="vertical" >
 
         <Spinner
             android:id="@+id/psyTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="fill_horizontal" 
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/spinner_with_border"
+            android:layout_marginBottom="5dp" 
             android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/psyChoiceSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="5dp" 
             android:layout_gravity="fill_horizontal" 
+            android:background="@drawable/spinner_with_border" 
             android:visibility="gone"/>
 
     </LinearLayout>
@@ -79,15 +83,15 @@
     
     <View
     android:layout_width="fill_parent"
-    android:layout_height="1dip"
-    android:background="#ffffff" />
+    android:layout_height="2dip"
+    android:background="#4A4A15" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_dark_blue"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
@@ -122,16 +126,16 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:layout_marginRight="4dp"
+	            android:layout_marginRight="5dp"
 	            android:onClick="donateButton5_onClick"
 	            android:text="$5" 
 	            android:background = "@drawable/roundedbutton"/>
 	
 	        <Button
 	           
-        		android:layout_marginRight="4dp"
-        		android:layout_marginLeft="4dp"
-	            android:id="@+id/donateButton5"
+        		android:layout_marginRight="5dp"
+        		android:layout_marginLeft="5dp"
+	            android:id="@+id/donateButton10"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
@@ -140,8 +144,8 @@
 	            android:background = "@drawable/roundedbutton"/>
 	
 	        <Button
-	            android:layout_marginLeft="4dp"
-	            android:id="@+id/donateButton5"
+	            android:layout_marginLeft="5dp"
+	            android:id="@+id/donateButton25"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"

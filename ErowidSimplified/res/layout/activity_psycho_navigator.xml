@@ -9,22 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_grey"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/psychoName"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:text="Title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
             android:id="@+id/psyImage"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_height="0dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,8 +38,8 @@
             android:id="@+id/psychoactiveDescription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:fadeScrollbars="false"
@@ -53,13 +53,13 @@
     <LinearLayout
         android:id="@+id/buttonVerticalLayout"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="120dp"
         android:background="@color/dark_dark_blue"
         android:orientation="vertical"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:weightSum="1" >
 
         <LinearLayout
@@ -73,10 +73,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="basics" />
 
             <Button
@@ -85,10 +85,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="effects" />
 
             <Button
@@ -97,10 +97,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="images" />
         </LinearLayout>
 
@@ -115,10 +115,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="health" />
 
             <Button
@@ -127,10 +127,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="law" />
 
             <Button
@@ -139,10 +139,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".50"
                 android:background = "@drawable/roundedbutton"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="dose" />
         </LinearLayout>
 

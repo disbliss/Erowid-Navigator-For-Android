@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
@@ -41,7 +42,11 @@ public class StoredContentManagerActivity extends Activity {
 
 		updateOfflineFilenameListView();
 		final ListView storedContentListView = (ListView) findViewById(R.id.storedListView);
-
+		
+		View empty = getLayoutInflater().inflate(R.layout.empty_list_item, null, false);
+		addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		storedContentListView.setEmptyView(empty);
+		
 	    //click listener for opening saved pages
 	    storedContentListView.setOnItemClickListener(new OnItemClickListener() {
 	    	@Override

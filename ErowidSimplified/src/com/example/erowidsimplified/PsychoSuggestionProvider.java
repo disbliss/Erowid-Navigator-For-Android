@@ -1,5 +1,8 @@
 package com.example.erowidsimplified;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.SearchManager;
@@ -52,16 +55,29 @@ public class PsychoSuggestionProvider extends ContentProvider {
 		MatrixCursor menuCursor = new MatrixCursor(menuCols);
 		
 		List<String[]> psyList = m.getStoredPsyList(getContext());
+		List<PsyQueryChoice> queryToSort = new ArrayList<PsyQueryChoice>();
 		
+		//this pulls each searched item and adds it to a list to be sorted by name
 		for(int i = 0; i < psyList.size(); i++)
 		{
 			if(psyList.get(i)[0].contains(selectionArgs[0].trim()))
 			{
-				menuCursor.addRow(new Object[] { i , psyList.get(i)[0], psyList.get(i)[0]});
+				queryToSort.add(new PsyQueryChoice ( i , psyList.get(i)[0], psyList.get(i)[0]));
+				//menuCursor.addRow(new Object[] { i , psyList.get(i)[0], psyList.get(i)[0]});
 			}
 		}
-
-
+		
+		//this sorts all the hinted queries by name
+		Collections.sort(queryToSort, PsyQueryChoice.PsyQueryComparator);
+		
+		//after sorting, we add each element to the matrix cursor. Could not find a way to add multiple.
+		for(int i =0; i< queryToSort.size(); i++)
+		{
+			//I'm sure there is a better way to do this than create another object
+			menuCursor.addRow(new Object[] { queryToSort.get(i).id , queryToSort.get(i).name, queryToSort.get(i).intentName});
+		}
+		
+		
 		@SuppressWarnings("deprecation")
 		SimpleCursorAdapter menuItems = new SimpleCursorAdapter(getContext(), R.layout.menu_row, menuCursor, menuCols, to); //nullls
 		//(this, R.layout.menu_row, menuCursor, menuCols, to);
@@ -77,3 +93,7 @@ public class PsychoSuggestionProvider extends ContentProvider {
 	}
 	
 }
+
+
+
+

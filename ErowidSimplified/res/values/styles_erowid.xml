@@ -36,6 +36,7 @@
     </style>
 
     <style name="ActionBar.Solid.Erowid" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <!-- <item name="android:background">@drawable/ab_blue_gradient</item>  --> <!-- If more gradients seem like a good style choice. -->
         <item name="android:background">@drawable/ab_solid_erowid</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_erowid</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_erowid</item>

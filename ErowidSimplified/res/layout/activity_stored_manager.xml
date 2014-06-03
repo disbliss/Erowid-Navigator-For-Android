@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:id="@+id/storedListView"
-    android:background="@android:color/transparent"
-	android:listSelector="@color/light_grey">
-    
-
-</ListView>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+    <!-- 
+    <TextView
+        android:id="@+id/noStoredPagesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+      
+        android:text="No Stored Pages"
+        android:textAppearance="?android:attr/textAppearanceMedium" /> -->
+	<ListView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" 
+	    android:id="@+id/storedListView"
+	    android:background="@android:color/transparent"
+		android:listSelector="@color/light_grey">	
+	</ListView>
+</LinearLayout>
