@@ -9,6 +9,12 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <View
+       	android:id="@+id/bottomLineView"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#222222" />
+
     <LinearLayout
         android:id="@+id/zoomButtonLinearLayout"
         android:layout_width="match_parent"

@@ -4,11 +4,6 @@
     android:background="@color/light_grey"
     android:orientation="vertical" >
     
-    <View
-    android:layout_width="fill_parent"
-    android:layout_height="2dip"
-    android:background="#4A4A15" />
-
     <TextView
         android:id="@+id/navigationInstructionsTextView"
         android:layout_width="match_parent"
@@ -59,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="fill_horizontal"
-            android:background="@drawable/spinner_with_border"
+            android:background="@drawable/spinner_without_border"
             android:layout_marginBottom="5dp" 
             android:visibility="gone"/>
 
@@ -69,7 +64,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp" 
             android:layout_gravity="fill_horizontal" 
-            android:background="@drawable/spinner_with_border" 
+            android:background="@drawable/spinner_without_border"
             android:visibility="gone"/>
 
     </LinearLayout>
@@ -83,8 +78,8 @@
     
     <View
     android:layout_width="fill_parent"
-    android:layout_height="2dip"
-    android:background="#4A4A15" />
+    android:layout_height="1dip"
+    android:background="#222222" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

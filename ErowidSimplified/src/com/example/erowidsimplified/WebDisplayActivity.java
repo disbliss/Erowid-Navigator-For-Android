@@ -96,13 +96,15 @@ public class WebDisplayActivity extends Activity {
 		//		  });
 		
 		
-		if(!(android.os.Build.VERSION.SDK_INT >= 19))
+		if(android.os.Build.VERSION.SDK_INT < 19)
 		{
 			//older, can use normal built in web controls, so disable the view buttons.
 			LinearLayout zoomButtonLinearLayout = (LinearLayout) findViewById(R.id.zoomButtonLinearLayout);
 			zoomButtonLinearLayout.setVisibility(View.GONE);
 			infoWebView.getSettings().setBuiltInZoomControls(true);
 			infoWebView.getSettings().setDisplayZoomControls(true);
+			View bottomLineView = (View) findViewById(R.id.bottomLineView);
+			bottomLineView.setVisibility(View.GONE);
 			//for 4.4, I set up external buttons for zoom in/out. also no pinch zoom.
 			//I'm sure there is some way around this, but it might be horribly obnoxious and I don't care, at least now.
 			//Tried using this fix and couldn't work it. http://stackoverflow.com/questions/19986305/no-more-text-reflow-after-zoom-in-kitkat-webview/20000193#20000193			

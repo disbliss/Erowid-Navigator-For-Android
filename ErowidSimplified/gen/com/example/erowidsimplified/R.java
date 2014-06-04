@@ -59,12 +59,12 @@ public final class R {
         public static final int roundedbutton=0x7f020018;
         public static final int selectable_background_erowid=0x7f020019;
         public static final int spinner_ab_default_erowid=0x7f02001a;
-        public static final int spinner_ab_disabled_erowid=0x7f02001b;
-        public static final int spinner_ab_focused_erowid=0x7f02001c;
-        public static final int spinner_ab_pressed_erowid=0x7f02001d;
-        public static final int spinner_arrow=0x7f02001e;
+        public static final int spinner_ab_default_holo_light_am=0x7f02001b;
+        public static final int spinner_ab_disabled_erowid=0x7f02001c;
+        public static final int spinner_ab_focused_erowid=0x7f02001d;
+        public static final int spinner_ab_pressed_erowid=0x7f02001e;
         public static final int spinner_background_ab_erowid=0x7f02001f;
-        public static final int spinner_with_border=0x7f020020;
+        public static final int spinner_without_border=0x7f020020;
         public static final int tab_indicator_ab_erowid=0x7f020021;
         public static final int tab_selected_erowid=0x7f020022;
         public static final int tab_selected_focused_erowid=0x7f020023;
@@ -76,30 +76,31 @@ public final class R {
     }
     public static final class id {
         public static final int aboutTextView=0x7f0c0007;
-        public static final int action_load_in_browser=0x7f0c0023;
-        public static final int action_reload_list=0x7f0c0021;
-        public static final int action_search=0x7f0c0022;
-        public static final int action_store_page_offline=0x7f0c0024;
-        public static final int action_stored_manager=0x7f0c0020;
+        public static final int action_load_in_browser=0x7f0c0024;
+        public static final int action_reload_list=0x7f0c0022;
+        public static final int action_search=0x7f0c0023;
+        public static final int action_store_page_offline=0x7f0c0025;
+        public static final int action_stored_manager=0x7f0c0021;
         public static final int basics_button=0x7f0c000f;
+        public static final int bottomLineView=0x7f0c0019;
         public static final int buttonVerticalLayout=0x7f0c000e;
         public static final int chemistry_button=0x7f0c0015;
-        public static final int delete_page=0x7f0c0025;
+        public static final int delete_page=0x7f0c0026;
         public static final int donateButton10=0x7f0c0009;
         public static final int donateButton25=0x7f0c000a;
         public static final int donateButton5=0x7f0c0008;
         public static final int dose_button=0x7f0c0014;
         public static final int effects_button=0x7f0c0010;
         public static final int health_button=0x7f0c0012;
-        public static final int id=0x7f0c001d;
+        public static final int id=0x7f0c001e;
         public static final int images_button=0x7f0c0011;
         public static final int infoWebView=0x7f0c0018;
-        public static final int item=0x7f0c001e;
+        public static final int item=0x7f0c001f;
         public static final int law_button=0x7f0c0013;
-        public static final int linearLayout1=0x7f0c001f;
+        public static final int linearLayout1=0x7f0c0020;
         public static final int loadingTextView=0x7f0c0004;
         public static final int navigationInstructionsTextView=0x7f0c0002;
-        public static final int noStoredPagesTextView=0x7f0c001c;
+        public static final int noStoredPagesTextView=0x7f0c001d;
         public static final int psyChoiceSpinner=0x7f0c0006;
         public static final int psyImage=0x7f0c000c;
         public static final int psyTypeSpinner=0x7f0c0005;
@@ -110,9 +111,9 @@ public final class R {
         public static final int storedListView=0x7f0c0017;
         public static final int textView1=0x7f0c0000;
         public static final int textView2=0x7f0c0001;
-        public static final int zoomButtonLinearLayout=0x7f0c0019;
-        public static final int zoomInButton=0x7f0c001b;
-        public static final int zoomOutButton=0x7f0c001a;
+        public static final int zoomButtonLinearLayout=0x7f0c001a;
+        public static final int zoomInButton=0x7f0c001c;
+        public static final int zoomOutButton=0x7f0c001b;
     }
     public static final class integer {
         public static final int psy_table_basics=0x7f070004;

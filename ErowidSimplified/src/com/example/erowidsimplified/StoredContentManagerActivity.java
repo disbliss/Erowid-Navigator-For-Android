@@ -54,10 +54,10 @@ public class StoredContentManagerActivity extends Activity {
 	    			int position, long id) {
 
 	    		if (mActionMode == null) { 
-	    		String selectedItem = (String) storedContentListView.getItemAtPosition(position);
-				Intent intent = new Intent(getBaseContext(),WebDisplayActivity.class);
-				intent.putExtra("STORED_PAGE", selectedItem);
-				startActivity(intent);
+		    		String selectedItem = (String) storedContentListView.getItemAtPosition(position);
+					Intent intent = new Intent(getBaseContext(),WebDisplayActivity.class);
+					intent.putExtra("STORED_PAGE", selectedItem);
+					startActivity(intent);
 	    		}
 	    		else
 	    		{

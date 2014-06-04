@@ -87,6 +87,14 @@ public class MainPageActivity extends Activity {
 							+ "<i>Support accurate psychoactive information with a donation to Erowid!</i>"; 
 		aboutTextView.setText(Html.fromHtml(aboutString)); 
 		
+
+		//Makes sure pushing back does not relaunch the spinner
+		if(listPsyResumed == true)
+		{
+			listPsyReady = false;
+			listPsyResumed = false;
+		} 
+		
 		//When an item is selected for the type spinner the psychoactive spinner is populated with psychoactives of that type
 		//This also contains the listener for the psychoactive spinner, which launches the psychoactive report card activity
 		psyTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener()
@@ -126,21 +134,13 @@ public class MainPageActivity extends Activity {
 					psyChoiceSpinner.setAdapter(choiceAdapter);
 
 					//Makes sure changing the psychoactive type after a back navigation does not launch the psynavigator window
-					if(listPsyResumed == true)
-					{
-						listPsyReady = false;
-					} 
+//					if(listPsyResumed == true)
+//					{
+//						listPsyReady = false;
+//					} 
 
 					
-					//If this page was launched by the page_update command (which relaunches the app to apply changes)
-					//this application notifies the user that the psychoactive list was updated, which is the only reason this is called.
-					Bundle extras = getIntent().getExtras();  
-					if (extras != null) {
-						if(extras.containsKey("PAGE_UPDATED"))
-						{ //if launching a stored page, get and launch
-							Toast.makeText(getBaseContext(), "Psychoactive list updated" , Toast.LENGTH_LONG).show();
-						}
-					}
+
 					
 					
 					//When a psychoactive is chosen, the psyNavigator activity is launched with options for the chosen psychoactive
@@ -155,11 +155,11 @@ public class MainPageActivity extends Activity {
 							{
 
 								//Makes sure pushing back does not relaunch the spinner
-								if(listPsyResumed == true)
-								{
-									listPsyReady = false;
-									listPsyResumed = false;
-								} 
+//								if(listPsyResumed == true)
+//								{
+//									listPsyReady = false;
+//									listPsyResumed = false;
+//								} 
 								
 								//Toast.makeText(getBaseContext(), parentView.getItemAtPosition(position).toString().toLowerCase() +"Ready:" + listPsyReady + " Resumed:" + listPsyResumed + " " + parentView.getItemAtPosition(position).toString().toLowerCase() , Toast.LENGTH_LONG).show();	
 								if (m.isOnline(getBaseContext()))
@@ -212,8 +212,8 @@ public class MainPageActivity extends Activity {
 	 */
 	@Override
 	protected void onPause() {
-		super.onPause();
 		listPsyResumed = true;
+		super.onPause();
 	}
 
 	/**
@@ -256,7 +256,7 @@ public class MainPageActivity extends Activity {
 				startActivity(intent);
 		        return true;
 		    case R.id.action_reload_list:
-		    	Toast.makeText(getBaseContext(), "Please wait..." , Toast.LENGTH_LONG).show();
+		    	Toast.makeText(getBaseContext(), "Downloading updated list of psychoactives and restarting. Please wait..." , Toast.LENGTH_LONG).show();
 		    	webContentAsyncTask myWebFetch = new webContentAsyncTask();
 		    	myWebFetch.execute();
 		        return true;
@@ -296,7 +296,7 @@ public class MainPageActivity extends Activity {
 		}
 		else
 		{	//this actually restarts the application to use the updated list.
-			//TODO: (is this true?) Currently the toast does not work			
+			//TODO: (is this true?) Currently the toast does not work		
 			Intent mStartActivity = new Intent(getBaseContext(), MainPageActivity.class);
 			mStartActivity.putExtra("PAGE_UPDATED", true);
 			int mPendingIntentId = 123456;

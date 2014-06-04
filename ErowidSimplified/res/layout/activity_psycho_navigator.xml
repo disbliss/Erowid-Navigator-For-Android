@@ -49,7 +49,10 @@
     </LinearLayout>
 
     <!-- height was 160 with 3 rows -->
-
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="#222222" />
     <LinearLayout
         android:id="@+id/buttonVerticalLayout"
         android:layout_width="match_parent"
