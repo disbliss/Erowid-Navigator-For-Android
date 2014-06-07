@@ -32,15 +32,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
- 
-/** 
- * Activity for choosing Erowid web content to load
- * This also creates a big array detailing what information exists for all psychoactives
- * Also for other actions, some to be implemented in the future
- * (e.g. donation, managing cached pages)
- * 
- * @author quartz  
- */
+
 public class MainPageActivity extends Activity {
 	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
 	static String rawMainWebContent; //from pulling the list of psychoactives
