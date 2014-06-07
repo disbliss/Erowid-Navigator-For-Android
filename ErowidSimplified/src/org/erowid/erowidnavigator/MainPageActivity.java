@@ -4,12 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
+import android.app.ActionBar;
 //import android.R;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -55,7 +50,6 @@ public class MainPageActivity extends Activity {
 	static boolean searchPopulated = false; //has the search content been populated
 	Menu theMenu; 
            
-  
 	/**
 	 * On load, downloads web content for big array of psychoactive information chocies
 	 * Then uses this information to populate the psychoactive choice spinners
@@ -228,6 +222,16 @@ public class MainPageActivity extends Activity {
 		psyChoiceSpinner.setSelection(0);
 		psyTypeSpinner.setSelection(0);
 		super.onResume();
+	}
+	
+	@Override
+	 public boolean onSearchRequested() {
+		if(theMenu != null)
+		{
+			MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
+			searchMenuItem.expandActionView();
+		}
+		return false; // don't go ahead and show the search box
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class StoredContentManagerActivity extends Activity {
 
 	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
 	ActionMode mActionMode;
-	String chosenItem;	
+	String chosenItem;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -53,6 +53,7 @@ public class WebDisplayActivity extends Activity {
 	String pageURL; 
 	WebView infoWebView;
 	boolean pageFullyLoaded;
+	Menu theMenu;
 	
 	/**
 	 * Upon load, gets passed psychoactive chosen variables.
@@ -144,6 +145,16 @@ public class WebDisplayActivity extends Activity {
 		}
 	}    
 	
+	@Override
+	 public boolean onSearchRequested() {
+		if(theMenu != null)
+		{
+			MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
+			searchMenuItem.expandActionView();
+		}
+		return false; // don't go ahead and show the search box
+	}
+	
 	/**
 	 * Switch case for choices in the options menu
 	 */
@@ -229,6 +240,7 @@ public class WebDisplayActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		theMenu = menu;
 		MenuInflater inflater = getMenuInflater();
 		    inflater.inflate(R.menu.menu_web_display, menu);
 		

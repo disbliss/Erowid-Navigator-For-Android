@@ -226,17 +226,18 @@ public class SharedMethods {
 				InputStream instream = entity.getContent();
 				content= convertStreamToString(instream);
 				// now you have the string representation of the HTML request
-				instream.close();
-				System.out.println("Content downloaded"); //debug 
+				instream.close(); //this is breaking
+				//System.out.println("Content downloaded"); //debug 
 				return content;
 			} 
 		}
 		catch (Exception e)
 		{
+			//TODO: This exception catch totally broke things.
 			e.printStackTrace();
 		}
 
-		return null;
+		return content;
 	} 
 
 	//Creates a map of report card info for use in PsychoNavigatorActivity

@@ -4,7 +4,7 @@
    xmlns:android="http://schemas.android.com/apk/res/android" 
    android:label="@string/search_label"
    android:hint="@string/search_hint"
-   android:searchSuggestAuthority="com.example.erowidsimplified.psychoactivesuggestionprovider"
+   android:searchSuggestAuthority="org.erowid.erowidnavigator.psychoactivesuggestionprovider"
    android:searchSuggestSelection=" ?"
    android:searchSuggestThreshold="2"
    android:imeOptions="actionDone|flagNoEnterAction">

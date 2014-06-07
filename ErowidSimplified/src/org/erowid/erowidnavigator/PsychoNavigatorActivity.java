@@ -34,7 +34,7 @@ public class PsychoNavigatorActivity extends Activity {
 	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
 	String psyName;
 	String psyType;
-	
+	Menu theMenu;
 	/**
 	 * On creation, start UI and handle incoming intents
 	 */
@@ -46,6 +46,16 @@ public class PsychoNavigatorActivity extends Activity {
 		//handle incoming search info
 		handleIntent(getIntent()); 
 	} 
+	
+	@Override
+	 public boolean onSearchRequested() {
+		if(theMenu != null)
+		{
+			MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
+			searchMenuItem.expandActionView();
+		}
+		return false; // don't go ahead and show the search box
+	}
 
 	@Override
 	public void onNewIntent(Intent intent) { 
@@ -111,6 +121,7 @@ public class PsychoNavigatorActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		theMenu = menu;
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu_psycho_navigator, menu);
 
