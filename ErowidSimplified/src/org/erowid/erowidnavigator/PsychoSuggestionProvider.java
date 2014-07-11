@@ -1,7 +1,6 @@
 package org.erowid.erowidnavigator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class PsychoSuggestionProvider extends ContentProvider {
 		int[] to = new int[] { R.id.id, R.id.item };
 		MatrixCursor menuCursor = new MatrixCursor(menuCols);
 		
-		List<String[]> psyList = m.getStoredPsyList(getContext());
+		List<String[]> psyList = m.getStoredPsyChoicesList(getContext());
 		List<PsyQueryChoice> queryToSort = new ArrayList<PsyQueryChoice>();
 		
 		//this pulls each searched item and adds it to a list to be sorted by name

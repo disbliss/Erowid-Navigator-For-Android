@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    
     <string name="app_name">Erowid Navigator</string>
     <string name="app_name_short">Erowid</string>
     <string name="action_settings">Settings</string>
@@ -25,6 +25,7 @@
         <item>Smarts</item>
         <item>Animals</item>
     </string-array>
+
     <!-- <string name="psychoactive_spinner_text"><i>-Psychoactive-</i></string> -->
 
     <string name="title_activity_about_page">AboutPageActivity</string>

@@ -6,32 +6,27 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream; 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
 
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -54,6 +49,8 @@ public class WebDisplayActivity extends Activity {
 	WebView infoWebView;
 	boolean pageFullyLoaded;
 	Menu theMenu;
+	boolean pageHasBeenStored = false; //has the page been stored for the app
+	boolean pageFromStorage = false; //if page was pulled from storage (for offline viewing)
 	
 	/**
 	 * Upon load, gets passed psychoactive chosen variables.
@@ -69,7 +66,9 @@ public class WebDisplayActivity extends Activity {
 		infoWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
 		infoWebView.getSettings().setTextZoom(120);
 		infoWebView.loadData("Loading knowledge from web...", "text/html", null);
-
+		
+		//SEARCH FOR NAME IN EACH ONE
+		
 		//TODO: Retry this scroll fix.
 		
 		// This disables all scrolling, I just wanted to disable horizontal
@@ -121,7 +120,12 @@ public class WebDisplayActivity extends Activity {
 		if (extras != null) {
 			if(extras.containsKey("STORED_PAGE"))
 			{ //if launching a stored page, get and launch
+				pageFromStorage = true;
 				String storedPageString = extras.getString("STORED_PAGE");
+				String[] separated = storedPageString.split("\\|");
+				psyType = separated[0].trim();
+				psyName = separated[1].trim();
+				chosenPageType = separated[2].trim();
 				openOfflinePage(storedPageString);
 			}
 			else
@@ -134,6 +138,9 @@ public class WebDisplayActivity extends Activity {
 				webContentAsyncTask myWebFetch = new webContentAsyncTask();
 				myWebFetch.execute(); 
 			}
+			ActionBar actionBar = getActionBar();
+			actionBar.setTitle("Substance Info"); 
+			actionBar.setSubtitle(psyName + " " + chosenPageType);
 		}
 		else
 		{	//create a default. Use when debugging.
@@ -143,6 +150,8 @@ public class WebDisplayActivity extends Activity {
 //			webContentAsyncTask myWebFetch = new webContentAsyncTask();
 //			myWebFetch.execute(); 
 		}
+		
+
 	}    
 	
 	@Override
@@ -163,29 +172,50 @@ public class WebDisplayActivity extends Activity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.action_load_in_browser:
-	    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pageURL));
-	    	startActivity(browserIntent);
-	        return true; 
-	    case R.id.action_store_page_offline:
-	    	if(pageFullyLoaded)
+	    	if(!pageFromStorage)
 	    	{
-		    	String FILENAME = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | " + m.capitalize(chosenPageType);
-	
-		    	FileOutputStream fos;
-		    	 
-				try {
-					fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-			    	fos.write(rawHtmlContent.getBytes());
-			    	fos.close();
-			    	
-			    	Toast.makeText(getApplicationContext(), "Page stored", Toast.LENGTH_SHORT).show();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pageURL));
+		    	startActivity(browserIntent);
+		        return true; 
+	    	}
+	    case R.id.action_store_page_offline:
+	    	if(pageFullyLoaded && !pageFromStorage)
+	    	{
+	    		String FILENAME = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | " + m.capitalize(chosenPageType); //change other define
+	    		if(!pageHasBeenStored)
+		    	{
+			    	FileOutputStream fos;
+			    	 
+					try {
+						fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+				    	fos.write(rawHtmlContent.getBytes());
+				    	fos.close();
+				    	m.pingURL(FILENAME);
+				    	Toast.makeText(getApplicationContext(), "Page stored for offline use", Toast.LENGTH_SHORT).show();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					MenuItem searchMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+					searchMenuItem.setIcon(R.drawable.ic_action_important);
+					pageHasBeenStored = true;
+		    	}
+		    	else
+		    	{
+					//actually delete page from storage here
+		    		deleteFile(FILENAME);
+		    		MenuItem searchMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+					searchMenuItem.setIcon(R.drawable.ic_action_not_important);
+					Toast.makeText(getApplicationContext(), "Page deleted from offline storage", Toast.LENGTH_SHORT).show();
+					pageHasBeenStored = false;
+		    	}
+				
+
+				//pageIsStored
+				
 	    	}
 	    	else
 	    	{
@@ -251,6 +281,37 @@ public class WebDisplayActivity extends Activity {
 	            (SearchView) menu.findItem(R.id.action_search).getActionView();
 	    searchView.setSearchableInfo(
 	            searchManager.getSearchableInfo(getComponentName()));
+	    
+	    if(!pageFromStorage)
+	    {
+			List psyList = m.getOfflineSiteFilenameList(getFilesDir().getPath());
+			String testname = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | " + m.capitalize(chosenPageType); //change other define
+			for (int i = 0; i < psyList.size(); i++)
+			{
+				if (psyList.get(i).equals(testname))
+				{ 
+					MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+					offlineMenuItem.setIcon(R.drawable.ic_action_important);
+					pageHasBeenStored = true;
+					//drawable/ic_action_not_important
+					//+id/action_store_page_offline
+					//set star to starred
+				}
+			}
+		}
+	    else
+	    {
+	    	MenuItem storeMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+	    	storeMenuItem.setVisible(false);
+	    	storeMenuItem.setEnabled(false);
+	    	MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
+	    	searchMenuItem.setVisible(false);
+	    	searchMenuItem.setEnabled(false);
+	    	MenuItem loadMenuItem = theMenu.findItem(R.id.action_load_in_browser);
+	    	loadMenuItem.setVisible(false);
+	    	loadMenuItem.setEnabled(false);
+	    }
+	    
 		
 		return true;		
 	}  
@@ -260,6 +321,8 @@ public class WebDisplayActivity extends Activity {
 	 * Downloads html with methods from shared code.
 	 * Calls html modification to make readable and displays it.
 	 * Informs the user of progress.
+	 * 
+	 * (This is almost duplicated in the stored content manager.)
 	 */
 	class webContentAsyncTask extends AsyncTask<Void, Void, Void>    {
 			

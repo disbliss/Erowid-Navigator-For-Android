@@ -1,6 +1,5 @@
 package org.erowid.erowidnavigator;
  
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +24,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -72,6 +68,10 @@ public class MainPageActivity extends Activity {
 							+ "<br>" 
 							+ "<i>Support accurate psychoactive information by donating to Erowid!</i>"; 
 		aboutTextView.setText(Html.fromHtml(aboutString)); 
+		
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle("Erowid Navigator"); 
+		//actionBar.setSubtitle();
 		
 
 		//Makes sure pushing back does not relaunch the spinner
@@ -239,10 +239,10 @@ public class MainPageActivity extends Activity {
 		}
 		return true;		 
 	}
- 
+  
 	/**
 	 * Defines the actions for the menu items.
-	 */
+	 */ 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -307,7 +307,7 @@ public class MainPageActivity extends Activity {
 	 */ 
 	private void createMenu() 
 	{ 
-		psychoactiveTable = m.getStoredPsyList(getBaseContext());
+		psychoactiveTable = m.getStoredPsyChoicesList(getBaseContext());
 		
 		if(psychoactiveTable == null)
 		{   
@@ -417,7 +417,7 @@ public class MainPageActivity extends Activity {
 					}
 				}
 			}
-			m.storePsyList(psychoactiveTable, getBaseContext()); 
+			m.storePsyChoicesList(psychoactiveTable, getBaseContext()); 
 			TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView); 
 			loadingTextView.setVisibility(View.GONE);
 			populateSearchLater(theMenu);

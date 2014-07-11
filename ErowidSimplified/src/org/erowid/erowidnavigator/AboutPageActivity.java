@@ -1,12 +1,8 @@
 package org.erowid.erowidnavigator;   
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
-import android.webkit.WebView;
-import android.webkit.WebSettings;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 public class AboutPageActivity extends Activity { 
  

@@ -10,7 +10,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +25,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.Display;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 public class SharedMethods {
  	
@@ -104,6 +102,7 @@ public class SharedMethods {
 		}   
 		if(!pageType.equals("chemistry")) //"general" case
 		{
+			//TODO: This parse breaks
 			//Extracts the body, adds back a head
 			//Currently this code is unused since chemistry is loaded externally.
 			//If used, need to fix offset in code here, try using shared indexAfter()
@@ -129,6 +128,17 @@ public class SharedMethods {
 		    String url = tempValue.substring(0,tempValue.indexOf("\""));
 		    downloadImage(pageURL, url, absFilesDir);
 		}
+	}
+	
+	public void pingURL(String fileName)
+	{
+		//http://www.erowid.org/star/plants/cannabis/cannabis_basics.shtml
+		String[] parts = fileName.split("\\|"); // 0 is type, 1 is psychoactive, 2 is chosen page
+    	String url = "http://www.erowid.org/star/" + parts[0].trim().toLowerCase() + "/" 
+    				+ parts[1].trim().toLowerCase() +"/" + parts[1].trim().toLowerCase() + "_" 
+    				+ parts[2].trim().toLowerCase() +".shtml";
+		getWebContent(url);
+		
 	}
 	
 	/**
@@ -285,7 +295,7 @@ public class SharedMethods {
 	/**
 	 * Takes the list of psychoactive information and saves it as a comma seperated SharedPreferences
 	 */
-	void storePsyList(List<String[]> psyTable, Context passedContext)
+	void storePsyChoicesList(List<String[]> psyTable, Context passedContext)
 	{
 		SharedPreferences.Editor edit= passedContext.getSharedPreferences("PSYTABLE", Context.MODE_PRIVATE).edit();
 		StringBuilder tableStringB = new StringBuilder();
@@ -308,7 +318,7 @@ public class SharedMethods {
 	/**
 	 * Pulls the stored psychoactive CSV from SharedPreferences and parses it into a List.
 	 */
-	List<String[]> getStoredPsyList(Context passedContext)
+	List<String[]> getStoredPsyChoicesList(Context passedContext)
 	{
 		SharedPreferences prefs = passedContext.getSharedPreferences("PSYTABLE", Context.MODE_PRIVATE);
 		String tableString = prefs.getString("table", "");
@@ -326,7 +336,37 @@ public class SharedMethods {
 		
 		return psyTable;
 	}
-
+	
+	public List<String> getOfflineSiteFilenameList(String path)
+	{
+		List<String> offlineFilenameList = new ArrayList<String>();
+		File directory;
+	    directory = new File(path);
+	    for (File f : directory.listFiles()) {
+	        if (f.isFile())
+	        {
+	            offlineFilenameList.add(f.getName());
+	        }
+	    } 
+	    return offlineFilenameList;
+	}
+	
+	public List<String[]> getOfflineSiteFilenameAndDateList(String path)
+	{
+		List<String[]> offlineFilenameAndDateList = new ArrayList<String[]>();
+		File directory;
+	    directory = new File(path);
+	    for (File f : directory.listFiles()) {
+	        if (f.isFile())
+	        {
+	        	String[] attributes = new String[2];
+	        	attributes[0] = f.getName(); //filename
+	        	attributes[1] = new SimpleDateFormat("dd-MM-yyyy").format(new Date(f.lastModified()));
+	        	offlineFilenameAndDateList.add(attributes);
+	        }
+	    } 
+	    return offlineFilenameAndDateList;
+	}
 	
 	//Does the actual html-to-string creation
 	//Keep Private

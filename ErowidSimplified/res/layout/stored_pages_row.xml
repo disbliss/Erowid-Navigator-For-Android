@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="41dp"
+    android:orientation="horizontal"
+    android:paddingBottom="6dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="6dp" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/substance_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="15dp"
+            android:text="Name"
+            android:textSize="16dp"
+            android:textStyle="bold" 
+            android:singleLine="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:text="Page" >
+
+            <TextView
+                android:id="@+id/arrow_indent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="\u21B3"
+                android:textSize="11dp"
+                android:textStyle="bold" 
+                android:paddingLeft="-3dp"/>
+
+            <TextView
+                android:id="@+id/substance_page"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Page"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".41"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:id="@+id/updated_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Updated"
+            android:textSize="16dp"
+            android:textStyle="italic" 
+            android:textColor="@color/actually_dark_grey"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="16dp"
+            android:textStyle="italic" 
+            android:textColor="@color/actually_dark_grey"/>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/update_page_button"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".12"
+        android:background="@null"
+        android:focusable="false"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_action_refresh" />
+
+    <ImageButton
+        android:id="@+id/delete_page_button"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".12"
+        android:background="@null"
+        android:focusable="false"
+         android:layout_marginRight="5dp"
+        android:src="@drawable/ic_action_discard" />
+
+</LinearLayout>

@@ -7,8 +7,9 @@
      <item
         android:id="@+id/action_store_page_offline"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_store_page_offline"/>
+        android:showAsAction="always"
+        android:title="@string/action_store_page_offline"
+        android:icon="@drawable/ic_action_not_important" />
      <!-- 
      <item
         android:id="@+id/clear_page_test"

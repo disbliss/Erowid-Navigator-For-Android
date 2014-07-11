@@ -1,15 +1,21 @@
 package org.erowid.erowidnavigator;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,8 +32,6 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class PsychoNavigatorActivity extends Activity {
 
@@ -35,6 +39,13 @@ public class PsychoNavigatorActivity extends Activity {
 	String psyName;
 	String psyType;
 	Menu theMenu;
+	String pagesStoredStatus;
+	int pagesCanBeHeld = 0;
+	boolean isResumed = false;
+	List<String> possiblePageTypes = new ArrayList<String>();
+	String downloadedHtmlContent = "";
+	Boolean pullingReportCardText = false; 
+	
 	/**
 	 * On creation, start UI and handle incoming intents
 	 */
@@ -55,6 +66,27 @@ public class PsychoNavigatorActivity extends Activity {
 			searchMenuItem.expandActionView();
 		}
 		return false; // don't go ahead and show the search box
+	}
+	
+	/**
+	 * Resets the star
+	 * For some reason this happens on start
+	 */
+	@Override
+	protected void onResume()
+	{ 
+		if(isResumed)
+		{
+			setPageSaveStar();
+		}
+		super.onResume(); 
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		isResumed = true;
+		super.onPause(); 
 	}
 
 	@Override
@@ -87,7 +119,7 @@ public class PsychoNavigatorActivity extends Activity {
 				tempPsyName = intent.getDataString();
 				//tempPsyName = "cannabis";
 			}
-			List<String[]> psyTable = m.getStoredPsyList(getBaseContext());
+			List<String[]> psyTable = m.getStoredPsyChoicesList(getBaseContext());
 			boolean searchFound = false;
 			//iterate through the table and find the row for the chosen psychactive, then use info to pull web content.
 			for(int i = 0; i < psyTable.size(); i++)
@@ -96,15 +128,21 @@ public class PsychoNavigatorActivity extends Activity {
 				{
 					psyName = tempPsyName.replaceAll(" ", "_");
 					psyType = psyTable.get(i)[2];
+					
+					ActionBar actionBar = getActionBar();
+					actionBar.setTitle("Substance Info");
+					actionBar.setSubtitle(psyName);
+					
 					initializeButtons(psyTable.get(i)[0], i, psyTable);
 					String urlForGrab = "http://erowid.org/"+ psyType + "/" + psyName + "/";
 					String psyType = psyTable.get(i)[getResources().getInteger(R.integer.psy_table_type)];
 					webContentAsyncTask myWebFetch = new webContentAsyncTask(urlForGrab, psyType, psyName);
 					myWebFetch.execute();
 					searchFound= true;
-					break;				
+					break;
+					
 				} 
-			}
+			}  
 			if(!searchFound)
 			{   //If the navigation came through the actual search, instead of the hints, it is due to a bug in the user's keyboard's IME implementation
 				//This is pretty rare, and my code does as it should, so I am handling this in a less-than-graceful manner.
@@ -133,8 +171,59 @@ public class PsychoNavigatorActivity extends Activity {
 		searchView.setSearchableInfo(
 				searchManager.getSearchableInfo(getComponentName()));
 
+
+		if(pagesCanBeHeld == 0)
+		{
+			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+			offlineMenuItem.setVisible(false);
+		}
+
+		setPageSaveStar();
+
+		
 		return true;		 
 	}   
+	
+	/**
+	 * Sets the star for the save page, depending on the quantity of sub-pages saved.
+	 */
+	public void setPageSaveStar()
+	{
+		int pageCount = 0;
+		List psyList = m.getOfflineSiteFilenameList(getFilesDir().getPath());
+		String subTestName = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | "; //change other define
+		for (int i = 0; i < psyList.size(); i++)
+		{
+			if (psyList.get(i).equals(subTestName + "Basics")  
+					|| psyList.get(i).equals(subTestName + "Effects")  
+					|| psyList.get(i).equals(subTestName + "Health")  
+					|| psyList.get(i).equals(subTestName + "Law")  
+					|| psyList.get(i).equals(subTestName + "Dose" )  )
+			{ 
+				pageCount++; 
+			}
+		}
+		//Toast.makeText(this, "pageCount: " + pageCount + " | pagesCanBeHeld: " + pagesCanBeHeld, Toast.LENGTH_LONG).show();
+		
+		if(pageCount == 0) //no pages saved
+		{
+			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+			offlineMenuItem.setIcon(R.drawable.ic_action_not_important);
+			pagesStoredStatus = "none";
+		}
+		else if(pageCount >= pagesCanBeHeld) //all pages saved. Should never be greater, but might as well react elegantly.
+		{
+			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+			offlineMenuItem.setIcon(R.drawable.ic_action_important);
+			pagesStoredStatus = "all";
+		}
+		else //some pages saved
+		{
+			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+			offlineMenuItem.setIcon(R.drawable.ic_action_half_important);
+			pagesStoredStatus = "some";
+		}
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,6 +234,91 @@ public class PsychoNavigatorActivity extends Activity {
 	    	//"http://erowid.org/" + psyType + "/" + psyName + "/images/" + psyName
 	    	startActivity(browserIntent);
 	        return true;
+	    case R.id.action_store_page_offline:
+	    	if(!pullingReportCardText)
+	    	{
+		    	List<String> psyOfTypeList = new ArrayList<String>();
+		    	
+	    		int pageCount = 0;
+	    		List offlineFileList = m.getOfflineSiteFilenameList(getFilesDir().getPath());
+	    		String subTestName = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | "; //change other define
+	    		
+	    		// goes through all the save files to see which ones are for this substance
+	    		// for each one that is, add its filename to the list and increment the number counter
+	    		// TODO: Remove counter
+	    		for (int i = 0; i < offlineFileList.size(); i++)
+	    		{
+	    			String psyListName = (String) offlineFileList.get(i);
+	    			if ( psyListName.equals(subTestName + "Basics")  
+	    					|| psyListName.equals(subTestName + "Effects")  
+	    					|| psyListName.equals(subTestName + "Health")  
+	    					|| psyListName.equals(subTestName + "Law")  
+	    					|| psyListName.equals(subTestName + "Dose" )  )
+	    			{ 
+	    				//offlineFileList.add(psyListName);
+	    				pageCount++; 
+	    			}
+	    		}
+		    	
+		    	if(pageCount >= pagesCanBeHeld)//full, make empty
+		    	{
+		    		for(String possible : possiblePageTypes)
+		    		{ //for each possible page
+		    			deleteFile(subTestName + m.capitalize(possible));
+			    		//MenuItem searchMenuItem = theMenu.findItem(R.id.action_store_page_offline);
+						//searchMenuItem.setIcon(R.drawable.ic_action_not_important);
+						//Toast.makeText(getApplicationContext(), "Page deleted from offline storage", Toast.LENGTH_SHORT).show();
+						//pageHasBeenStored = false;
+		    		}
+		    		Toast.makeText(getBaseContext(),"Cleared saved pages", Toast.LENGTH_SHORT).show();
+		    		setPageSaveStar();
+		    	}
+		    	else //some or empty, make full
+		    	{
+		    		//find ones not in psyOfTypeList and add
+		    		//String[] pageTypes = {"Basics", "Effects", "Health", "Law", "Dose"};
+		    		String[] pageTypes = {"basics", "effects", "health", "law", "dose"};
+		    		for(String possible : possiblePageTypes)
+		    		{ //for each possible page
+		    			boolean typeIsStored = false;
+		    			for(String stored : psyOfTypeList)
+		    			{ //for each stored page
+		    				if ((subTestName + possible).equals(stored))
+							{ //if they match we don't do more
+		    					typeIsStored = true;
+		    					break;
+							}
+		    			}
+		    			if(!typeIsStored)
+		    			{
+		    				//Toast.makeText(getBaseContext(),"Storing "+ possible +", only not", Toast.LENGTH_LONG).show();
+		    				for(String page : pageTypes)
+		    				{
+		    					if(possiblePageTypes.contains(page))
+		    					{
+		    						//this is convoluted because it was taken from StoredContent. I seriously don't think I have to do this again, so...
+		    		                String fileName = subTestName + m.capitalize(page);
+		    		            	String[] parts = fileName.split("\\|"); // 0 is type, 1 is psychoactive, 2 is chosen page
+		    		            	String url = "http://www.erowid.org/" + parts[0].trim().toLowerCase() + "/" 
+		    		            				+ parts[1].trim().toLowerCase() +"/" + parts[1].trim().toLowerCase() + "_" 
+		    		            				+ parts[2].trim().toLowerCase() +".shtml";
+		    		            	String type = parts[2].trim().toLowerCase();	  
+		    						
+		    		            	webContentAsyncTask2 myWebFetch = new webContentAsyncTask2(url, type, fileName);
+		    						myWebFetch.execute();
+		    					}
+		    				}
+		    			}
+		    		}
+		    		Toast.makeText(getBaseContext(),"Pulling available pages", Toast.LENGTH_SHORT).show();
+		    	}
+		    	
+		    	setPageSaveStar(); //this may be less efficient than just setting it again.
+	    	}
+	    	else
+	    	{
+	    		Toast.makeText(getBaseContext(),"Wait for page to load", Toast.LENGTH_SHORT).show();
+	    	}
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
@@ -178,27 +352,47 @@ public class PsychoNavigatorActivity extends Activity {
 		if(psychoactiveTable.get(psyPos)[4].equals("0")) {
 			basicsButton.setVisibility(View.INVISIBLE); }
 		else{
-			basicsButton.setVisibility(View.VISIBLE); }
+			basicsButton.setVisibility(View.VISIBLE);
+			possiblePageTypes.add("basics");
+			pagesCanBeHeld++;
+			}
 		if(psychoactiveTable.get(psyPos)[10].equals("0") || psyType.equals("smarts")) {
 			effectsButton.setVisibility(View.INVISIBLE); }
 		else{
-			effectsButton.setVisibility(View.VISIBLE); }
+			effectsButton.setVisibility(View.VISIBLE); 
+			possiblePageTypes.add("effects");
+			pagesCanBeHeld++;}
+		
 		if(psychoactiveTable.get(psyPos)[05].equals("0")) {
 			imagesButton.setVisibility(View.INVISIBLE); }
 		else{
-			imagesButton.setVisibility(View.VISIBLE); }
+			imagesButton.setVisibility(View.VISIBLE);
+			//possiblePageTypes.add("images");
+			//pagesCanBeHeld++; //images page isn't stored
+			}
 		if(psychoactiveTable.get(psyPos)[13].equals("0") || psyType.equals("pharms") || psyType.equals("smarts")) {
 			healthButton.setVisibility(View.INVISIBLE); }
 		else{
-			healthButton.setVisibility(View.VISIBLE); }
+			healthButton.setVisibility(View.VISIBLE); 
+			possiblePageTypes.add("health");
+			pagesCanBeHeld++;}
+		
 		if(psychoactiveTable.get(psyPos)[6].equals("0")) {
 			lawButton.setVisibility(View.INVISIBLE); }
 		else{
-			lawButton.setVisibility(View.VISIBLE); }
+			lawButton.setVisibility(View.VISIBLE);
+			possiblePageTypes.add("law");
+			pagesCanBeHeld++;}
+		
 		if(psychoactiveTable.get(psyPos)[7].equals("0")) {
 			doseButton.setVisibility(View.INVISIBLE); }
 		else{
-			doseButton.setVisibility(View.VISIBLE); }
+			doseButton.setVisibility(View.VISIBLE);
+			possiblePageTypes.add("dose");
+			pagesCanBeHeld++;}
+		
+		
+		//not used currently
 		if(psychoactiveTable.get(psyPos)[11].equals("0")) {
 			chemistryButton.setVisibility(View.INVISIBLE); }
 		else{
@@ -358,6 +552,76 @@ public class PsychoNavigatorActivity extends Activity {
 		});
 	} // End setting click listeners
 	
+	/**
+	 * Background web content class.
+	 * Downloads html with methods from shared code.
+	 * Calls html modification to make readable and displays it.
+	 * Informs the user of progress.
+	 * 
+	 * (coppied and modified from WebDisplay)
+	 */
+	class webContentAsyncTask2 extends AsyncTask<Void, Void, Void>    {
+			
+		String pageURL;
+		String chosenPageType;
+		String fileName;
+		
+		public webContentAsyncTask2(String url, String type, String fname)
+		{
+			super();
+			pageURL = url;
+			chosenPageType = type;
+			fileName = fname;
+		}
+		
+		/**
+		 * Before: Informs the user that information is being loaded
+		 */
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+		} 
+		
+		/**
+		 * During: Call html downloader shared method.
+		 */
+		@Override
+		protected Void doInBackground(Void... arg0) {
+
+			downloadedHtmlContent = m.getWebContent(pageURL);
+			downloadedHtmlContent = m.fixHTML(downloadedHtmlContent, chosenPageType, getBaseContext());
+			m.downloadErowidImages(downloadedHtmlContent, pageURL, getFilesDir().getAbsolutePath());  
+			return null; 
+		}   
+		
+		/**
+		 * After: Calls the html format fixer, loads the html along with stored with css & images.
+		 */
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+        	deleteFile(fileName);
+	    	FileOutputStream fos;
+	    	 
+			try {
+				fos = openFileOutput(fileName, Context.MODE_PRIVATE);
+		    	fos.write(downloadedHtmlContent.getBytes());
+		    	fos.close();
+		    	m.pingURL(fileName);
+		    	setPageSaveStar(); //this may be less efficient than just setting it again.
+
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//updateOfflineFilenameListView();
+		}     
+	}
+	
 	
 	//Web Content population class
 	class webContentAsyncTask extends AsyncTask<Void, Void, Void>    {
@@ -396,8 +660,7 @@ public class PsychoNavigatorActivity extends Activity {
 		 */
 		@Override 
 		protected Void doInBackground(Void... arg0) {
-
-			
+			pullingReportCardText = true;
 			Map<String, String> reportCard = m.getReportCardInfo(url); //calls a shared method that grabs info needed from the report card page.
 			description = reportCard.get("Description");
 			effects = reportCard.get("Effects"); //this messes up formatting
@@ -460,7 +723,7 @@ public class PsychoNavigatorActivity extends Activity {
 						"<b>Common Names:</b><br>" + common_names ));
 			}
 			psyDescription.setMovementMethod(new ScrollingMovementMethod()); 		  
-
+			pullingReportCardText = false;
 		}  
 	}
 }

@@ -1,48 +1,60 @@
 package org.erowid.erowidnavigator;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView;
-import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author Matthew Dunlap
+ * @date 06/2014
+ */
 public class StoredContentManagerActivity extends Activity {
 
 	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
 	ActionMode mActionMode;
 	String chosenItem;
+	Menu theMenu;
+	String downloadedHtmlContent = "";
+	Boolean inEditMode = false;
+	ListView storedContentListView;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stored_manager);
-		//createMenu(); //pulls web content for the spinners
 
-		updateOfflineFilenameListView();
-		final ListView storedContentListView = (ListView) findViewById(R.id.storedListView);
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle("Stored Pages"); 
 		
+		updateOfflineFilenameListView();
+		storedContentListView = (ListView) findViewById(R.id.storedListView);
+		
+		//set view for list when it is empty
 		View empty = getLayoutInflater().inflate(R.layout.empty_list_item, null, false);
 		addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		storedContentListView.setEmptyView(empty);
@@ -67,74 +79,42 @@ public class StoredContentManagerActivity extends Activity {
 	    		}
 	    	}
 	    });
-	    
-	  //this allows modifications of the actions bar
-	    final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+	}
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */ 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		theMenu = menu;
+		MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.menu_stored_content, menu);
+		return true;
+	}
+	
+	/**
+	 * Defines the actions for the menu items.
+	 */ 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId()) {
+		    case R.id.action_edit_mode:
+		    	//toggles edit mode on/off
+		    	if(!inEditMode)
+		    	{
+			    	inEditMode = true;
+			    	updateOfflineFilenameListView();
+		    	}
+		    	else
+		    	{
+			    	inEditMode = false;
+			    	updateOfflineFilenameListView();
+		    	}
+	    		return true;
+		}
+		return false;
 
-	        // Called when the action mode is created; startActionMode() was called
-	        @Override
-	        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	            // Inflate a menu resource providing context menu items
-	            MenuInflater inflater = mode.getMenuInflater();
-	            inflater.inflate(R.menu.stored_context_menu, menu);
-	            return true;
-	        }
-   
-	        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-	        // may be called multiple times if the mode is invalidated.
-	        @Override
-	        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-	            return false; // Return false if nothing is done
-	        }
-
-	        // Called when the user selects a contextual menu item
-	        @Override
-	        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	            switch (item.getItemId()) {
-	                case R.id.delete_page:
-	                	//find file, delete, update list
-	                	deleteFile(chosenItem);
-	                	updateOfflineFilenameListView();
-	                	mode.finish();
-	                	return true;
-	                default:
-	                    return false;
-	            }
-	        }
-
-	        // Called when the user exits the action mode
-	        @Override
-	        public void onDestroyActionMode(ActionMode mode) {
-	            mActionMode = null;
-	            storedContentListView.clearChoices();
-	            storedContentListView.requestLayout();
-	        }
-	    };
-	    
-	    //long-click listener for creating context menu
-	    //TODO This interaction is not that obvious. Do something about it, maybe documentation?
-	    storedContentListView.setOnItemLongClickListener(new OnItemLongClickListener(){
-	    	@Override
-	    	public boolean onItemLongClick(AdapterView<?> parent, View view,
-	    			int position, long id)
-	    	{
-	    		chosenItem = (String) storedContentListView.getItemAtPosition(position);
-//	    		Toast.makeText(getApplicationContext(),"A context menu should open.",Toast.LENGTH_SHORT).show();
-//	    		storedContentListView.setItemChecked(position, true);
-//	    		return true;
-	    		
-				if (mActionMode != null) {
-	    			mActionMode.finish();
-	    			mActionMode = null;
-		            view.setSelected(false);
-	            }
-
-	            // Start the CAB using the ActionMode.Callback defined above
-	            mActionMode = startActionMode(mActionModeCallback);
-	            view.setSelected(true);
-	            return true;
-	    	}
-	    });
 	}
 	
 	/**
@@ -142,19 +122,206 @@ public class StoredContentManagerActivity extends Activity {
 	 */
 	public void updateOfflineFilenameListView()
 	{
-		List<String> offlineFilenameList = new ArrayList<String>();
 		String path = getFilesDir().getPath();
-		File directory;
-	    directory = new File(path);
-	    for (File f : directory.listFiles()) {
-	        if (f.isFile())
-	        {
-	            offlineFilenameList.add(f.getName());
-	        }
-	    } 
+		List<String[]> offlineFilenameAndDateList = m.getOfflineSiteFilenameAndDateList(path);
 	    final ListView storedContentListView = (ListView) findViewById(R.id.storedListView);
-		String[] spinnerArray = offlineFilenameList.toArray(new String[(offlineFilenameList.size())]);
-		ArrayAdapter<String> typeAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray );
-	    storedContentListView.setAdapter( typeAdapter2);
+		//String[] spinnerArray = offlineFilenameAndDateList.toArray(new String[(offlineFilenameAndDateList.size())]);
+	    StoredContentAdapter adapter = new StoredContentAdapter(this, offlineFilenameAndDateList);
+		storedContentListView.setAdapter(adapter);
+	}
+	
+	/**
+	 * Background web content class.
+	 * Downloads html with methods from shared code.
+	 * Calls html modification to make readable and displays it.
+	 * Informs the user of progress.
+	 * 
+	 * (coppied and modified from WebDisplay)
+	 */
+	class webContentAsyncTask extends AsyncTask<Void, Void, Void>    {
+			
+		String pageURL;
+		String chosenPageType;
+		String fileName;
+		
+		public webContentAsyncTask(String url, String type, String fname)
+		{
+			super();
+			pageURL = url;
+			chosenPageType = type;
+			fileName = fname;
+		}
+		
+		/**
+		 * Before: Informs the user that information is being loaded
+		 */
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+		} 
+		
+		/**
+		 * During: Call html downloader shared method.
+		 */
+		@Override
+		protected Void doInBackground(Void... arg0) {
+
+			downloadedHtmlContent = m.getWebContent(pageURL);
+			downloadedHtmlContent = m.fixHTML(downloadedHtmlContent, chosenPageType, getBaseContext());
+			m.downloadErowidImages(downloadedHtmlContent, pageURL, getFilesDir().getAbsolutePath());  
+			return null; 
+		}   
+		
+		/**
+		 * After: Calls the html format fixer, loads the html along with stored with css & images.
+		 */
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+        	deleteFile(fileName);
+	    	FileOutputStream fos;
+	    	 
+			try {
+				fos = openFileOutput(fileName, Context.MODE_PRIVATE);
+		    	fos.write(downloadedHtmlContent.getBytes());
+		    	fos.close();
+		    	m.pingURL(fileName);
+		    	Toast.makeText(getApplicationContext(), "File updated from the mother-ship ::-)", Toast.LENGTH_SHORT).show();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			updateOfflineFilenameListView();
+		}    
+	}
+	
+	/**
+	 * Adapter class which defines how the list view interprets an assigned data source,
+	 * and how that data source is presented in the rows of the listview
+	 * Also defines access methods and click interactions.
+	 */
+	class StoredContentAdapter extends BaseAdapter {
+
+	    Context context;
+	    List<String[]> data;
+	    private LayoutInflater inflater = null;
+
+	    public StoredContentAdapter(Context context, List<String[]> data) {
+	        this.context = context;
+	        this.data = data;
+	        inflater = (LayoutInflater) context
+	                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    }
+
+	    public void sort(Comparator<String> comparator) { }
+
+		@Override
+	    public int getCount() {
+	        return data.size();
+	    }
+
+	    @Override
+	    public Object getItem(int position) {
+	        return data.get(position)[0]; //returns the name of the item
+	    }
+
+	    @Override
+	    public long getItemId(int position) {
+	        return position;
+	    }
+
+	    /**
+	     * Populates and returns a row of the list view.
+	     * This includes adding action listeners update/delete buttons, available in edit mode.
+	     */
+	    @Override
+	    public View getView(int position, View convertView, ViewGroup parent) {
+	        View vi = convertView;
+	        if (vi == null)
+	            vi = inflater.inflate(R.layout.stored_pages_row, null);
+	        TextView name = (TextView) vi.findViewById(R.id.substance_name);
+	        TextView page = (TextView) vi.findViewById(R.id.substance_page);
+	        String[] nameParts = data.get(position)[0].split("\\|"); // 0 is type, 1 is psychoactive, 2 is chosen page
+	        TextView date = (TextView) vi.findViewById(R.id.date);
+	        name.setText(nameParts[1].trim());
+	        page.setText(nameParts[2].trim());
+	        date.setText(data.get(position)[1] );
+	        String substance_type = nameParts[0].trim();
+	        if(substance_type.equals("Chemicals"))
+	        {
+	        	vi.setBackgroundColor(0x36d0d2dd);
+	        }
+	        else if(substance_type.equals("Plants"))
+	        {
+	        	vi.setBackgroundColor(0x201b2200);
+	        }
+	        else if(substance_type.equals("Herbs"))
+	        {
+	        	vi.setBackgroundColor(0x30baa8ba);
+	        }
+	        else if(substance_type.equals("Pharms"))
+	        {
+	        	vi.setBackgroundColor(0x206a4411);
+	        }
+	        else if(substance_type.equals("Smarts"))
+	        {
+	        	vi.setBackgroundColor(0x20660000);
+	        }
+	        else if(substance_type.equals("Animals"))
+	        {
+	        	vi.setBackgroundColor(0x20261818);
+	        }
+	        
+	        ImageButton delete = (ImageButton) vi.findViewById(R.id.delete_page_button);
+	        ImageButton update = (ImageButton) vi.findViewById(R.id.update_page_button);
+	        
+	        if(inEditMode)
+	        {
+	        	delete.setVisibility(View.VISIBLE);
+	        	update.setVisibility(View.VISIBLE);
+	        }
+	        else
+	        {
+	        	delete.setVisibility(View.INVISIBLE);
+	        	update.setVisibility(View.INVISIBLE);
+	        }
+	        
+	        delete.setOnClickListener(new OnClickListener() { 
+	            public void onClick(View v) {
+	            	LinearLayout rl = (LinearLayout)v.getParent();
+	                TextView tv = (TextView)rl.findViewById(R.id.substance_name);
+	                int position = storedContentListView.getPositionForView(v);
+	                String fileName = (String) storedContentListView.getItemAtPosition(position);
+	            	deleteFile(fileName);
+                	updateOfflineFilenameListView();
+	            } 
+	        }); 
+	        
+	        update.setOnClickListener(new OnClickListener() {  
+	            public void onClick(View v) {
+	            	LinearLayout rl = (LinearLayout)v.getParent();
+	                TextView tv = (TextView)rl.findViewById(R.id.substance_name);
+	                int position = storedContentListView.getPositionForView(v);
+	                String fileName = (String) storedContentListView.getItemAtPosition(position);
+	            	String[] parts = fileName.split("\\|"); // 0 is type, 1 is psychoactive, 2 is chosen page
+	            	String url = "http://www.erowid.org/" + parts[0].trim().toLowerCase() + "/" 
+	            				+ parts[1].trim().toLowerCase() +"/" + parts[1].trim().toLowerCase() + "_" 
+	            				+ parts[2].trim().toLowerCase() +".shtml";
+	            	String type = parts[2].trim().toLowerCase();	  
+            	    webContentAsyncTask myWebFetch = new webContentAsyncTask(url, type, fileName);
+					myWebFetch.execute(); 
+	            	//Toast.makeText(getBaseContext(), url, Toast.LENGTH_SHORT).show(); 
+	            } 
+	        }); 
+	        
+	        return vi;
+	        
+	    }
+	    
+	    // TODO: Implement sort functionality
 	}
 }
