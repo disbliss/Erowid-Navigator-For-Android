@@ -1,4 +1,4 @@
-package org.erowid.erowidnavigator;
+package org.erowid.androidnavigator;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 public class PsychoNavigatorActivity extends Activity {
 
-	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
+	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
 	String psyName;
 	String psyType;
 	Menu theMenu;
@@ -171,7 +171,8 @@ public class PsychoNavigatorActivity extends Activity {
 		searchView.setSearchableInfo(
 				searchManager.getSearchableInfo(getComponentName()));
 
-
+		//Toast.makeText(getBaseContext(),"available pages: " + pagesCanBeHeld, Toast.LENGTH_LONG).show();
+		
 		if(pagesCanBeHeld == 0)
 		{
 			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);

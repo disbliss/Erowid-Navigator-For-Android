@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.erowid.erowidnavigator"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="org.erowid.androidnavigator"
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -27,7 +27,7 @@
 
         
         <activity
-            android:name="org.erowid.erowidnavigator.MainPageActivity"
+            android:name="org.erowid.androidnavigator.MainPageActivity"
             android:screenOrientation="portrait" >
             <intent-filter android:label="@string/app_name_short">
                 <action android:name="android.intent.action.MAIN" />
@@ -37,18 +37,18 @@
         </activity>
                 
         <activity
-            android:name="org.erowid.erowidnavigator.StoredContentManagerActivity"
+            android:name="org.erowid.androidnavigator.StoredContentManagerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         
         <activity
-            android:name="org.erowid.erowidnavigator.AboutPageActivity"
+            android:name="org.erowid.androidnavigator.AboutPageActivity"
             android:label="@string/title_activity_about_page" >
         </activity>
         
         <activity
-            android:name="org.erowid.erowidnavigator.PsychoNavigatorActivity"            
+            android:name="org.erowid.androidnavigator.PsychoNavigatorActivity"            
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -63,14 +63,14 @@
         </activity>
         
         <activity
-            android:name="org.erowid.erowidnavigator.WebDisplayActivity"      
+            android:name="org.erowid.androidnavigator.WebDisplayActivity"      
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
 
         <provider
-            android:name="org.erowid.erowidnavigator.PsychoSuggestionProvider"            
+            android:name="org.erowid.androidnavigator.PsychoSuggestionProvider"            
             android:authorities="org.erowid.erowidnavigator.psychoactivesuggestionprovider" >
         </provider>
 

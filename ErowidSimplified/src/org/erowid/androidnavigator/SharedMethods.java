@@ -1,4 +1,4 @@
-package org.erowid.erowidnavigator;
+package org.erowid.androidnavigator;
 
 import java.io.BufferedReader;
 import java.io.File;

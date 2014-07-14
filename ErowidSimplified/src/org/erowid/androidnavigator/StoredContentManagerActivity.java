@@ -1,4 +1,4 @@
-package org.erowid.erowidnavigator;
+package org.erowid.androidnavigator;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,7 +36,7 @@ import android.widget.Toast;
  */
 public class StoredContentManagerActivity extends Activity {
 
-	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
+	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
 	ActionMode mActionMode;
 	String chosenItem;
 	Menu theMenu;

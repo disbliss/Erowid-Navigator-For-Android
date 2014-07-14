@@ -1,4 +1,4 @@
-package org.erowid.erowidnavigator;
+package org.erowid.androidnavigator;
  
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainPageActivity extends Activity {
-	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
+	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
 	static String rawMainWebContent; //from pulling the list of psychoactives
 	List<String[]> psychoactiveTable; 
 	static boolean listPsyReady = false; 	//has the content been processed

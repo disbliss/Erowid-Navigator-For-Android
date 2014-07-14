@@ -1,4 +1,4 @@
-package org.erowid.erowidnavigator;
+package org.erowid.androidnavigator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import android.widget.SimpleCursorAdapter;
 public class PsychoSuggestionProvider extends ContentProvider {
 	//SQLiteDatabase db;
     //SQLiteQueryBuilder qb;
-	org.erowid.erowidnavigator.SharedMethods m = new org.erowid.erowidnavigator.SharedMethods();
+	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
 	public PsychoSuggestionProvider() {
 		// TODO Auto-generated constructor stub
 	}
