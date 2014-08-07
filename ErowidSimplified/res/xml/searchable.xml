@@ -4,8 +4,8 @@
    xmlns:android="http://schemas.android.com/apk/res/android" 
    android:label="@string/search_label"
    android:hint="@string/search_hint"
-   android:searchSuggestAuthority="org.erowid.androidnavigator.psychoactivesuggestionprovider"
+   android:searchSuggestAuthority="org.erowid.navigatorandroid.psychoactivesuggestionprovider"
    android:searchSuggestSelection=" ?"
    android:searchSuggestThreshold="2"
-   android:imeOptions="actionDone|flagNoEnterAction">
+   android:imeOptions="actionDone|flagNoEnterAction" >
 </searchable> 

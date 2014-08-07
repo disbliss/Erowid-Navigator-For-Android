@@ -1,4 +1,4 @@
-package org.erowid.androidnavigator;
+package org.erowid.navigatorandroid;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 public class PsychoNavigatorActivity extends Activity {
 
-	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
+	org.erowid.navigatorandroid.SharedMethods m = new org.erowid.navigatorandroid.SharedMethods();
 	String psyName;
 	String psyType;
 	Menu theMenu;

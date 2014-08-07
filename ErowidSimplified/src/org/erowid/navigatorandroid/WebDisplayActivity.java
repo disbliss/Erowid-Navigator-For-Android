@@ -1,4 +1,4 @@
-package org.erowid.androidnavigator;
+package org.erowid.navigatorandroid;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,7 +44,7 @@ public class WebDisplayActivity extends Activity {
 	static String chosenPageType;
 	String psyType;
 	String psyName;
-	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
+	org.erowid.navigatorandroid.SharedMethods m = new org.erowid.navigatorandroid.SharedMethods();
 	String pageURL; 
 	WebView infoWebView;
 	boolean pageFullyLoaded;

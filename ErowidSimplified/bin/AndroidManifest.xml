@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.erowid.androidnavigator"
-    android:versionCode="2"
-    android:versionName="1.1" >
+    package="org.erowid.navigatorandroid"
+    android:versionCode="3"
+    android:versionName="1.1.2" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_launcher" 
         android:logo="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/Theme.Erowid" >
@@ -23,11 +23,11 @@
       			to be my created search activity (value)   -->
         <meta-data
             android:name="android.app.default_searchable"
-            android:value="org.erowid.erowidnavigator.PsychoNavigatorActivity" />
+            android:value="org.erowid.navigatorandroid.PsychoNavigatorActivity" />
 
         
         <activity
-            android:name="org.erowid.androidnavigator.MainPageActivity"
+            android:name="org.erowid.navigatorandroid.MainPageActivity"
             android:screenOrientation="portrait" >
             <intent-filter android:label="@string/app_name_short">
                 <action android:name="android.intent.action.MAIN" />
@@ -37,18 +37,18 @@
         </activity>
                 
         <activity
-            android:name="org.erowid.androidnavigator.StoredContentManagerActivity"
+            android:name="org.erowid.navigatorandroid.StoredContentManagerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         
         <activity
-            android:name="org.erowid.androidnavigator.AboutPageActivity"
+            android:name="org.erowid.navigatorandroid.AboutPageActivity"
             android:label="@string/title_activity_about_page" >
         </activity>
         
         <activity
-            android:name="org.erowid.androidnavigator.PsychoNavigatorActivity"            
+            android:name="org.erowid.navigatorandroid.PsychoNavigatorActivity"            
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -63,15 +63,15 @@
         </activity>
         
         <activity
-            android:name="org.erowid.androidnavigator.WebDisplayActivity"      
+            android:name="org.erowid.navigatorandroid.WebDisplayActivity"      
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
 
         <provider
-            android:name="org.erowid.androidnavigator.PsychoSuggestionProvider"            
-            android:authorities="org.erowid.erowidnavigator.psychoactivesuggestionprovider" >
+            android:name="org.erowid.navigatorandroid.PsychoSuggestionProvider"            
+            android:authorities="org.erowid.navigatorandroid.psychoactivesuggestionprovider" >
         </provider>
 
     </application>

@@ -1,4 +1,4 @@
-package org.erowid.androidnavigator;
+package org.erowid.navigatorandroid;
  
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainPageActivity extends Activity {
-	org.erowid.androidnavigator.SharedMethods m = new org.erowid.androidnavigator.SharedMethods();
+	org.erowid.navigatorandroid.SharedMethods m = new org.erowid.navigatorandroid.SharedMethods();
 	static String rawMainWebContent; //from pulling the list of psychoactives
 	List<String[]> psychoactiveTable; 
 	static boolean listPsyReady = false; 	//has the content been processed
@@ -62,12 +62,12 @@ public class MainPageActivity extends Activity {
 		String navString = "<b> Navigation: </b> Choose a psychoactive with the search above or the dropdowns below."; 
 		navTextView.setText(Html.fromHtml(navString));
 		
-		TextView aboutTextView = (TextView) findViewById(R.id.aboutTextView);
-		String aboutString = "<b> About: </b> Erowid is a member-supported organization providing access to reliable, "
-							+ "non-judgmental information about psychoactive plants, chemicals, and related issues.<br>"
-							+ "<br>" 
-							+ "<i>Support accurate psychoactive information by donating to Erowid!</i>"; 
-		aboutTextView.setText(Html.fromHtml(aboutString)); 
+//		TextView aboutTextView = (TextView) findViewById(R.id.aboutTextView);
+//		String aboutString = "<b> About: </b> Erowid is a member-supported organization providing access to reliable, "
+//							+ "non-judgmental information about psychoactive plants, chemicals, and related issues.<br>"
+//							+ "<br>" 
+//							+ "<i>Support accurate psychoactive information by donating to Erowid!</i>"; 
+//		aboutTextView.setText(Html.fromHtml(aboutString)); 
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle("Erowid Navigator"); 
