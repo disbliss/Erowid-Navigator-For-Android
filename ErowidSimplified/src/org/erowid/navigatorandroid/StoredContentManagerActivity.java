@@ -251,6 +251,7 @@ public class StoredContentManagerActivity extends Activity {
 	        page.setText(nameParts[2].trim());
 	        date.setText(data.get(position)[1] );
 	        String substance_type = nameParts[0].trim();
+            //If you chance colors, also change in main
 	        if(substance_type.equals("Chemicals"))
 	        {
 	        	vi.setBackgroundColor(0x36d0d2dd);

@@ -68,7 +68,6 @@
             android:screenOrientation="portrait" >
         </activity>
 
-
         <provider
             android:name="org.erowid.navigatorandroid.PsychoSuggestionProvider"            
             android:authorities="org.erowid.navigatorandroid.psychoactivesuggestionprovider" >

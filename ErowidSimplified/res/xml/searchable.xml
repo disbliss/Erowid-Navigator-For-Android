@@ -7,5 +7,5 @@
    android:searchSuggestAuthority="org.erowid.navigatorandroid.psychoactivesuggestionprovider"
    android:searchSuggestSelection=" ?"
    android:searchSuggestThreshold="2"
-   android:imeOptions="actionDone|flagNoEnterAction" >
+   android:imeOptions="actionDone" > <!--|flagNoEnterAction-->
 </searchable> 

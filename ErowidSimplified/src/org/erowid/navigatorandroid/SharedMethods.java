@@ -1,13 +1,17 @@
 package org.erowid.navigatorandroid;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -22,11 +26,26 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.erowid.navigatorandroid.xmlXstream.AlternateNameSet;
+import org.erowid.navigatorandroid.xmlXstream.ErowidPsychoactiveVaults;
+import org.erowid.navigatorandroid.xmlXstream.ImageEntry;
+import org.erowid.navigatorandroid.xmlXstream.ImageSet;
+import org.erowid.navigatorandroid.xmlXstream.Section;
+import org.erowid.navigatorandroid.xmlXstream.Substance;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.thoughtworks.xstream.XStream;
+
+import static org.apache.commons.lang3.StringEscapeUtils.escapeXml10;
 
 public class SharedMethods {
  	
@@ -35,7 +54,16 @@ public class SharedMethods {
 	 */
 	public String capitalize(String line)
 	{
-	  return Character.toUpperCase(line.charAt(0)) + line.substring(1);
+        String returnString = "";
+        if(line.length() > 0)
+        {
+            returnString += Character.toUpperCase(line.charAt(0));
+        }
+        if(line.length() > 1)
+        {
+            returnString += line.substring(1);
+        }
+        return returnString;
 	}
 	
 	/** 
@@ -211,8 +239,402 @@ public class SharedMethods {
 		}
 		
 	}
-	
-	
+
+    public void storeSubstancesClassString(String classXML, Context context)
+    {
+        try {
+
+            //String filePath = "/sdcard/utf8_file.txt";
+            String UTF8 = "utf8";
+            int BUFFER_SIZE = 8192;
+
+
+            String basePath = context.getFilesDir().getPath();
+            File folder = new File(basePath+ "/files");
+            Boolean folderMade = folder.mkdir(); // only happens if no folder
+
+            Log.d("Folder Test", folderMade.toString());
+
+            //BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), UTF8),BUFFER_SIZE);
+            //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), UTF8),BUFFER_SIZE);
+            File file = new File(basePath+ "/files/big_chart_xml.php");
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file), UTF8), BUFFER_SIZE ); //(context.openFileOutput("files/big_chart_xml.php", Context.MODE_PRIVATE)
+            bw.write(classXML);
+            bw.close();
+
+            //FileOutputStream fos = context.openFileOutput("substanceVaultClass.xml", Context.MODE_PRIVATE);
+            //ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(classXML);
+//            oos.close();
+//            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getSubstancesClassString(Context context)
+    {
+        StringBuilder sb = new StringBuilder();
+        try{
+
+            String basePath = context.getFilesDir().getPath();
+            File file = new File(basePath+ "/files/big_chart_xml.php");
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            fis.close();
+        } catch(OutOfMemoryError om){
+            om.printStackTrace();
+            return null;
+        } catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+        String result = sb.toString();
+        return result;
+    }
+
+    public String getSubXML(String chartXmlString, String psyName)
+    {
+
+        //this is close: http://stackoverflow.com/questions/16069425/xmlpullparser-get-inner-text-including-xml-tags
+        // what i can probably do is just detect the start of a substance tag, and then start adding tags to a string
+        // if the name tag inside is the name we want, we keep the string
+        // This could be really inefficient if the name tags are at the end, but they are currently placed at the beginning
+
+        //this could actually be more efficient if I first check if the section name matches, so I only check in the section that matters
+
+        //there are no attributes in the whole xml, so I'm not dealing with them.
+
+        //1.45s mid, 2.14 long
+
+        //long startTime = System.nanoTime();
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = factory.newPullParser();
+            //parser.
+            parser.setInput(new StringReader(chartXmlString));
+
+            Boolean inSubstance = false;
+            Boolean inName = false;
+            Boolean substanceFound = false;
+            Boolean wrongSubstance = false;
+
+            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (parser.getEventType() == XmlPullParser.START_TAG  && !wrongSubstance) {
+                    if(parser.getName().equalsIgnoreCase("substance")) {
+                        inSubstance = true;
+                        sb.setLength(0); //clears section tag xml being added to sb
+                        //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+                        //sb.append("<substance>");
+                    }
+                    else if(inSubstance)
+                    {
+                        if(parser.getName().equalsIgnoreCase("name"))
+                        {
+                            inName = true;
+                            //sb.append("<name>");
+                        }
+                    }
+                    sb.append("<" + parser.getName() + ">");
+
+                }
+                else if(parser.getEventType() == XmlPullParser.TEXT && inSubstance && !wrongSubstance)
+                {
+                    if(inName)
+                    {
+                        if(parser.getText().trim().equals(psyName))
+                        {
+                            substanceFound = true;
+                        }
+                        else
+                        {
+                            wrongSubstance = true;
+                        }
+                        inName = false; //theoretically you are still "in name" at the end tag, but this is more efficient
+                    }
+                    sb.append(escapeXml10(parser.getText())); //this text conversion would probably start to slow things down if
+                }
+                else if(parser.getEventType() == XmlPullParser.END_TAG && inSubstance)
+                {
+                    if(!wrongSubstance) { //not sure this helps at all
+                        sb.append("</" + parser.getName() + ">");
+                    }
+                    if(parser.getName().equals("substance"))
+                    {
+                        wrongSubstance = false;
+                        if(substanceFound) {
+                            inSubstance = false; //this shouldn't matter, just seems right
+                            break; //not sure if this works
+                        }
+                        else //If clearing was managed better elsewhere, I don't think this would matter
+                        {
+                            sb.setLength(0);
+                            //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+                        }
+                    }
+
+                }
+
+
+                parser.next();
+            }
+
+
+//                    name = parser.getAttributeValue(null, "name");
+//                    site = parser.getAttributeValue(null, "site");
+//                    phone = parser.getAttributeValue(null, "phone");
+//                    adds = parser.getAttributeValue(null, "address");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //long endTime = System.nanoTime();
+        //Log.d("Time Test.", (endTime - startTime)/1000000000.0 + " s");
+        String result = sb.toString();
+        return sb.toString();
+
+    }
+
+    /**
+     * This isn't actually better. It has more checks, but for the size of the XML the simpler check seems a bit faster
+     * The testing was very unscientific
+     * TODO: recheck this, maybe there is a bug or inefficiency slowing it down
+     * TODO: The other parser had a bug with the first element in each section getting xml junk
+     * @param chartXmlString
+     * @return
+     */
+//    public String getSubXMLComplex(String chartXmlString, String psyName, String psyType)
+//    {
+//
+//        //this is close: http://stackoverflow.com/questions/16069425/xmlpullparser-get-inner-text-including-xml-tags
+//        // what i can probably do is just detect the start of a substance tag, and then start adding tags to a string
+//        // if the name tag inside is the name we want, we keep the string
+//        // This could be really inefficient if the name tags are at the end, but they are currently placed at the beginning
+//
+//        //this could actually be more efficient if I first check if the section name matches, so I only check in the section that matters
+//
+//        //there are no attributes in the whole xml, so I'm not dealing with them.
+//
+//
+//        //long startTime = System.nanoTime();
+//        StringBuilder sb = new StringBuilder();
+//
+//        try {
+//            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+//            XmlPullParser parser = factory.newPullParser();
+//            parser.setInput(new StringReader(chartXmlString));
+//
+//            Boolean inSubstance = false;
+//            Boolean inName = false;
+//            Boolean substanceFound = false;
+//            Boolean wrongSubstance = false;
+//            Boolean wrongSection = false;
+//
+//            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+//                if (parser.getEventType() == XmlPullParser.START_TAG  && !wrongSubstance && !wrongSection) {
+//                    if(parser.getName().equalsIgnoreCase("substance")) {
+//                        inSubstance = true;
+//                        sb.setLength(0); //clears section tag xml being added to sb
+//                        //sb.append("<substance>");
+//                    }
+//                    else if(inSubstance)
+//                    {
+//                        if(parser.getName().equalsIgnoreCase("name"))
+//                        {
+//                            inName = true;
+//                            //sb.append("<name>");
+//                        }
+//                    }
+//                    sb.append("<" + parser.getName() + ">");
+//                    if(parser.getName().trim().equals("section-name"))
+//                    {   //done at the end to stop breaking from checking of different tag types
+//                        //immediately get next tag, to check content. section-name only has text in it.
+//                        //if this changes this may be problematic, though will likely only pull something else unimportant
+//                        parser.next();
+//                        if(!parser.getText().equals(psyType))
+//                        {
+//                            wrongSection = true;
+//                        }
+//                    }
+//
+//                }
+//                else if(parser.getEventType() == XmlPullParser.TEXT && inSubstance && !wrongSubstance && !wrongSection)
+//                {
+//                    if(inName)
+//                    {
+//                        if(parser.getText().trim().equals(psyName))
+//                        {
+//                            substanceFound = true;
+//                        }
+//                        else
+//                        {
+//                            wrongSubstance = true;
+//                        }
+//                        inName = false; //theoretically you are still "in name" at the end tag, but this is more efficient
+//                    }
+//                    sb.append(parser.getText());
+//                }
+//                else if(parser.getEventType() == XmlPullParser.END_TAG && inSubstance)
+//                {
+//                    if(!wrongSection && !wrongSubstance) { //not sure this helps at all
+//                        sb.append("</" + parser.getName() + ">");
+//                    }
+//                    if(parser.getName().equals("substance"))
+//                    {
+//                        wrongSubstance = false;
+//                        if(substanceFound) {
+//                            inSubstance = false; //this shouldn't matter, just seems right
+//                            break; //not sure if this works
+//                        }
+//                        else //If clearing was managed better elsewhere, I don't think this would matter
+//                        {
+//                            sb.setLength(0);
+//                        }
+//                    }
+//                    if(parser.getName().equals("section"))
+//                    {
+//                        wrongSection = false;
+//                    }
+//
+//                }
+//
+//
+//                parser.next();
+//            }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        //long endTime = System.nanoTime();
+//        //Log.d("Time Test.", (endTime - startTime)/1000000000.0 + " s");
+//        String result = sb.toString();
+//        return sb.toString();
+//
+//    }
+
+    public ErowidPsychoactiveVaults getPsyVaultFromXML(String chartXmlString) {
+        try {
+            long startTime = System.nanoTime();
+
+            ErowidPsychoactiveVaults vault;
+
+
+            XStream xstream = new XStream();
+
+            xstream.alias("erowid-psychoactive-vaults", ErowidPsychoactiveVaults.class);
+            xstream.alias("substance", Substance.class);
+            //xstream.addImplicitCollection(ErowidPsychoactiveVaults.class, "section");
+
+            //xstream.alias("alternate-name-set", AlternateNameSet.class);
+            //xstream.alias("image-set", ImageSet.class);
+            //xstream.alias("image-entry", ImageEntry.class);
+
+            xstream.processAnnotations(ErowidPsychoactiveVaults.class);
+            xstream.processAnnotations(Section.class);
+            xstream.processAnnotations(Substance.class);
+            xstream.processAnnotations(AlternateNameSet.class);
+            xstream.processAnnotations(ImageSet.class);
+            xstream.processAnnotations(ImageEntry.class);
+
+            xstream.ignoreUnknownElements("slang-name-set"); //could just pass blank unknown elements, but then would make hard to debug
+            xstream.ignoreUnknownElements("experience-set");
+
+            vault = (ErowidPsychoactiveVaults) xstream.fromXML(chartXmlString);
+
+            long endTime = System.nanoTime();
+            Log.d("Time Test.", (endTime - startTime) / 1000000000.0 + " s");
+            return vault;
+        } catch (Exception e) {
+            Log.d("Error shared!.", " " + e);
+            return null;
+        }
+
+    }
+    public Substance getSubstanceFromXML(String chartXmlString)
+    {
+        try {
+            //long startTime = System.nanoTime();
+
+            Substance vault;
+
+
+            XStream xstream = new XStream();
+
+            //xstream.alias("erowid-psychoactive-vaults", ErowidPsychoactiveVaults.class);
+            xstream.alias("substance", Substance.class);
+            //xstream.addImplicitCollection(ErowidPsychoactiveVaults.class, "section");
+
+            //xstream.alias("alternate-name-set", AlternateNameSet.class);
+            //xstream.alias("image-set", ImageSet.class);
+            //xstream.alias("image-entry", ImageEntry.class);
+
+            //xstream.processAnnotations(ErowidPsychoactiveVaults.class);
+            //xstream.processAnnotations(Section.class);
+            xstream.processAnnotations(Substance.class);
+            xstream.processAnnotations(AlternateNameSet.class);
+            xstream.processAnnotations(ImageSet.class);
+            xstream.processAnnotations(ImageEntry.class);
+
+            xstream.ignoreUnknownElements("slang-name-set"); //could just pass blank unknown elements, but then would make hard to debug
+            xstream.ignoreUnknownElements("experience-set");
+
+            vault = (Substance) xstream.fromXML(chartXmlString);
+
+           //long endTime = System.nanoTime();
+            //Log.d("Time Test.", (endTime - startTime)/1000000000.0 + " s");
+            return vault;
+        }
+        catch (Exception e)
+        {
+            Log.d("Error shared!.", " " + e);
+            return null;
+        }
+
+
+
+
+
+
+
+    }
+
+    /**
+     * This is commented out because trying to generate new XML from the objects
+     * was causing duplicate tags, and I couldn't figure out why.
+     *
+     * Instead, the code saves the big_chart and just uses that every time.
+     */
+
+
+//    public String getXMLFromPsyVault(ErowidPsychoactiveVaults vault)
+//    {
+//        try {
+//
+//            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+//            XmlPullParser xpp = factory.newPullParser();
+//
+//            XStream xstream = new XStream();
+//
+//
+//            String objStructuredXML = xstream.toXML(vault);
+//            return objStructuredXML;
+//        }
+//        catch (Exception e){
+//            return null;
+//        }
+//
+//    }
+
 	//Accesses the webpage content to make a string
 	public String getWebContent(String url)
 	{
@@ -251,7 +673,7 @@ public class SharedMethods {
 	} 
 
 	//Creates a map of report card info for use in PsychoNavigatorActivity
-	Map<String, String> getReportCardInfo(String url)
+	public Map<String, String> getReportCardInfo(String url)
 	{
 		Map<String, String> content = new HashMap<String, String>();
 		String rawContent = getWebContent(url);
@@ -285,19 +707,19 @@ public class SharedMethods {
 	 * @param theString - The string to be searched on
 	 * @param splitString - The substring searched for
 	 */
-	int indexAfter(String theString, String splitString)
+	public int indexAfter(String theString, String splitString)
 	{
 		int length = splitString.length();
 		int index = theString.indexOf(splitString) + length; 
 		return index;
-	} 
-	
+	}
+
 	/**
 	 * Takes the list of psychoactive information and saves it as a comma seperated SharedPreferences
 	 */
 	void storePsyChoicesList(List<String[]> psyTable, Context passedContext)
 	{
-		SharedPreferences.Editor edit= passedContext.getSharedPreferences("PSYTABLE", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor edit= passedContext.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE).edit();
 		StringBuilder tableStringB = new StringBuilder();
 		for(int i = 0; i < psyTable.size(); i++)
 		{
@@ -320,7 +742,7 @@ public class SharedMethods {
 	 */
 	List<String[]> getStoredPsyChoicesList(Context passedContext)
 	{
-		SharedPreferences prefs = passedContext.getSharedPreferences("PSYTABLE", Context.MODE_PRIVATE);
+		SharedPreferences prefs = passedContext.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE);
 		String tableString = prefs.getString("table", "");
 		if(tableString.equals(""))
 		{	//if there is no table to pull
@@ -352,10 +774,9 @@ public class SharedMethods {
 	}
 	
 	public List<String[]> getOfflineSiteFilenameAndDateList(String path)
-	{
+	{ //getFilesDir().getPath();
 		List<String[]> offlineFilenameAndDateList = new ArrayList<String[]>();
-		File directory;
-	    directory = new File(path);
+		File directory = new File(path);
 	    for (File f : directory.listFiles()) {
 	        if (f.isFile())
 	        {
@@ -369,7 +790,6 @@ public class SharedMethods {
 	}
 	
 	//Does the actual html-to-string creation
-	//Keep Private
 	private static String convertStreamToString(InputStream is) {
 		/*
 		 * To convert the InputStream to String we use the BufferedReader.readLine()
@@ -409,4 +829,5 @@ public class SharedMethods {
 	    }
 	    return false;
 	}
+
 }

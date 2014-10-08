@@ -31,6 +31,8 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 /** 
  * Activity for displaying Erowid web content.
  * Loads the specified page of the chosen psychoactive
@@ -139,8 +141,8 @@ public class WebDisplayActivity extends Activity {
 				myWebFetch.execute(); 
 			}
 			ActionBar actionBar = getActionBar();
-			actionBar.setTitle("Substance Info"); 
-			actionBar.setSubtitle(psyName + " " + chosenPageType);
+			actionBar.setTitle("Substance Info");
+			actionBar.setSubtitle(WordUtils.capitalize(psyName.replaceAll("_", " ") + " - " + chosenPageType));
 		}
 		else
 		{	//create a default. Use when debugging.

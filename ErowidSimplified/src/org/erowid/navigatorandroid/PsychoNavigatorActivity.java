@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.text.WordUtils;
+import org.erowid.navigatorandroid.fragments.PsyReportCardFragment;
+import org.erowid.navigatorandroid.fragments.PsyWebResourcesFragment;
+import org.erowid.navigatorandroid.xmlXstream.Substance;
+
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +25,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,27 +37,36 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 
-public class PsychoNavigatorActivity extends Activity {
+
+public class PsychoNavigatorActivity extends FragmentActivity {
 
 	org.erowid.navigatorandroid.SharedMethods m = new org.erowid.navigatorandroid.SharedMethods();
+    //ErowidPsychoactiveVaults vault = VaultSingleton.getInstance().getVault();
 	String psyName;
 	String psyType;
+    Substance substance;
 	Menu theMenu;
 	String pagesStoredStatus;
-	int pagesCanBeHeld = 0;
 	boolean isResumed = false;
 	List<String> possiblePageTypes = new ArrayList<String>();
 	String downloadedHtmlContent = "";
-	Boolean pullingReportCardText = false; 
-	
+	Boolean pullingReportCardText = false;
+    //int subTypeIndex;
+    //int subPosition;
+
+    private FragmentTabHost mTabHost;
+
 	/**
 	 * On creation, start UI and handle incoming intents
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_psycho_navigator);
+		//setContentView(R.layout.activity_psycho_navigator);
+        setContentView(R.layout.activity_psycho_navigator_with_tabs);
 
 		//handle incoming search info
 		handleIntent(getIntent()); 
@@ -95,6 +109,16 @@ public class PsychoNavigatorActivity extends Activity {
 		handleIntent(intent); 
 	}
 
+    public Substance getSubstance()
+    {
+        return substance;
+    }
+
+    public String getPsyType()
+    {
+        return psyType;
+    }
+
 	/**
 	 * Handles the navigation intent from the main page, loading the sent psychoactive.
 	 * This is defined in android manifest (look for meta-data, its unobvious)
@@ -103,57 +127,99 @@ public class PsychoNavigatorActivity extends Activity {
 	 * @param intent
 	 */
 	private void handleIntent(Intent intent) { 
-		if (true) { //removed check to allow main page dropdown //Intent.ACTION_SEARCH.equals(intent.getAction())
+		if (true)
+        { //removed check to allow main page dropdown //Intent.ACTION_SEARCH.equals(intent.getAction())
 
-			String tempPsyName;
-			if(intent.getStringExtra(SearchManager.QUERY) != null)
+
+            if(intent.getDataString() != null)
 			{ //if search term
-				tempPsyName = intent.getStringExtra(SearchManager.QUERY); // seems to have some junk
-			}
-			if(intent.getStringExtra("SENT_PSYCHOACTIVE") != null)
-			{ //if main page dropdown
-				tempPsyName = intent.getStringExtra("SENT_PSYCHOACTIVE");
+                String[] tempDataArray = intent.getDataString().split(",");
+                psyName = tempDataArray[0];
+                psyType = tempDataArray[1].toLowerCase();
+ //               subTypeIndex = Integer.parseInt(tempData[1]);
+ //               subPosition = Integer.parseInt(tempData[2]);
+                //int[] psyAndSectionId = intent.getEx
+                //subTypeIndex = intent.getIntExtra("SECTION_INDEX",-1);
+                //subPosition = intent.getIntExtra("SUBSTANCE_INDEX",-1);
 			}
 			else
-			{ // if selected search hint
-				tempPsyName = intent.getDataString();
-				//tempPsyName = "cannabis";
+			{ //if main page dropdown
+                //subTypeIndex = intent.getIntExtra("SECTION_INDEX",-1);
+                //subPosition = intent.getIntExtra("SUBSTANCE_INDEX",-1);
+                //tempPsyName = vault.getSection().get(subTypeIndex).getSubstance().get(subPosition).getName();
+                //Toast.makeText(this, "subTypeIndex " + subTypeIndex + " | subPosition " +subPosition, Toast.LENGTH_LONG);
+                psyName = intent.getStringExtra("SUBSTANCE_NAME");
+                psyType = intent.getStringExtra("SUBSTANCE_TYPE").toLowerCase();
 			}
-			List<String[]> psyTable = m.getStoredPsyChoicesList(getBaseContext());
-			boolean searchFound = false;
-			//iterate through the table and find the row for the chosen psychactive, then use info to pull web content.
-			for(int i = 0; i < psyTable.size(); i++)
-			{
-				if(psyTable.get(i)[0].equals(tempPsyName))
-				{
-					psyName = tempPsyName.replaceAll(" ", "_");
-					psyType = psyTable.get(i)[2];
-					
-					ActionBar actionBar = getActionBar();
-					actionBar.setTitle("Substance Info");
-					actionBar.setSubtitle(psyName);
-					
-					initializeButtons(psyTable.get(i)[0], i, psyTable);
-					String urlForGrab = "http://erowid.org/"+ psyType + "/" + psyName + "/";
-					String psyType = psyTable.get(i)[getResources().getInteger(R.integer.psy_table_type)];
-					webContentAsyncTask myWebFetch = new webContentAsyncTask(urlForGrab, psyType, psyName);
-					myWebFetch.execute();
-					searchFound= true;
-					break;
-					
-				} 
-			}  
-			if(!searchFound)
-			{   //If the navigation came through the actual search, instead of the hints, it is due to a bug in the user's keyboard's IME implementation
-				//This is pretty rare, and my code does as it should, so I am handling this in a less-than-graceful manner.
-				//May be more often than thought if a lot of users have badly implemented custom keyboards.
-				Toast.makeText(getBaseContext(),"This is a search bug. You should not be able to push enter, only select hints. Please choose a hint from the search to get a result.", Toast.LENGTH_LONG).show();
-				Intent intentz = new Intent(getBaseContext(), MainPageActivity.class);
-				intentz.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // to prevent back navigation to the old intent after launch
-				startActivity(intentz);
-			}
-		}   
-	}    
+
+
+            //Substance substance;
+            //String psyName;
+            //String psyType;
+
+//            PsyReportCardFragment psyReportCardFragment = new PsyReportCardFragment();
+//            // Supply index input as an argument.
+//            Bundle args = new Bundle();
+//            args.putString("psyName", psyName);
+//            args.putString("psyType", psyType);
+//            args.put
+//            psyReportCardFragment.setArguments(args);
+
+
+
+
+//            psyType = vault.getSection().get(subTypeIndex).getSectionName().toLowerCase();
+//            psyName = tempPsyName.replaceAll(" ", "_").toLowerCase();
+
+            Log.d("SubFrag Test", "Substance not created");
+            substance = m.getSubstanceFromXML(m.getSubXML(m.getSubstancesClassString(this), psyName)); //this still takes a while, maybe async it?
+            Log.d("Substance in Nav", substance.getName());
+            Log.d("SubFrag Test", "Substance Created");
+
+            ActionBar actionBar = getActionBar();
+            actionBar.setTitle("Substance Info");
+            actionBar.setSubtitle(WordUtils.capitalize(psyName.replaceAll("_", " ")));
+
+
+            mTabHost = (FragmentTabHost) findViewById(R.id.tabHost); //does nothing
+            mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
+
+            mTabHost.addTab(
+                    mTabHost.newTabSpec("tab1").setIndicator("Report Card",
+                            getResources().getDrawable(android.R.drawable.star_on)),
+                    PsyReportCardFragment.class, null);
+            mTabHost.addTab(
+                    mTabHost.newTabSpec("tab2").setIndicator("Web Resources",
+                            getResources().getDrawable(android.R.drawable.star_on)),
+                    PsyWebResourcesFragment.class, null);
+
+
+            //keeps track of the number of pages that can be saved, for the pagesavestar
+
+            if(substance.getBasics() != null)   possiblePageTypes.add("basics");
+            if(substance.getEffects() != null)  possiblePageTypes.add("effects");
+            if(substance.getHealth() != null)   possiblePageTypes.add("health");
+            if(substance.getLaw() != null)      possiblePageTypes.add("law");
+            if(substance.getDose() != null)     possiblePageTypes.add("dose");
+
+
+
+
+
+
+            //TODO: Fix this with new implementation. Probably add a check with the if/else above
+//			if(!searchFound)
+//			{   //If the navigation came through the actual search, instead of the hints, it is due to a bug in the user's keyboard's IME implementation
+//				//This is pretty rare, and my code does as it should, so I am handling this in a less-than-graceful manner.
+//				//May be more often than thought if a lot of users have badly implemented custom keyboards.
+//				Toast.makeText(getBaseContext(),"This is a search bug. You should not be able to push enter, only select hints. Please choose a hint from the search to get a result.", Toast.LENGTH_LONG).show();
+//				Intent intentz = new Intent(getBaseContext(), MainPageActivity.class);
+//				intentz.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // to prevent back navigation to the old intent after launch
+//				startActivity(intentz);
+//			}
+
+        }
+    }
 
 
 	@Override
@@ -173,7 +239,7 @@ public class PsychoNavigatorActivity extends Activity {
 
 		//Toast.makeText(getBaseContext(),"available pages: " + pagesCanBeHeld, Toast.LENGTH_LONG).show();
 		
-		if(pagesCanBeHeld == 0)
+		if(possiblePageTypes.size() == 0)
 		{
 			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
 			offlineMenuItem.setVisible(false);
@@ -181,7 +247,6 @@ public class PsychoNavigatorActivity extends Activity {
 
 		setPageSaveStar();
 
-		
 		return true;		 
 	}   
 	
@@ -193,15 +258,20 @@ public class PsychoNavigatorActivity extends Activity {
 		int pageCount = 0;
 		List psyList = m.getOfflineSiteFilenameList(getFilesDir().getPath());
 		String subTestName = m.capitalize(psyType) + " | " + m.capitalize(psyName) + " | "; //change other define
-		for (int i = 0; i < psyList.size(); i++)
+//
+
+
+        //Log.d("Star Test", substance.getBasics());
+
+        for (int i = 0; i < psyList.size(); i++)
 		{
-			if (psyList.get(i).equals(subTestName + "Basics")  
-					|| psyList.get(i).equals(subTestName + "Effects")  
-					|| psyList.get(i).equals(subTestName + "Health")  
-					|| psyList.get(i).equals(subTestName + "Law")  
+			if (psyList.get(i).equals(subTestName + "Basics")
+					|| psyList.get(i).equals(subTestName + "Effects")
+					|| psyList.get(i).equals(subTestName + "Health")
+					|| psyList.get(i).equals(subTestName + "Law")
 					|| psyList.get(i).equals(subTestName + "Dose" )  )
-			{ 
-				pageCount++; 
+			{
+				pageCount++;
 			}
 		}
 		//Toast.makeText(this, "pageCount: " + pageCount + " | pagesCanBeHeld: " + pagesCanBeHeld, Toast.LENGTH_LONG).show();
@@ -212,7 +282,7 @@ public class PsychoNavigatorActivity extends Activity {
 			offlineMenuItem.setIcon(R.drawable.ic_action_not_important);
 			pagesStoredStatus = "none";
 		}
-		else if(pageCount >= pagesCanBeHeld) //all pages saved. Should never be greater, but might as well react elegantly.
+		else if(pageCount >= possiblePageTypes.size()) //all pages saved. Should never be greater, but might as well react elegantly.
 		{
 			MenuItem offlineMenuItem = theMenu.findItem(R.id.action_store_page_offline);
 			offlineMenuItem.setIcon(R.drawable.ic_action_important);
@@ -261,7 +331,7 @@ public class PsychoNavigatorActivity extends Activity {
 	    			}
 	    		}
 		    	
-		    	if(pageCount >= pagesCanBeHeld)//full, make empty
+		    	if(pageCount >= possiblePageTypes.size())//full, make empty
 		    	{
 		    		for(String possible : possiblePageTypes)
 		    		{ //for each possible page
@@ -325,233 +395,7 @@ public class PsychoNavigatorActivity extends Activity {
 	    }
 	}
 	
-	/**
-	 * Handles the button generation, which is dynamic depending on the content available for the psychoactive.
-	 * TODO: Passing the psyTable is probably overkill. I'm not sure if its that big though.
-	 * 
-	 * @param item - the chosen psychoactive.
-	 * @param psyPos - the position of the psychoactive in the table
-	 * @param psychoactiveTable - the table containing all psychoactives.
-	 */
-	private void initializeButtons(final String item, int psyPos, List<String[]> psychoactiveTable)
-	{
-		Button basicsButton = (Button) findViewById(R.id.basics_button); 		//04 in array
-		Button effectsButton = (Button) findViewById(R.id.effects_button); 		//10 in array
-		Button imagesButton = (Button) findViewById(R.id.images_button); 		//05 in array
-		Button healthButton = (Button) findViewById(R.id.health_button);		//13 in array
-		Button lawButton = (Button) findViewById(R.id.law_button);				//06 in array
-		Button doseButton = (Button) findViewById(R.id.dose_button);			//07 in array
-		Button chemistryButton = (Button) findViewById(R.id.chemistry_button);	//11 in array
-		Button researchChemicalButton = (Button) findViewById(R.id.research_chemical_button);	//not populated from general...
-		researchChemicalButton.setVisibility(View.INVISIBLE); //because its not being populated now
 
-		TextView psychoName = (TextView) findViewById(R.id.psychoName);
-		
-		psychoName.setText(Html.fromHtml("<b>"+ item.replaceAll("_", " ") + "</b>"));
-		
-		//For each button, check the table to see if it should be visible
-		if(psychoactiveTable.get(psyPos)[4].equals("0")) {
-			basicsButton.setVisibility(View.INVISIBLE); }
-		else{
-			basicsButton.setVisibility(View.VISIBLE);
-			possiblePageTypes.add("basics");
-			pagesCanBeHeld++;
-			}
-		if(psychoactiveTable.get(psyPos)[10].equals("0") || psyType.equals("smarts")) {
-			effectsButton.setVisibility(View.INVISIBLE); }
-		else{
-			effectsButton.setVisibility(View.VISIBLE); 
-			possiblePageTypes.add("effects");
-			pagesCanBeHeld++;}
-		
-		if(psychoactiveTable.get(psyPos)[05].equals("0")) {
-			imagesButton.setVisibility(View.INVISIBLE); }
-		else{
-			imagesButton.setVisibility(View.VISIBLE);
-			//possiblePageTypes.add("images");
-			//pagesCanBeHeld++; //images page isn't stored
-			}
-		if(psychoactiveTable.get(psyPos)[13].equals("0") || psyType.equals("pharms") || psyType.equals("smarts")) {
-			healthButton.setVisibility(View.INVISIBLE); }
-		else{
-			healthButton.setVisibility(View.VISIBLE); 
-			possiblePageTypes.add("health");
-			pagesCanBeHeld++;}
-		
-		if(psychoactiveTable.get(psyPos)[6].equals("0")) {
-			lawButton.setVisibility(View.INVISIBLE); }
-		else{
-			lawButton.setVisibility(View.VISIBLE);
-			possiblePageTypes.add("law");
-			pagesCanBeHeld++;}
-		
-		if(psychoactiveTable.get(psyPos)[7].equals("0")) {
-			doseButton.setVisibility(View.INVISIBLE); }
-		else{
-			doseButton.setVisibility(View.VISIBLE);
-			possiblePageTypes.add("dose");
-			pagesCanBeHeld++;}
-		
-		
-		//not used currently
-		if(psychoactiveTable.get(psyPos)[11].equals("0")) {
-			chemistryButton.setVisibility(View.INVISIBLE); }
-		else{
-			chemistryButton.setVisibility(View.VISIBLE); }
-
-		//Set all click listeners.
-		basicsButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{
-					if (m.isOnline(getBaseContext()))
-					{
-						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-						intent.putExtra("SENT_PSY_TYPE", psyType);
-						intent.putExtra("SENT_PAGE", "basics");
-						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-		effectsButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{ 
-					if (m.isOnline(getBaseContext()))
-					{
-						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-						intent.putExtra("SENT_PSY_TYPE", psyType);
-						intent.putExtra("SENT_PAGE", "effects");
-						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-		imagesButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) { 
-				if(item != null)
-				{
-					if (m.isOnline(getBaseContext()))
-					{	
-						//This loads in the browser instead of through the internal webview, because the images page requires clicking links
-						//This could be enabled internally in the future, but there isn't a lot of gain without writing more parsing code
-						//to make the images more accessible.
-						String pageURL = "http://erowid.org/"  + psyType + "/" + psyName + "/" + psyName + "_images.shtml";
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pageURL));
-				    	//"http://erowid.org/" + psyType + "/" + psyName + "/images/" + psyName
-				    	startActivity(browserIntent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-		healthButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{
-					if (m.isOnline(getBaseContext()))
-					{
-						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-						intent.putExtra("SENT_PSY_TYPE", psyType);
-						intent.putExtra("SENT_PAGE", "health");
-						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			} 
-		}); 
-		lawButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{
-					if (m.isOnline(getBaseContext()))
-					{
-						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-						intent.putExtra("SENT_PSY_TYPE", psyType);
-						intent.putExtra("SENT_PAGE", "law");
-						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-		doseButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{
-					if (m.isOnline(getBaseContext()))
-					{
-						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-						intent.putExtra("SENT_PSY_TYPE", psyType);
-						intent.putExtra("SENT_PAGE", "dose");
-						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-		chemistryButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(item != null)
-				{  
-					if (m.isOnline(getBaseContext()))
-					{
-						//This loads in the browser instead of through the internal webview, because the formatting was broken.
-						//Could be changed later
-						String pageURL = "http://erowid.org/"  + psyType + "/" + psyName + "/" + psyName + "_chemistry.shtml";
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pageURL));
-				    	//"http://erowid.org/" + psyType + "/" + psyName + "/images/" + psyName
-				    	startActivity(browserIntent);
-
-						//Old code for loading chemistry internally. 
-				    	
-//						Intent intent = new Intent(getBaseContext(), WebDisplayActivity.class);
-//						intent.putExtra("SENT_PSYCHOACTIVE", psyName);
-//						intent.putExtra("SENT_PSY_TYPE", psyType);
-//						intent.putExtra("SENT_PAGE", "chemistry");
-//						startActivity(intent);
-					}
-					else
-					{ 
-						Toast.makeText(getBaseContext(), "Reconnect to the internet" , Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-		});
-	} // End setting click listeners
 	
 	/**
 	 * Background web content class.
@@ -624,107 +468,5 @@ public class PsychoNavigatorActivity extends Activity {
 	}
 	
 	
-	//Web Content population class
-	class webContentAsyncTask extends AsyncTask<Void, Void, Void>    {
-		//Defining text pulled from the web to be displayed to the user.
-		String description = "";
-		String effects = "";
-		String chemical_name = "";
-		String caution = "";
-		String common_names = "";
-		
-		//Other variables
-		String url = ""; 
-		String psyType = "";
-		String psyName = "";
-		WebView infoWebView = (WebView) findViewById(R.id.infoWebView);		
-		
-		webContentAsyncTask(String passedUrl)    { 
-			url= passedUrl;           
-		} 
 
-		webContentAsyncTask(String passedUrl, String pType, String pName )    { 
-			url = passedUrl;
-			psyType = pType;
-			psyName = pName;
-		} 
-		
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			TextView psyDescription = (TextView) findViewById(R.id.psychoactiveDescription); 
-			psyDescription.setText("Loading...");
-		}  
-
-		/**
-		 * This contains the actual webCall takes its returned content to populate strings for use in the view.
-		 */
-		@Override 
-		protected Void doInBackground(Void... arg0) {
-			pullingReportCardText = true;
-			Map<String, String> reportCard = m.getReportCardInfo(url); //calls a shared method that grabs info needed from the report card page.
-			description = reportCard.get("Description");
-			effects = reportCard.get("Effects"); //this messes up formatting
-			chemical_name = reportCard.get("Chemical Name");
-			caution = reportCard.get("Caution");
-			common_names = reportCard.get("Common Names");
-
-			//this pulls the summary jpg and resizes it for use.
-			//TODO: make sure this works at different page sizes.
-			try {
-				URL psyImageUrl = new URL("http://erowid.org/" + psyType + "/" + psyName + "/images/" + psyName +"_summary1.jpg");
-				final Bitmap psyImageBitmap = BitmapFactory.decodeStream(psyImageUrl.openConnection().getInputStream());
-				final ImageView psyImageView = (ImageView) findViewById(R.id.psyImage);
-				runOnUiThread(new Runnable() {
-				     @Override
-					public void run() {
-				    	 int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
-				    	 int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 225, getResources().getDisplayMetrics());
-						 psyImageView.getLayoutParams().height = height;
-						 psyImageView.getLayoutParams().width = width;
-						 //psyImageView.requestLayout();
-				    	 psyImageView.setImageBitmap(psyImageBitmap);
-				    	 //calculating the dpi for the image height/width once we know we have an image.
-				    	 //not based on attributes of 
-				    }
-				});
-				
-				System.out.println("Image Grab Finishes");
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				//Happens if no image
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		/**
-		 * Generates the scrolling text box content.
-		 */
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-
-			//Create the scrolling textbox containing text parsed out of the web content.
-			TextView psyDescription = (TextView) findViewById(R.id.psychoactiveDescription); 
-			
-			if(!psyType.equalsIgnoreCase("herbs"))
-			{
-				psyDescription.setText(Html.fromHtml(
-						"<b>Effects Classification:</b><br>" + effects + "<br/>" + 
-						"<b>Description:</b><br>" + description + "<br/>" + 
-						"<b>Common Names:</b><br>" + common_names ));
-			}
-			else
-			{ //herbs does not have effects class, so don't show.
-				psyDescription.setText(Html.fromHtml(
-						"<b>Description:</b><br>" + description + "<br/>" + 
-						"<b>Common Names:</b><br>" + common_names ));
-			}
-			psyDescription.setMovementMethod(new ScrollingMovementMethod()); 		  
-			pullingReportCardText = false;
-		}  
-	}
 }

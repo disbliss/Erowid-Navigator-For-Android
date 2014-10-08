@@ -14,10 +14,9 @@
     <string name="action_search">Search</string>
     <string name="hello_world">Hello world!</string>
     <string name="search_hint">Type a psychoactive</string>
-    <string name="search_label">Frogs</string>
+    <string name="search_label">Erowid Search</string>
 
     <string-array name="psy_types_array">
-        <item>-<i>Type</i>-</item>
         <item>Chemicals</item>
         <item>Plants</item>
         <item>Herbs</item>
