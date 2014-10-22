@@ -113,16 +113,16 @@
                     android:background="@android:drawable/btn_default"
                     android:scaleType="center"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/law_button"
-                    android:src="@drawable/erowid_button_law"/>
-                <ImageButton
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:background="@android:drawable/btn_default"
-                    android:scaleType="center"
-                    android:layout_marginRight="5dp"
                     android:id="@+id/dose_button"
                     android:src="@drawable/erowid_button_dose"/>
+                <ImageButton
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:background="@android:drawable/btn_default"
+                        android:scaleType="center"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/law_button"
+                        android:src="@drawable/erowid_button_law"/>
 
 
                 <LinearLayout

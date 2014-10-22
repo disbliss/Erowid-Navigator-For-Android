@@ -3,7 +3,76 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <WebView
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="1" >
+        <WebView
+                android:id="@+id/infoWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <LinearLayout
+                android:id="@+id/zoomButtonLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right">
+            <!--android:background="@color/dark_dark_blue"-->
+
+            <ImageButton
+                    android:id="@+id/zoomOutButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".5"
+                    android:onClick="zoomOutButton_onClick"
+                    android:background="@drawable/roundedshadowbutton"
+                    android:src="@drawable/ic_action_zoom_out"
+                    android:scaleType="fitCenter"/>
+
+            <ImageButton
+                    android:id="@+id/zoomInButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".5"
+                    android:onClick="zoomInButton_onClick"
+                    android:background="@drawable/roundedshadowbutton"
+                    android:src="@drawable/ic_action_zoom_in"
+                    android:scaleType="fitCenter"/>
+            <!--
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="5dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:layout_marginTop="5dp"
+              android:layout_weight=".5"
+              android:background="@drawable/roundedbutton"
+              android:onClick="zoomOutButton_onClick"
+              android:text="Zoom Out" />
+
+          <Button
+              android:id="@+id/zoomInButton"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="5dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:layout_marginTop="5dp"
+              android:layout_weight=".5"
+              android:background="@drawable/roundedbutton"
+              android:onClick="zoomInButton_onClick"
+              android:text="Zoom In" /> -->
+        </LinearLayout>
+
+
+    </FrameLayout>
+    <!--<WebView
         android:id="@+id/infoWebView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -13,43 +82,7 @@
        	android:id="@+id/bottomLineView"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:background="#222222" />
+        android:background="#222222" /> -->
 
-    <LinearLayout
-        android:id="@+id/zoomButtonLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dark_dark_blue"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp" >
-
-        <Button
-            android:id="@+id/zoomOutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight=".5"
-            android:background="@drawable/roundedbutton"
-            android:onClick="zoomOutButton_onClick"
-            android:text="Zoom Out" />
-
-        <Button
-            android:id="@+id/zoomInButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight=".5"
-            android:background="@drawable/roundedbutton"
-            android:onClick="zoomInButton_onClick"
-            android:text="Zoom In" />
-    </LinearLayout>
 
 </LinearLayout>

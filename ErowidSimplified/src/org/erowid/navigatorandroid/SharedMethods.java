@@ -1,17 +1,6 @@
 package org.erowid.navigatorandroid;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -606,6 +595,90 @@ public class SharedMethods {
 
 
 
+    }
+
+    public Substance getSubstanceFromShortXML(String psyType, String psyName, String absFileDir)
+    {
+
+
+        StringBuilder sb = new StringBuilder();
+        try{
+            String subFileName = absFileDir+"/chartXml/" + psyType.toLowerCase() + "/" + psyName;
+            File subFile = new File(subFileName);
+            FileInputStream fis = new FileInputStream(subFile);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            fis.close();
+        } catch(OutOfMemoryError om){
+            om.printStackTrace();
+            return null;
+        } catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+        String fileString = sb.toString();
+
+        return getSubstanceFromXML(fileString);
+    }
+
+    /**
+     * Using bigchart.xml is proving to be too slow, having to load and use the giant xml file
+     * This method parses the xml once into a set of folders and with smaller substance xml files.
+     *
+     * Things to consider:
+     *      This should probably delete all the folders before starting, old xml should just be wiped
+     */
+    public void splitVaultXmlUpAndStore(String chartXmlString, String absFilesDir)
+    {
+
+        //Very first, create a new substances folder (and delete the old instance)
+
+        //Parse for each <section-name>
+        //Create a folder for the section
+        String[] chartSectionsSplit = chartXmlString.split("<section *>"); //assuming the start of the string is split
+        File mainFolderPath = new File(absFilesDir+"/chartXml/");
+        mainFolderPath.mkdir();
+
+        String UTF8 = "utf8";
+        int BUFFER_SIZE = 8192;
+
+        for(int i = 1; i < chartSectionsSplit.length; i++)
+        {
+            //make sure the non-existant section doesn't break this. it doesn't but make sure later doesn't
+            String substanceType = chartSectionsSplit[i].substring(chartSectionsSplit[i].indexOf("<section-name>") + 14, chartSectionsSplit[i].indexOf("</section-name>"));
+            if(substanceType != "")
+            {
+                //first, create a folder
+                File storagePath = new File(absFilesDir+"/chartXml/" + substanceType.toLowerCase());
+                storagePath.mkdir();
+                //Then pull each substance xml
+                //Throw each substance xml into a file in folder
+
+                String[] chartSubstanceSplit = chartSectionsSplit[i].split("<substance>"); //assuming the start of the string is split
+                for(int j = 1; j < chartSubstanceSplit.length; j++)
+                {
+                    String substanceName = chartSubstanceSplit[j].substring(chartSubstanceSplit[j].indexOf("<name>") + 6, chartSubstanceSplit[j].indexOf("</name>"));
+
+                    String subFileName = absFilesDir+"/chartXml/" + substanceType.toLowerCase() + "/" + substanceName;
+                    File subFile = new File(subFileName);
+
+                    BufferedWriter bw = null; //(context.openFileOutput("files/big_chart_xml.php", Context.MODE_PRIVATE)
+                    try {
+                        bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(subFile), UTF8), BUFFER_SIZE );
+                        bw.write("<substance>"+chartSubstanceSplit[j]);
+                        bw.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        //Then pull each substance xml
+        //Throw each substance xml into the folder
     }
 
     /**

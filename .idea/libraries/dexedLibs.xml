@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ErowidSimplified/bin/dexedLibs/android-support-v4-f73b251bb58fb2dd66ed652271631073.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ErowidSimplified/bin/dexedLibs/annotations-425523fc4e90a5b7b476449b2f272696.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ErowidSimplified/bin/dexedLibs/annotations-d50ae2be74fd6758d5361ae45e082b7e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ErowidSimplified/bin/dexedLibs/android-support-v4-d5d0baa42ea834a1c1131383e0dc0ee8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

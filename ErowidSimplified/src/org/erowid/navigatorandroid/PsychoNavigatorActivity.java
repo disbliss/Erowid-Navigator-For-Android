@@ -172,7 +172,7 @@ public class PsychoNavigatorActivity extends FragmentActivity {
 //            psyName = tempPsyName.replaceAll(" ", "_").toLowerCase();
 
             Log.d("SubFrag Test", "Substance not created");
-            substance = m.getSubstanceFromXML(m.getSubXML(m.getSubstancesClassString(this), psyName)); //this still takes a while, maybe async it?
+            substance =  m.getSubstanceFromShortXML(psyType, psyName, getFilesDir().getAbsolutePath()); //m.getSubstanceFromXML(m.getSubXML(m.getSubstancesClassString(this), psyName)); //this still takes a while, maybe async it?
             Log.d("Substance in Nav", substance.getName());
             Log.d("SubFrag Test", "Substance Created");
 
@@ -221,6 +221,21 @@ public class PsychoNavigatorActivity extends FragmentActivity {
         }
     }
 
+    final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            // Do something
+            return true;
+        }
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            //Toast.makeText(, "Please search by selecting a hinted item", Toast.LENGTH_SHORT);
+
+            // Do something
+            return true;
+        }
+    };
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -234,6 +249,7 @@ public class PsychoNavigatorActivity extends FragmentActivity {
 				(SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		SearchView searchView =
 				(SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(queryTextListener);
 		searchView.setSearchableInfo(
 				searchManager.getSearchableInfo(getComponentName()));
 

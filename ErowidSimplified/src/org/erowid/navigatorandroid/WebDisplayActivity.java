@@ -105,8 +105,9 @@ public class WebDisplayActivity extends Activity {
 			zoomButtonLinearLayout.setVisibility(View.GONE);
 			infoWebView.getSettings().setBuiltInZoomControls(true);
 			infoWebView.getSettings().setDisplayZoomControls(true);
-			View bottomLineView = (View) findViewById(R.id.bottomLineView);
-			bottomLineView.setVisibility(View.GONE);
+			//View bottomLineView = (View) findViewById(R.id.bottomLineView);
+			//bottomLineView.setVisibility(View.GONE);
+
 			//for 4.4, I set up external buttons for zoom in/out. also no pinch zoom.
 			//I'm sure there is some way around this, but it might be horribly obnoxious and I don't care, at least now.
 			//Tried using this fix and couldn't work it. http://stackoverflow.com/questions/19986305/no-more-text-reflow-after-zoom-in-kitkat-webview/20000193#20000193			
@@ -265,7 +266,23 @@ public class WebDisplayActivity extends Activity {
 			e.printStackTrace();
 		}
  }
- 
+
+    final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            // Do something
+            return true;
+        }
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            //Toast.makeText(, "Please search by selecting a hinted item", Toast.LENGTH_SHORT);
+
+            // Do something
+            return true;
+        }
+    };
+
 	/**
 	 * Adds the search bar to the top of the page and makes it active
 	 */
@@ -281,6 +298,7 @@ public class WebDisplayActivity extends Activity {
 	           (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    SearchView searchView =
 	            (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(queryTextListener);
 	    searchView.setSearchableInfo(
 	            searchManager.getSearchableInfo(getComponentName()));
 	    

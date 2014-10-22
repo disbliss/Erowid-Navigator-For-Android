@@ -331,7 +331,6 @@ public class PsyReportCardFragment extends Fragment {
             super.onPreExecute();
             //TextView psyDescription = (TextView) findViewById(R.id.psychoactiveDescription);
             //psyDescription.setText("Loading...");
-///////////////////// here ///////////////////
         }
 
         /**
@@ -356,21 +355,21 @@ public class PsyReportCardFragment extends Fragment {
                 psychoActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
+                    try {
 
-                            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
-                            int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 225, getResources().getDisplayMetrics());
-                            psyImageView.getLayoutParams().height = height;
-                            psyImageView.getLayoutParams().width = width;
-                            //psyImageView.requestLayout();
-                            psyImageView.setImageBitmap(psyImageBitmap);
-                            //calculating the dpi for the image height/width once we know we have an image.
-                            //not based on attributes of
-                        }
-                        catch (Exception e)
-                        {
+                        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+                        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 225, getResources().getDisplayMetrics());
+                        psyImageView.getLayoutParams().height = height;
+                        psyImageView.getLayoutParams().width = width;
+                        //psyImageView.requestLayout();
+                        psyImageView.setImageBitmap(psyImageBitmap);
+                        //calculating the dpi for the image height/width once we know we have an image.
+                        //not based on attributes of
+                    }
+                    catch (Exception e)
+                    {
 
-                        }
+                    }
                     }
                 });
 

@@ -54,9 +54,9 @@ public class MainPageActivity extends Activity {
     ActionMode mActionMode;
 	Menu theMenu;
     String parsedBigChart = "";
-    ErowidPsychoactiveVaults vault;
+    //ErowidPsychoactiveVaults vault;
     List<String[]> vaultTable;
-    String bigChartXML;
+    //String bigChartXML;
     //int subTypeIndex;
 
     // for vaultTable
@@ -87,7 +87,7 @@ public class MainPageActivity extends Activity {
 		TextView navTextView = (TextView) findViewById(R.id.navigationInstructionsTextView);
 		String navString = "<b> Navigation: </b> Choose a psychoactive with the search above or the dropdowns below."; 
 		navTextView.setText(Html.fromHtml(navString));
-		
+
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle("Erowid Navigator");
 
@@ -367,18 +367,18 @@ public class MainPageActivity extends Activity {
 				TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView); 
 				loadingTextView.setVisibility(View.VISIBLE);
 
-                bigChartXML = m.getSubstancesClassString(this); //this is pretty slow
-
-                if (bigChartXML == null || bigChartXML.isEmpty())
-                {
+                //bigChartXML = m.getSubstancesClassString(this); //this is pretty slow
+//
+//                if (bigChartXML == null || bigChartXML.isEmpty())
+//                {
                     webFetchBigChartAsyncTask webFetchBigChartFetch = new webFetchBigChartAsyncTask();
                     webFetchBigChartFetch.execute();
-                }
-                else
-                {
-                    processXmlToVaultAsyncTask processXmlToVaultAsyncTask = new processXmlToVaultAsyncTask();
-                    processXmlToVaultAsyncTask.execute();
-                }
+//                }
+//                else
+//                {
+//                    processXmlToVaultAsyncTask processXmlToVaultAsyncTask = new processXmlToVaultAsyncTask();
+//                    processXmlToVaultAsyncTask.execute();
+//                }
 
 
 
@@ -706,8 +706,12 @@ public class MainPageActivity extends Activity {
         @Override
         protected Void doInBackground(Void... arg0) {
 
-            bigChartXML = m.getWebContent("http://pages.cpsc.ucalgary.ca/~madunlap/big_chart_xml_mod.php");
-            //chartXmlString = chartXmlString.substring(chartXmlString.indexOf("<section")); //ugh... really shouldn't have to do this.
+            String bigChartXML = m.getWebContent("http://pages.cpsc.ucalgary.ca/~madunlap/big_chart_xml_mod.php");
+            m.splitVaultXmlUpAndStore(bigChartXML, getFilesDir().getAbsolutePath());
+
+            ErowidPsychoactiveVaults vault = m.getPsyVaultFromXML(bigChartXML);
+            vaultTable = createVaultTable(vault);
+
             return null;
         }
 
@@ -718,10 +722,13 @@ public class MainPageActivity extends Activity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             try {
-                m.storeSubstancesClassString(bigChartXML, getBaseContext()); //saves a copy for later
-                processXmlToVaultAsyncTask processXmlToVaultAsyncTask = new processXmlToVaultAsyncTask();
-                processXmlToVaultAsyncTask.execute();
-
+                //m.storeSubstancesClassString(bigChartXML, getBaseContext()); //saves a copy for later
+                //processXmlToVaultAsyncTask processXmlToVaultAsyncTask = new processXmlToVaultAsyncTask();
+                //processXmlToVaultAsyncTask.execute();
+                listPsyReady = true;
+                TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
+                loadingTextView.setVisibility(View.GONE);
+                populateSearchLater(theMenu);
             }
             catch (Exception e)
             {
@@ -731,34 +738,35 @@ public class MainPageActivity extends Activity {
     }
 
 
-    class processXmlToVaultAsyncTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... arg0) {
-//            activityManager.getMemoryInfo(mi);
-//            long availableMegs = mi.availMem / 1048576L;
+//    class processXmlToVaultAsyncTask extends AsyncTask<Void, Void, Void> {
+//        @Override
+//        protected Void doInBackground(Void... arg0) {
+////            activityManager.getMemoryInfo(mi);
+////            long availableMegs = mi.availMem / 1048576L;
+////
+////            Log.d("Memory Test before vault.", availableMegs +" mb");
+//            //String singleChartXML = m.getSubXML(bigChartXML, "zopiclone", "PHARMS");
 //
-//            Log.d("Memory Test before vault.", availableMegs +" mb");
-            //String singleChartXML = m.getSubXML(bigChartXML, "zopiclone", "PHARMS");
-
-            vault = m.getPsyVaultFromXML(bigChartXML);
-//            activityManager.getMemoryInfo(mi);
-//            availableMegs = mi.availMem / 1048576L;
+//            vault = m.getPsyVaultFromXML(bigChartXML);
+////            activityManager.getMemoryInfo(mi);
+////            availableMegs = mi.availMem / 1048576L;
+////
+////            Log.d("Memory Test after vault.", availableMegs +" mb");
+//            bigChartXML = null; //hopefully free memory
+//            return null;
+//        }
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            //VaultSingleton.getInstance().setVault(vault);
 //
-//            Log.d("Memory Test after vault.", availableMegs +" mb");
-            bigChartXML = null; //hopefully free memory
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            //VaultSingleton.getInstance().setVault(vault);
-            vaultTable = createVaultTable(vault);
-            listPsyReady = true;
-            TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
-            loadingTextView.setVisibility(View.GONE);
-            populateSearchLater(theMenu);
-
+//            vaultTable = createVaultTable(vault);
+//            listPsyReady = true;
+//            TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
+//            loadingTextView.setVisibility(View.GONE);
+//            populateSearchLater(theMenu);
 //
-        }
-    }
+////
+//        }
+//    }
 }
