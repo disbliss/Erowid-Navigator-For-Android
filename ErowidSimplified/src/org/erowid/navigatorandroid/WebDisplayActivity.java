@@ -331,8 +331,7 @@ public class WebDisplayActivity extends Activity {
 	    	loadMenuItem.setVisible(false);
 	    	loadMenuItem.setEnabled(false);
 	    }
-	    
-		
+
 		return true;		
 	}  
 

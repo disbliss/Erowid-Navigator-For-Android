@@ -193,6 +193,8 @@ public class PsychoNavigatorActivity extends FragmentActivity {
                             getResources().getDrawable(android.R.drawable.star_on)),
                     PsyWebResourcesFragment.class, null);
 
+            mTabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab_indicator_ab_erowid);
+            mTabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tab_indicator_ab_erowid);
 
             //keeps track of the number of pages that can be saved, for the pagesavestar
 

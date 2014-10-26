@@ -29,10 +29,20 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_erowid</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_erowid</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Erowid</item>
-        
-                <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Erowid.Widget</item>
 
+    </style>
+
+    <style name="ErowidTextAppearance.Small" parent="@android:style/TextAppearance.Small">
+            <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ErowidTextAppearance.Medium" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="ErowidTextAppearance.Large" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="ActionBar.Solid.Erowid" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
@@ -56,6 +66,8 @@
         <item name="android:listSelector">@drawable/selectable_background_erowid</item>
     </style>
 
+    <!-- This does not actually define the tab bar. I'm too lazy to fix this
+     http://jgilfelt.github.io/android-actionbarstylegenerator/#name=erowid&compat=holo&theme=light&actionbarstyle=transparent&texture=0&hairline=0&neutralPressed=1&backColor=14202d%2C100&secondaryColor=e7e7ee%2C100&tabColor=14202d%2C100&tertiaryColor=fff%2C100&accentColor=c00%2C100&cabBackColor=fff%2C100&cabHighlightColor=fff%2C100-->
     <style name="ActionBarTabStyle.Erowid" parent="@android:style/Widget.Holo.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_erowid</item>
     </style>
