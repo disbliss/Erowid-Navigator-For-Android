@@ -11,10 +11,10 @@
         android:id="@+id/substance_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
+        android:paddingLeft="6.5dp"
         android:paddingRight="15dp"
         android:text="Type"
-        android:textSize="16dp"
+        android:textAppearance="@style/ErowidTextAppearance.Small"
         android:textStyle="bold"
         android:singleLine="true"/>
     <!--<TextView

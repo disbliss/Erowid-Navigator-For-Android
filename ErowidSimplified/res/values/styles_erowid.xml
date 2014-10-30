@@ -34,11 +34,11 @@
     </style>
 
     <style name="ErowidTextAppearance.Small" parent="@android:style/TextAppearance.Small">
-            <item name="android:textSize">14sp</item>
+            <item name="android:textSize">16sp</item>
     </style>
 
     <style name="ErowidTextAppearance.Medium" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="ErowidTextAppearance.Large" parent="@android:style/TextAppearance.Large">

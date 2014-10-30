@@ -66,7 +66,7 @@ public class WebDisplayActivity extends Activity {
 		pageFullyLoaded = false;
 		
 		infoWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
-		infoWebView.getSettings().setTextZoom(120);
+		infoWebView.getSettings().setTextZoom(140);
 		infoWebView.loadData("Loading knowledge from web...", "text/html", null);
 		
 		//SEARCH FOR NAME IN EACH ONE
@@ -439,7 +439,7 @@ public class WebDisplayActivity extends Activity {
 		int zoom = infoWebView.getSettings().getTextZoom();
 		if(zoom >= 40)
       	{
-	      	zoom = zoom - 20;
+	      	zoom = zoom - 10;
 	      	infoWebView.getSettings().setTextZoom(zoom);
       	}
 	}
@@ -447,7 +447,7 @@ public class WebDisplayActivity extends Activity {
 		int zoom = infoWebView.getSettings().getTextZoom();
 		if(zoom <= 1000)
       	{
-	      	zoom = zoom + 20;
+	      	zoom = zoom + 10;
 	      	infoWebView.getSettings().setTextZoom(zoom);
       	}
 	}

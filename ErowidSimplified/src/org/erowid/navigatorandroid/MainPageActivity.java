@@ -1,5 +1,6 @@
 package org.erowid.navigatorandroid;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,14 +15,18 @@ import org.erowid.navigatorandroid.xmlXstream.Substance;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Instrumentation;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -56,6 +61,7 @@ public class MainPageActivity extends Activity {
     String parsedBigChart = "";
     //ErowidPsychoactiveVaults vault;
     List<String[]> vaultTable;
+    ProgressDialog dialog;
     //String bigChartXML;
     //int subTypeIndex;
 
@@ -67,6 +73,7 @@ public class MainPageActivity extends Activity {
     int vTSumEffects = 4;
     int vTAltNameListString = 4;
 
+//Toast.makeText(getBaseContext(), "Downloading updated list of psychoactives and restarting. Please wait..." , Toast.LENGTH_LONG).show();
 
 //    ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
 //    ActivityManager activityManager;
@@ -80,12 +87,18 @@ public class MainPageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_page);
-		
+
+//        Intent intent = getIntent();
+//        if(intent.getBooleanExtra("PAGE_UPDATED", false))
+//        {
+//            Toast.makeText(getBaseContext(), "Application restarted" , Toast.LENGTH_LONG).show();
+//        }
+
 		createMenu(); //gets content for the listviews, possibly from web xml and parsing
 
 		//Initializes the text views
 		TextView navTextView = (TextView) findViewById(R.id.navigationInstructionsTextView);
-		String navString = "<b> Navigation: </b> Choose a psychoactive with the search above or the dropdowns below."; 
+		String navString = "<b> Navigation: </b> Choose a psychoactive with the search above or the dropdowns below.";
 		navTextView.setText(Html.fromHtml(navString));
 
 		ActionBar actionBar = getActionBar();
@@ -106,79 +119,62 @@ public class MainPageActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+            if(listPsyReady) {
+                if (mActionMode == null) {
+                    String psyType = (String) psyTypeListView.getItemAtPosition(position);
 
-                if(listPsyReady) {
-                    if (mActionMode == null) {
-                        String psyType = (String) psyTypeListView.getItemAtPosition(position);
-                        //Toast.makeText(getBaseContext(), "You clicked " + psyType , Toast.LENGTH_LONG).show();
-
-                        //Populates the psyChoiceSpinner with values
-
-
-//                        subTypeIndex = 0;
-//                        while(!vault.getSection().get(subTypeIndex).getSectionName().trim().toLowerCase().equals(psyType.toLowerCase()))
-//                        {
-//                            subTypeIndex++;
-//                        }
-
-
-                        final List<String[]> smallVaultTable = new ArrayList<String[]>();
-                        for(int i = 0; i < vaultTable.size(); i++)
+                    final List<String[]> smallVaultTable = new ArrayList<String[]>();
+                    for(int i = 0; i < vaultTable.size(); i++)
+                    {
+                        if(vaultTable.get(i)[vTSubType].equalsIgnoreCase(psyType))
                         {
-                            if(vaultTable.get(i)[vTSubType].equalsIgnoreCase(psyType))
-                            {
-                                smallVaultTable.add(vaultTable.get(i));
-                            }
+                            smallVaultTable.add(vaultTable.get(i));
                         }
-
-                        psyChoiceListView = (ListView) findViewById(R.id.psyChoiceListView);
-                        SubstanceContentAdapter adapter = new SubstanceContentAdapter(getBaseContext(), smallVaultTable);
-                        psyChoiceListView.setAdapter(adapter);
-
-                        TextView psyTypeChooseTextView = (TextView) findViewById(R.id.psyTypeChooseTextView);
-                        psyTypeChooseTextView.setText(psyType);
-                        //psyChoiceListView.setLayoutParams(new AbsListView.LayoutParams(wrap 3));
-                        psyTypeListView.setVisibility(View.GONE);
-                        Button closeSubstanceListButton = (Button) findViewById(R.id.closeSubstanceListButton);
-                        closeSubstanceListButton.setVisibility(View.VISIBLE);
-                        psyChoiceListView.setVisibility(View.VISIBLE);
-
-                        psyChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-
-//                                String[] psychoactive = (String[]) psyChoiceListView.getItemAtPosition(position);
-
-//                                Toast.makeText(getBaseContext(), psychoactive[0] , Toast.LENGTH_LONG).show();
-
-
-
-
-                                if (m.isOnline(getBaseContext())) {
-                                    Intent intent = new Intent(getBaseContext(), PsychoNavigatorActivity.class);
-                                    //intent.putExtra("SECTION_INDEX", subTypeIndex);
-                                    String psyName = smallVaultTable.get(position)[vTName];
-                                    String psyType = smallVaultTable.get(position)[vTSubType];
-                                    intent.putExtra("SUBSTANCE_NAME", psyName);
-                                    intent.putExtra("SUBSTANCE_TYPE", psyType);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(getBaseContext(), "Reconnect to the internet", Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-                        });
-
-                    } else {
-                        mActionMode.finish();
-                        mActionMode = null;
-                        view.setSelected(false);
                     }
+
+                    psyChoiceListView = (ListView) findViewById(R.id.psyChoiceListView);
+                    SubstanceContentAdapter adapter = new SubstanceContentAdapter(getBaseContext(), smallVaultTable);
+                    psyChoiceListView.setAdapter(adapter);
+
+                    TextView psyTypeChooseTextView = (TextView) findViewById(R.id.psyTypeChooseTextView);
+                    psyTypeChooseTextView.setText(psyType);
+                    //psyChoiceListView.setLayoutParams(new AbsListView.LayoutParams(wrap 3));
+                    psyTypeListView.setVisibility(View.GONE);
+                    Button closeSubstanceListButton = (Button) findViewById(R.id.closeSubstanceListButton);
+                    closeSubstanceListButton.setVisibility(View.VISIBLE);
+                    psyChoiceListView.setVisibility(View.VISIBLE);
+
+                    psyChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+
+                    if (m.isOnline(getBaseContext())) {
+                        Intent intent = new Intent(getBaseContext(), PsychoNavigatorActivity.class);
+                        //intent.putExtra("SECTION_INDEX", subTypeIndex);
+                        String psyName = smallVaultTable.get(position)[vTName];
+                        String psyType = smallVaultTable.get(position)[vTSubType];
+                        intent.putExtra("SUBSTANCE_NAME", psyName);
+                        intent.putExtra("SUBSTANCE_TYPE", psyType);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getBaseContext(), "Reconnect to the internet, or access your stored pages from the top menu", Toast.LENGTH_LONG).show();
+                        }
+                        }
+                    });
+                } else {
+                    mActionMode.finish();
+                    mActionMode = null;
+                    view.setSelected(false);
                 }
             }
+        }
         });
-
 	} 
+
+    public void createVisualAndStuff()
+    {
+
+    }
 
 	/**
 	 * When the spinners are used to navigate, and then the back button is used to return
@@ -195,9 +191,6 @@ public class MainPageActivity extends Activity {
     public void onBackPressed()
     {
         Button closeSubstanceListButton = (Button)findViewById(R.id.closeSubstanceListButton);
-
-        //closeSubstanceListButton.getRootView();
-
         if(closeSubstanceListButton.getVisibility() == View.VISIBLE) {
 
             closeSubstanceListButton_onClick(closeSubstanceListButton.getRootView());
@@ -214,17 +207,21 @@ public class MainPageActivity extends Activity {
 	@Override
 	protected void onResume()
 	{
-        Button closeSubstanceListButton = (Button)findViewById(R.id.closeSubstanceListButton);
-        TextView psyTypeChooseTextView = (TextView)findViewById(R.id.psyTypeChooseTextView);
-        ListView psyTypeListView = (ListView) findViewById(R.id.psyTypeListView);
-        ListView psyChoiceListView = (ListView) findViewById(R.id.psyChoiceListView);
+//        if(searchPopulated) {
+            Button closeSubstanceListButton = (Button) findViewById(R.id.closeSubstanceListButton);
+            TextView psyTypeChooseTextView = (TextView) findViewById(R.id.psyTypeChooseTextView);
+            ListView psyTypeListView = (ListView) findViewById(R.id.psyTypeListView);
+            ListView psyChoiceListView = (ListView) findViewById(R.id.psyChoiceListView);
 
-        psyTypeChooseTextView.setText("Choose a type");
-        psyChoiceListView.setVisibility(View.GONE);
-        closeSubstanceListButton.setVisibility(View.GONE);
-        psyTypeListView.setVisibility(View.VISIBLE);
-
-		super.onResume();
+            psyTypeChooseTextView.setText("Choose a type");
+            psyChoiceListView.setVisibility(View.GONE);
+            closeSubstanceListButton.setVisibility(View.GONE);
+            psyTypeListView.setVisibility(View.VISIBLE);
+//        }
+//        else{
+//            Log.d("Resume Test","Resumed!");
+//        }
+        super.onResume();
 	}
 	
 	@Override
@@ -250,7 +247,32 @@ public class MainPageActivity extends Activity {
 		}
 		return true;		 
 	}
-  
+
+    public void runApplicationRestart()
+    {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                File storagePath = new File(getFilesDir().getAbsolutePath()+"/chartXml/");
+                m.deleteRecursive(storagePath); //clear out the old
+                m.clearPsyChoicesList(getBaseContext());
+                clearVariables();
+
+                Intent mStartActivity = new Intent(getBaseContext(), MainPageActivity.class);
+                mStartActivity.putExtra("PAGE_UPDATED", true);
+                int mPendingIntentId = 123456;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(getBaseContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager mgr = (AlarmManager)getBaseContext().getSystemService(Context.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+
+                System.exit(0);
+
+            }
+        }, 1500);
+    }
+
 	/**
 	 * Defines the actions for the menu items.
 	 */ 
@@ -263,10 +285,13 @@ public class MainPageActivity extends Activity {
 				startActivity(intent);
 		        return true;
 		    case R.id.action_reload_list:
-		    	Toast.makeText(getBaseContext(), "Downloading updated list of psychoactives and restarting. Please wait..." , Toast.LENGTH_LONG).show();
-		    	//webContentAsyncTask myWebFetch = new webContentAsyncTask();
-		    	//myWebFetch.execute();
+                Toast.makeText(getBaseContext(), "Restarting application to reload data" , Toast.LENGTH_LONG).show();
+                runApplicationRestart();
+
+
+                 //http://stackoverflow.com/questions/6609414/howto-programatically-restart-android-app
 		        return true;
+
 		    // case R.id.action_about:
 			//	Intent intent2 = new Intent(getBaseContext(),AboutPageActivity.class);
 			//	startActivity(intent2);
@@ -275,28 +300,6 @@ public class MainPageActivity extends Activity {
 		return false;
 
 	}
-
-//    class MySearchManager extends SearchManager
-//    {
-//
-////        MySearchManager() {
-////            super.searc();
-////
-////        }
-//
-//        @Override
-//        public boolean onKeyDown(int keyCode, KeyEvent event)
-//        {
-//            if (keyCode==KeyEvent.KEYCODE_ENTER)
-//            {
-//                // Just ignore the [Enter] key
-//                return true;
-//            }
-//            // Handle all other keys in the default way
-//            return super.onKeyDown(keyCode, event);
-//        }
-//    }
-
 
     final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
@@ -313,8 +316,6 @@ public class MainPageActivity extends Activity {
             return true;
         }
     };
-
-
 
 	/**
 	 * This is to be called to populate the search bar for the menu
@@ -340,16 +341,26 @@ public class MainPageActivity extends Activity {
 		}
 		else
 		{	//this actually restarts the application to use the updated list.
-			Intent mStartActivity = new Intent(getBaseContext(), MainPageActivity.class);
-			mStartActivity.putExtra("PAGE_UPDATED", true);
-			int mPendingIntentId = 123456;
-			PendingIntent mPendingIntent = PendingIntent.getActivity(getBaseContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-			AlarmManager mgr = (AlarmManager)getBaseContext().getSystemService(Context.ALARM_SERVICE);
-			mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-			System.exit(0);
+
 		}	
 	}
-				
+
+    private void clearVariables()
+    {
+        rawMainWebContent = null;
+        listPsyReady = false; 	//has the content been processed
+        listPsyResumed = false; 	//has this page been resumed after going to another page
+        searchPopulated = false; //has the search content been populated
+        psyTypeListView = null;
+        psyChoiceListView = null;
+        mActionMode = null;
+        theMenu = null;
+        parsedBigChart = null;
+        //ErowidPsychoactiveVaults vault;
+        vaultTable = null;
+
+    }
+
 	/** Accesses the Erowid Substance main page (http://www.erowid.org/general/)
 	 * Parses the html to fill a list of substances to choose from
 	 */ 
@@ -362,38 +373,35 @@ public class MainPageActivity extends Activity {
 			if(m.isOnline(this))
 			{
 				//if online but no stored table    
-				Button reloadButton = (Button)findViewById(R.id.reloadButton);
-				reloadButton.setVisibility(View.GONE);
-				TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView); 
-				loadingTextView.setVisibility(View.VISIBLE);
-
-                //bigChartXML = m.getSubstancesClassString(this); //this is pretty slow
-//
-//                if (bigChartXML == null || bigChartXML.isEmpty())
-//                {
-                    webFetchBigChartAsyncTask webFetchBigChartFetch = new webFetchBigChartAsyncTask();
-                    webFetchBigChartFetch.execute();
-//                }
-//                else
-//                {
-//                    processXmlToVaultAsyncTask processXmlToVaultAsyncTask = new processXmlToVaultAsyncTask();
-//                    processXmlToVaultAsyncTask.execute();
-//                }
-
-
-
-			} 
+//				Button reloadButton = (Button)findViewById(R.id.reloadButton);
+//				reloadButton.setVisibility(View.GONE);
+//				TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
+//				loadingTextView.setVisibility(View.VISIBLE);
+                dialog = ProgressDialog.show(this, "",
+                        "Downloading the Erowid index, please leave this screen open and wait. . .", true);
+                webFetchBigChartAsyncTask webFetchBigChartFetch = new webFetchBigChartAsyncTask();
+                webFetchBigChartFetch.execute();
+			}
 			else
 			{
-				Toast.makeText(getBaseContext(), "Connect to internet and click 'Load Psychoactives'" , Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Reconnect to the internet and push \"OK\" to download the Erowid index")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            createMenu();
+                        }
+                    });
+                AlertDialog alert = builder.create();
+                alert.show();
 			}      
 		}
 		else 
 		{   //if there is a table and we are online
-			Button reloadButton = (Button)findViewById(R.id.reloadButton);
-			reloadButton.setVisibility(View.GONE);
-			TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView); 
-			loadingTextView.setVisibility(View.GONE);
+//			Button reloadButton = (Button)findViewById(R.id.reloadButton);
+//			reloadButton.setVisibility(View.GONE);
+//			TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
+//			loadingTextView.setVisibility(View.GONE);
             listPsyReady = true;
             if(!(theMenu == null)) {
                 populateSearchLater(theMenu);
@@ -432,90 +440,6 @@ public class MainPageActivity extends Activity {
         return vaultTable;
     }
 
-	/**
-	 * Background web content class.
-	 * Downloads html with methods from shared code.
-	 * Parses the html to the big list of all psychoactive information on erowid
-	 * Informs user of the progress
-	 */
-//	class webContentAsyncTask extends AsyncTask<Void, Void, Void>    {
-//		@Override
-//		protected void onPreExecute() {
-//			super.onPreExecute();
-//		}
-//
-//		//In here I need to do my actual web call
-//		@Override
-//		protected Void doInBackground(Void... arg0) {
-//			rawMainWebContent = m.getWebContent("http://www.erowid.org/general/");
-//			return null;
-//		}
-//
-//		/**
-//		 * Takes the downloaded web content and parses it.
-//		 * Uses the parsed content to populate big arraylist of all psychoactives.
-//		 * This list is then stored for future use.
-//		 * Consult the http://www.erowid.org/general/ page for its formatting.
-//		 *
-//		 * Note: I do apologize, this method is pretty crude and convoluted.
-//		 * I should have used sophisticaed parsing, but this works well as long at the page formatting does not change.
-//		 */
-//		@Override
-//		protected void onPostExecute(Void result) {
-//			super.onPostExecute(result);
-//			psychoactiveTable = new ArrayList<String[]>();
-//
-//			List<String> psychoactives = new ArrayList<String>();
-//			String[] psyTypes = rawMainWebContent.split( "<div class='h8'>" ); //div..h8 is used for each psychoactive type
-//			for(int i = 0; i < psyTypes.length; i++)
-//			{
-//				String[] psychoactivesOfType = psyTypes[i].split("<td class=\"subname\">"); //td..subname comes before each psychoactive
-//				for(int j = 1; j < psychoactivesOfType.length; j++) //j = 1 weeds out initial non-subname, which is junk (I don't remember what)
-//				{
-//					String[] currentPsychoactive = psychoactivesOfType[j].split( "<th>" ); //raw content for the current psychactive
-//					String[] pDown = new String[currentPsychoactive.length+2]; //the row about the current psychoactive which will be added to the table
-//					if(currentPsychoactive.length > 1)
-//					{
-//						if(currentPsychoactive[0].contains("<a href="))
-//						{	//if the psychoactive has a main page to link to pull correctly
-//							//TODO: These offsets are messy and problem-prone. They do work in a stable manner currently.
-//							pDown[0] = currentPsychoactive[0].substring(currentPsychoactive[0].indexOf("\">")+2,currentPsychoactive[0].indexOf("</a"));
-//							pDown[2] =  currentPsychoactive[0].substring(currentPsychoactive[0].indexOf("<a")+10,currentPsychoactive[0].indexOf("/"+pDown[0]));
-//						}
-//						else
-//						{	//if the psychoactive does not have a main page, also pull correctly
-//							pDown[0] = currentPsychoactive[0].substring(currentPsychoactive[0].indexOf("\">")+1,currentPsychoactive[0].indexOf("</td>")); //these + checks are so sketch
-//							pDown[2] = psychoactivesOfType[j].substring(psychoactivesOfType[j].indexOf("<a")+10,psychoactivesOfType[j].indexOf("/"+pDown[0]));
-//
-//						}
-//                        pDown[1] = "0";
-//                        pDown[0] = pDown[0].replaceAll("_", " ");
-//						psychoactives.add(pDown[0]);
-//
-//						//Adds all the pages to the row.
-//						//If there is a space character (&nbsp;), there is not a page and the cell is set to 0 (false)
-//						for(int k = 1; k < currentPsychoactive.length; k++)
-//						{
-//							if(currentPsychoactive[k].contains("&nbsp;"))
-//							{
-//								pDown[k+2] = "0";
-//							}
-//							else
-//							{
-//								pDown[k+2] = "1";
-//							}
-//						}
-//						psychoactiveTable.add(pDown);
-//					}
-//				}
-//			}
-//			m.storePsyChoicesList(psychoactiveTable, getBaseContext());
-//			TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
-//			loadingTextView.setVisibility(View.GONE);
-//			populateSearchLater(theMenu);
-//		}
-//	} //End webContentAsyncClass
-
 	public void reloadButton_onClick(View v) {
 		createMenu();
 	}
@@ -551,19 +475,21 @@ public class MainPageActivity extends Activity {
 	}
 
     /**
-     * Creates a list of the files stored offline and populates the spinner that displays those files.
+     *
      */
     public void updateSubTypeListView()
     {
         //String path = getFilesDir().getPath();
         //List<String> offlineFilenameAndDateList = m.getOfflineSiteFilenameAndDateList(path);
-        final ListView storedContentListView = (ListView) findViewById(R.id.psyTypeListView);
+
         //String[] spinnerArray = offlineFilenameAndDateList.toArray(new String[(offlineFilenameAndDateList.size())]);
+
+        psyTypeListView = (ListView) findViewById(R.id.psyTypeListView);
 
         String[] subTypes = getResources().getStringArray(R.array.psy_types_array);
         SubstanceTypeContentAdapter adapter = new SubstanceTypeContentAdapter(this, subTypes);
 
-        storedContentListView.setAdapter(adapter);
+        psyTypeListView.setAdapter(adapter);
     }
 
     /**
@@ -617,9 +543,7 @@ public class MainPageActivity extends Activity {
             type.setText(substance_type);
 
             return vi;
-
         }
-
         // TODO: Implement sort functionality
     }
 
@@ -706,7 +630,22 @@ public class MainPageActivity extends Activity {
         @Override
         protected Void doInBackground(Void... arg0) {
 
-            String bigChartXML = m.getWebContent("http://pages.cpsc.ucalgary.ca/~madunlap/big_chart_xml_mod.php");
+//
+//            runOnUiThread(new Runnable() {
+//                public void run() {
+//
+//
+//                    Toast.makeText(getBaseContext(),"Downloading psychoactive data, please wait", Toast.LENGTH_LONG).show();
+//                }
+//            });
+
+
+
+            String bigChartXML = m.getWebContent("http://www.erowid.org/general/big_chart_xml.php");
+
+            bigChartXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><?xml-stylesheet type=\"text/css\" href=\"big_chart_xml.css\" ?>\n"
+                    + bigChartXML.substring(bigChartXML.indexOf("<erowid-psychoactive-vaults"), bigChartXML.length());
+
             m.splitVaultXmlUpAndStore(bigChartXML, getFilesDir().getAbsolutePath());
 
             ErowidPsychoactiveVaults vault = m.getPsyVaultFromXML(bigChartXML);
@@ -729,6 +668,7 @@ public class MainPageActivity extends Activity {
                 TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
                 loadingTextView.setVisibility(View.GONE);
                 populateSearchLater(theMenu);
+                dialog.dismiss();
             }
             catch (Exception e)
             {
@@ -736,37 +676,4 @@ public class MainPageActivity extends Activity {
             }
         }
     }
-
-
-//    class processXmlToVaultAsyncTask extends AsyncTask<Void, Void, Void> {
-//        @Override
-//        protected Void doInBackground(Void... arg0) {
-////            activityManager.getMemoryInfo(mi);
-////            long availableMegs = mi.availMem / 1048576L;
-////
-////            Log.d("Memory Test before vault.", availableMegs +" mb");
-//            //String singleChartXML = m.getSubXML(bigChartXML, "zopiclone", "PHARMS");
-//
-//            vault = m.getPsyVaultFromXML(bigChartXML);
-////            activityManager.getMemoryInfo(mi);
-////            availableMegs = mi.availMem / 1048576L;
-////
-////            Log.d("Memory Test after vault.", availableMegs +" mb");
-//            bigChartXML = null; //hopefully free memory
-//            return null;
-//        }
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//            //VaultSingleton.getInstance().setVault(vault);
-//
-//            vaultTable = createVaultTable(vault);
-//            listPsyReady = true;
-//            TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
-//            loadingTextView.setVisibility(View.GONE);
-//            populateSearchLater(theMenu);
-//
-////
-//        }
-//    }
 }

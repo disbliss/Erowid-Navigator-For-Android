@@ -88,12 +88,12 @@ public class PsychoNavigatorActivity extends FragmentActivity {
 	 */
 	@Override
 	protected void onResume()
-	{ 
-		if(isResumed)
-		{
-			setPageSaveStar();
-		}
-		super.onResume(); 
+	{
+		super.onResume();
+        if(isResumed)
+        {
+            setPageSaveStar();
+        }
 	}
 	
 	@Override

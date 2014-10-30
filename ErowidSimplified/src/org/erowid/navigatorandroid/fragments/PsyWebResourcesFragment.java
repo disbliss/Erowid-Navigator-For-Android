@@ -32,6 +32,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PsyWebResourcesFragment extends Fragment {
 
@@ -39,6 +41,10 @@ public class PsyWebResourcesFragment extends Fragment {
     Activity psychoActivity;
     Substance substance;
     WebView webView;
+
+    String psyName;
+    String psyType;
+
 
     View mMyView = null;
 
@@ -71,6 +77,9 @@ public class PsyWebResourcesFragment extends Fragment {
         webContentAsyncTask myWebFetch = new webContentAsyncTask(urlForGrab);
         myWebFetch.execute();
 
+        psyType = ((PsychoNavigatorActivity)getActivity()).getPsyType();
+        psyName = substance.getName();
+
 
     }
 
@@ -100,16 +109,50 @@ public class PsyWebResourcesFragment extends Fragment {
                 content = m.getWebContent(url);
 
                 //this is so inefficient
-                content = content.substring(content.indexOf("<div class=\"index-links-int\">")); // first gets the first half the string
+                content = content.substring(content.indexOf("<div class=\"index-links-int\">")+ 30); // first gets the first half the string
                 content = content.substring(0, content.indexOf("</div><!-- end index-links-ext -->")); // then gets the second half
 
+                Pattern pattern = Pattern.compile("\\/experiences\\/subs\\/(.*).shtml");
+                Matcher matcher = pattern.matcher(content);
+                String experienceURL = "";
+                if (matcher.find())
+                {
+                    experienceURL = matcher.group(1);
+                }
 
-                content = "<body>" +
+                String extraContent = "";
+                if(!experienceURL.isEmpty())
+                {
+                    extraContent = "<div class=\"link-int\"><a href=\"http://www.erowid.org/experiences/subs/" + experienceURL + ".shtml\">Experience Reports</a></div>";
+                }
+                if(!(substance.getChemistry() == null || substance.getChemistry().isEmpty()))
+                {
+                    extraContent += "<div class=\"link-int\"><a href=\"http://www.erowid.org/" + psyType + "/" + psyName +"/" + psyName + "_images.shtml\">Images</a></div>";
+                }
+                if(!(substance.getImages() == null || substance.getImages().isEmpty()))
+                {
+                    extraContent += "<div class=\"link-int\"><a href=\"http://www.erowid.org/" + psyType + "/" + psyName +"/" + psyName + "_chemistry.shtml\">Chemistry</a></div>";
+                }
+
+                if(!experienceURL.isEmpty()) {
+                    extraContent =  "<div class=\"links-list\">" +
+                            "<div class=\"ish\">ADDITIONAL KEY RESOURCES <a href=\"#general\" name=\"general\" class=\"pa\">#</a></div>\n" +
+                            extraContent;
+                }
+
+                content =
+                        "<body>" +
                         "<style>" +
                         ".links-list:not(:first-child)" +
                         "{" +
                         "padding-top: 25px;" +
                         "}" +
+
+                        "div.ish" +
+                        "{" +
+                        "font-weight: bold;" +
+                        "}" +
+
 //                        ".body{ " +
 //                        "text-align: center;" +
 ////                        ".link-int:before {" +
@@ -118,7 +161,7 @@ public class PsyWebResourcesFragment extends Fragment {
 //
 //                        "    }" +
                         "body{" +
-                        "background-color: #b0c4de;" +
+                        "background-color: #f7f7f7;" +
                         "text-align: center;" +
                         "}" +
 //                        "body {" +
@@ -132,9 +175,10 @@ public class PsyWebResourcesFragment extends Fragment {
                         //"    display: list-item;\n" +
                        // "    list-style-type: disc;\n" +
 
-                "</style>" +
-                        "</body>"
-                        + content;
+                "</style> <div class=\"index-links-int\">"
+                        + extraContent
+                        + content
+                        + "</body>";
 
                 //content.put("Description", description);
             } catch (Exception e) {
@@ -152,7 +196,8 @@ public class PsyWebResourcesFragment extends Fragment {
             try {
 
                 webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-                webView.getSettings().setTextZoom(120);
+                webView.getSettings().setTextZoom(100);
+                webView.getSettings().setDefaultFontSize(18);
                 webView.setWebViewClient(new WebViewClient() {
 //                    @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {

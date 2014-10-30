@@ -37,7 +37,6 @@ import java.util.Map;
 
 public class PsyReportCardFragment extends Fragment {
 
-
     Substance substance;
     String psyName;
     String psyType;
@@ -54,7 +53,6 @@ public class PsyReportCardFragment extends Fragment {
         psychoActivity = getActivity();
 
     }
-
 
     @Override
     public void onResume()
@@ -105,7 +103,7 @@ public class PsyReportCardFragment extends Fragment {
 
         TextView psychoName = (TextView) psychoActivity.findViewById(R.id.psychoName);
 
-        psychoName.setText(Html.fromHtml("<b>" + substance.getName().replaceAll("_", " ") + "</b>"));
+        psychoName.setText(Html.fromHtml("<b>" + substance.getNiceName() + "</b>")); //.replaceAll("_", " ")
 
         //For each button, check the table to see if it should be visible
         if(substance.getBasics() == null || substance.getBasics().isEmpty()) {

@@ -3,7 +3,14 @@
     android:layout_height="match_parent"
     android:background="@color/light_grey"
     android:orientation="vertical" >
-    
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/light_grey"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
     <TextView
         android:id="@+id/navigationInstructionsTextView"
         android:layout_width="match_parent"
@@ -14,7 +21,7 @@
         android:layout_weight="0"
         android:visibility="gone"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="@style/ErowidTextAppearance.Medium" />
 
     <Button
         android:layout_marginLeft="10dp" 
@@ -27,7 +34,8 @@
         android:layout_weight="0"
         android:onClick="reloadButton_onClick"
         android:background = "@drawable/roundedbutton"
-        android:text="  Load psychoactives  " >
+        android:text="  Load psychoactives  "
+        android:visibility="gone">
     </Button>
 
     <TextView
@@ -38,39 +46,57 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:text="Loading psychoactives..."
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="@style/ErowidTextAppearance.Medium"
         android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="@style/ErowidTextAppearance.Medium"
             android:id="@+id/psyTypeChooseTextView"
-            android:text="Choose a type"/>
-        <Button
-            android:id="@+id/closeSubstanceListButton"
+            android:text="Choose a substance type"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
-            android:onClick="closeSubstanceListButton_onClick"
-            android:background = "@drawable/roundedbutton"
-            android:text="Close"
-            android:visibility="gone">
-        </Button>
+            android:layout_gravity="center_vertical"
+            android:gravity="top">
+            <Button
+                android:id="@+id/closeSubstanceListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:onClick="closeSubstanceListButton_onClick"
+                android:background = "@drawable/roundedbutton"
+                android:text="Close"
+                android:visibility="visible"
+                android:layout_gravity="center_vertical">
+            </Button>
+        </LinearLayout>
     </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dark_dark_blue">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:background="@color/lighter_grey">
         <ListView
@@ -92,8 +118,8 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#887770">
+        android:layout_height="1px"
+        android:background="@color/actually_dark_grey">
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -102,8 +128,6 @@
         android:orientation="vertical"
         android:background="@color/lighter_grey">
     </LinearLayout>
-
-
 
 
 
@@ -135,6 +159,6 @@
             <!--android:visibility="gone"/>-->
 
     <!--</LinearLayout>-->
-    
+    </LinearLayout>
 
 </LinearLayout>

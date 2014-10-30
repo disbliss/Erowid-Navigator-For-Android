@@ -6,6 +6,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dark_dark_blue">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/lighter_grey"
@@ -26,7 +32,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:text="Title"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="@style/ErowidTextAppearance.Large"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="4dp"/>
                 <ImageView
                     android:id="@+id/psyImage"
                     android:layout_width="0dp"
@@ -38,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:text="Loading..."
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="@style/ErowidTextAppearance.Medium" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -62,10 +70,12 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             >
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                >
 
                 <ImageButton
                     android:layout_width="77dp"

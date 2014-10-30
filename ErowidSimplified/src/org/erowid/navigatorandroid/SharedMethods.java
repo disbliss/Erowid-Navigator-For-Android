@@ -173,7 +173,6 @@ public class SharedMethods {
 		String imageName = relImgURL.substring(relImgURL.indexOf("/")+1);
 		System.out.println(imageName);
 		
-		
 		/*
 		 * This crazy mess first checks for/creates a folder
 		 * and stores the image in the correct location on the file system
@@ -229,168 +228,168 @@ public class SharedMethods {
 		
 	}
 
-    public void storeSubstancesClassString(String classXML, Context context)
-    {
-        try {
+//    public void storeSubstancesClassString(String classXML, Context context)
+//    {
+//        try {
+//
+//            //String filePath = "/sdcard/utf8_file.txt";
+//            String UTF8 = "utf8";
+//            int BUFFER_SIZE = 8192;
+//
+//
+//            String basePath = context.getFilesDir().getPath();
+//            File folder = new File(basePath+ "/files");
+//            Boolean folderMade = folder.mkdir(); // only happens if no folder
+//
+//            Log.d("Folder Test", folderMade.toString());
+//
+//            //BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), UTF8),BUFFER_SIZE);
+//            //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), UTF8),BUFFER_SIZE);
+//            File file = new File(basePath+ "/files/big_chart_xml.php");
+//
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file), UTF8), BUFFER_SIZE ); //(context.openFileOutput("files/big_chart_xml.php", Context.MODE_PRIVATE)
+//            bw.write(classXML);
+//            bw.close();
+//
+//            //FileOutputStream fos = context.openFileOutput("substanceVaultClass.xml", Context.MODE_PRIVATE);
+//            //ObjectOutputStream oos = new ObjectOutputStream(fos);
+////            oos.writeObject(classXML);
+////            oos.close();
+////            fos.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-            //String filePath = "/sdcard/utf8_file.txt";
-            String UTF8 = "utf8";
-            int BUFFER_SIZE = 8192;
+//    public String getSubstancesClassString(Context context)
+//    {
+//        StringBuilder sb = new StringBuilder();
+//        try{
+//
+//            String basePath = context.getFilesDir().getPath();
+//            File file = new File(basePath+ "/files/big_chart_xml.php");
+//            FileInputStream fis = new FileInputStream(file);
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+//            String line = null;
+//            while ((line = reader.readLine()) != null) {
+//                sb.append(line).append("\n");
+//            }
+//            fis.close();
+//        } catch(OutOfMemoryError om){
+//            om.printStackTrace();
+//            return null;
+//        } catch(Exception ex){
+//            ex.printStackTrace();
+//            return null;
+//        }
+//        String result = sb.toString();
+//        return result;
+//    }
 
-
-            String basePath = context.getFilesDir().getPath();
-            File folder = new File(basePath+ "/files");
-            Boolean folderMade = folder.mkdir(); // only happens if no folder
-
-            Log.d("Folder Test", folderMade.toString());
-
-            //BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), UTF8),BUFFER_SIZE);
-            //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), UTF8),BUFFER_SIZE);
-            File file = new File(basePath+ "/files/big_chart_xml.php");
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file), UTF8), BUFFER_SIZE ); //(context.openFileOutput("files/big_chart_xml.php", Context.MODE_PRIVATE)
-            bw.write(classXML);
-            bw.close();
-
-            //FileOutputStream fos = context.openFileOutput("substanceVaultClass.xml", Context.MODE_PRIVATE);
-            //ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            oos.writeObject(classXML);
-//            oos.close();
-//            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getSubstancesClassString(Context context)
-    {
-        StringBuilder sb = new StringBuilder();
-        try{
-
-            String basePath = context.getFilesDir().getPath();
-            File file = new File(basePath+ "/files/big_chart_xml.php");
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            fis.close();
-        } catch(OutOfMemoryError om){
-            om.printStackTrace();
-            return null;
-        } catch(Exception ex){
-            ex.printStackTrace();
-            return null;
-        }
-        String result = sb.toString();
-        return result;
-    }
-
-    public String getSubXML(String chartXmlString, String psyName)
-    {
-
-        //this is close: http://stackoverflow.com/questions/16069425/xmlpullparser-get-inner-text-including-xml-tags
-        // what i can probably do is just detect the start of a substance tag, and then start adding tags to a string
-        // if the name tag inside is the name we want, we keep the string
-        // This could be really inefficient if the name tags are at the end, but they are currently placed at the beginning
-
-        //this could actually be more efficient if I first check if the section name matches, so I only check in the section that matters
-
-        //there are no attributes in the whole xml, so I'm not dealing with them.
-
-        //1.45s mid, 2.14 long
-
-        //long startTime = System.nanoTime();
-        StringBuilder sb = new StringBuilder();
-
-        try {
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = factory.newPullParser();
-            //parser.
-            parser.setInput(new StringReader(chartXmlString));
-
-            Boolean inSubstance = false;
-            Boolean inName = false;
-            Boolean substanceFound = false;
-            Boolean wrongSubstance = false;
-
-            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() == XmlPullParser.START_TAG  && !wrongSubstance) {
-                    if(parser.getName().equalsIgnoreCase("substance")) {
-                        inSubstance = true;
-                        sb.setLength(0); //clears section tag xml being added to sb
-                        //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-                        //sb.append("<substance>");
-                    }
-                    else if(inSubstance)
-                    {
-                        if(parser.getName().equalsIgnoreCase("name"))
-                        {
-                            inName = true;
-                            //sb.append("<name>");
-                        }
-                    }
-                    sb.append("<" + parser.getName() + ">");
-
-                }
-                else if(parser.getEventType() == XmlPullParser.TEXT && inSubstance && !wrongSubstance)
-                {
-                    if(inName)
-                    {
-                        if(parser.getText().trim().equals(psyName))
-                        {
-                            substanceFound = true;
-                        }
-                        else
-                        {
-                            wrongSubstance = true;
-                        }
-                        inName = false; //theoretically you are still "in name" at the end tag, but this is more efficient
-                    }
-                    sb.append(escapeXml10(parser.getText())); //this text conversion would probably start to slow things down if
-                }
-                else if(parser.getEventType() == XmlPullParser.END_TAG && inSubstance)
-                {
-                    if(!wrongSubstance) { //not sure this helps at all
-                        sb.append("</" + parser.getName() + ">");
-                    }
-                    if(parser.getName().equals("substance"))
-                    {
-                        wrongSubstance = false;
-                        if(substanceFound) {
-                            inSubstance = false; //this shouldn't matter, just seems right
-                            break; //not sure if this works
-                        }
-                        else //If clearing was managed better elsewhere, I don't think this would matter
-                        {
-                            sb.setLength(0);
-                            //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-                        }
-                    }
-
-                }
-
-
-                parser.next();
-            }
-
-
-//                    name = parser.getAttributeValue(null, "name");
-//                    site = parser.getAttributeValue(null, "site");
-//                    phone = parser.getAttributeValue(null, "phone");
-//                    adds = parser.getAttributeValue(null, "address");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //long endTime = System.nanoTime();
-        //Log.d("Time Test.", (endTime - startTime)/1000000000.0 + " s");
-        String result = sb.toString();
-        return sb.toString();
-
-    }
+//    public String getSubXML(String chartXmlString, String psyName)
+//    {
+//
+//        //this is close: http://stackoverflow.com/questions/16069425/xmlpullparser-get-inner-text-including-xml-tags
+//        // what i can probably do is just detect the start of a substance tag, and then start adding tags to a string
+//        // if the name tag inside is the name we want, we keep the string
+//        // This could be really inefficient if the name tags are at the end, but they are currently placed at the beginning
+//
+//        //this could actually be more efficient if I first check if the section name matches, so I only check in the section that matters
+//
+//        //there are no attributes in the whole xml, so I'm not dealing with them.
+//
+//        //1.45s mid, 2.14 long
+//
+//        //long startTime = System.nanoTime();
+//        StringBuilder sb = new StringBuilder();
+//
+//        try {
+//            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+//            XmlPullParser parser = factory.newPullParser();
+//            //parser.
+//            parser.setInput(new StringReader(chartXmlString));
+//
+//            Boolean inSubstance = false;
+//            Boolean inName = false;
+//            Boolean substanceFound = false;
+//            Boolean wrongSubstance = false;
+//
+//            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+//                if (parser.getEventType() == XmlPullParser.START_TAG  && !wrongSubstance) {
+//                    if(parser.getName().equalsIgnoreCase("substance")) {
+//                        inSubstance = true;
+//                        sb.setLength(0); //clears section tag xml being added to sb
+//                        //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+//                        //sb.append("<substance>");
+//                    }
+//                    else if(inSubstance)
+//                    {
+//                        if(parser.getName().equalsIgnoreCase("name"))
+//                        {
+//                            inName = true;
+//                            //sb.append("<name>");
+//                        }
+//                    }
+//                    sb.append("<" + parser.getName() + ">");
+//
+//                }
+//                else if(parser.getEventType() == XmlPullParser.TEXT && inSubstance && !wrongSubstance)
+//                {
+//                    if(inName)
+//                    {
+//                        if(parser.getText().trim().equals(psyName))
+//                        {
+//                            substanceFound = true;
+//                        }
+//                        else
+//                        {
+//                            wrongSubstance = true;
+//                        }
+//                        inName = false; //theoretically you are still "in name" at the end tag, but this is more efficient
+//                    }
+//                    sb.append(escapeXml10(parser.getText())); //this text conversion would probably start to slow things down if
+//                }
+//                else if(parser.getEventType() == XmlPullParser.END_TAG && inSubstance)
+//                {
+//                    if(!wrongSubstance) { //not sure this helps at all
+//                        sb.append("</" + parser.getName() + ">");
+//                    }
+//                    if(parser.getName().equals("substance"))
+//                    {
+//                        wrongSubstance = false;
+//                        if(substanceFound) {
+//                            inSubstance = false; //this shouldn't matter, just seems right
+//                            break; //not sure if this works
+//                        }
+//                        else //If clearing was managed better elsewhere, I don't think this would matter
+//                        {
+//                            sb.setLength(0);
+//                            //sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+//                        }
+//                    }
+//
+//                }
+//
+//
+//                parser.next();
+//            }
+//
+//
+////                    name = parser.getAttributeValue(null, "name");
+////                    site = parser.getAttributeValue(null, "site");
+////                    phone = parser.getAttributeValue(null, "phone");
+////                    adds = parser.getAttributeValue(null, "address");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        //long endTime = System.nanoTime();
+//        //Log.d("Time Test.", (endTime - startTime)/1000000000.0 + " s");
+//        String result = sb.toString();
+//        return sb.toString();
+//
+//    }
 
     /**
      * This isn't actually better. It has more checks, but for the size of the XML the simpler check seems a bit faster
@@ -588,19 +587,11 @@ public class SharedMethods {
             Log.d("Error shared!.", " " + e);
             return null;
         }
-
-
-
-
-
-
-
     }
 
+    // Pull substance from a parsed xml with only one substance in it. Uses getSubstanceFromXML
     public Substance getSubstanceFromShortXML(String psyType, String psyName, String absFileDir)
     {
-
-
         StringBuilder sb = new StringBuilder();
         try{
             String subFileName = absFileDir+"/chartXml/" + psyType.toLowerCase() + "/" + psyName;
@@ -622,6 +613,14 @@ public class SharedMethods {
         String fileString = sb.toString();
 
         return getSubstanceFromXML(fileString);
+    }
+
+    void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
     }
 
     /**
@@ -787,7 +786,14 @@ public class SharedMethods {
 		return index;
 	}
 
-	/**
+	void clearPsyChoicesList(Context context)
+    {
+        SharedPreferences.Editor edit= context.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE).edit();
+        edit.remove("table");
+        edit.commit();
+    }
+
+    /**
 	 * Takes the list of psychoactive information and saves it as a comma seperated SharedPreferences
 	 */
 	void storePsyChoicesList(List<String[]> psyTable, Context passedContext)
@@ -842,7 +848,7 @@ public class SharedMethods {
 	        {
 	            offlineFilenameList.add(f.getName());
 	        }
-	    } 
+	    }
 	    return offlineFilenameList;
 	}
 	
