@@ -81,7 +81,7 @@
                 android:onClick="closeSubstanceListButton_onClick"
                 android:background = "@drawable/roundedbutton"
                 android:text="Close"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical">
             </Button>
         </LinearLayout>

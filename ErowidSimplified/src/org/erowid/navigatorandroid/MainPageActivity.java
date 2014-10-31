@@ -83,6 +83,7 @@ public class MainPageActivity extends Activity {
 	 * Then uses this information to populate the psychoactive choice spinners
 	 * This also includes the listeners for the created spinners
 	 */
+
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,7 +120,7 @@ public class MainPageActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-            if(listPsyReady) {
+            if(true) {
                 if (mActionMode == null) {
                     String psyType = (String) psyTypeListView.getItemAtPosition(position);
 
@@ -208,31 +209,29 @@ public class MainPageActivity extends Activity {
 	protected void onResume()
 	{
 //        if(searchPopulated) {
-            Button closeSubstanceListButton = (Button) findViewById(R.id.closeSubstanceListButton);
-            TextView psyTypeChooseTextView = (TextView) findViewById(R.id.psyTypeChooseTextView);
-            ListView psyTypeListView = (ListView) findViewById(R.id.psyTypeListView);
-            ListView psyChoiceListView = (ListView) findViewById(R.id.psyChoiceListView);
-
-            psyTypeChooseTextView.setText("Choose a type");
-            psyChoiceListView.setVisibility(View.GONE);
-            closeSubstanceListButton.setVisibility(View.GONE);
-            psyTypeListView.setVisibility(View.VISIBLE);
+        super.onResume();
+        Log.d("OnResume","happened");
+        invalidateOptionsMenu();
+        //PopulateViewsAndStuff();
 //        }
 //        else{
 //            Log.d("Resume Test","Resumed!");
 //        }
-        super.onResume();
+
 	}
-	
-	@Override
-	 public boolean onSearchRequested() {
-		if(theMenu != null)
-		{
-			MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
-			searchMenuItem.expandActionView();
-		}
-		return false; // don't go ahead and show the search box
-	}
+
+
+
+//    //I think this was added later, not sure if it does anything at all.
+//	@Override
+//	 public boolean onSearchRequested() {
+//		if(theMenu != null)
+//		{
+//			MenuItem searchMenuItem = theMenu.findItem(R.id.action_search);
+//			searchMenuItem.expandActionView();
+//		}
+//		return true; // don't go ahead and show the search box
+//	}
 
 	/**
 	 * Adds the search bar to the top of the page and makes it active
@@ -240,13 +239,28 @@ public class MainPageActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		theMenu = menu;
+        Log.d("OnCreateOptionsMenu","happened");
+        theMenu = menu;
 		if(vaultTable != null)
 		{
+            Log.d("OnCreateOptionsMenuActually","happened");
 			populateSearchLater(theMenu);
 		}
 		return true;		 
 	}
+//
+//    //happens every time menu is displayed
+//    @Override
+//    public boolean  onPrepareOptionsMenu(Menu menu)
+//    {
+//        Log.d("OnPrepareOptionsMenu","happened");
+//        theMenu = menu;
+//        if(vaultTable != null)
+//        {
+//            populateSearchLater(theMenu);
+//        }
+//        return true;
+//    }
 
     public void runApplicationRestart()
     {
@@ -324,8 +338,8 @@ public class MainPageActivity extends Activity {
 	 */
 	public void populateSearchLater(Menu menu)
 	{
-		if(!searchPopulated)
-		{		
+//		if(!searchPopulated)
+//		{
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.menu_main, menu);
 	
@@ -338,11 +352,11 @@ public class MainPageActivity extends Activity {
 			searchView.setSearchableInfo(
 					searchManager.getSearchableInfo(getComponentName()));
 			searchPopulated = true;
-		}
-		else
-		{	//this actually restarts the application to use the updated list.
-
-		}	
+//		}
+//		else
+//		{	//this actually restarts the application to use the updated list.
+//
+//		}
 	}
 
     private void clearVariables()
@@ -447,7 +461,7 @@ public class MainPageActivity extends Activity {
     public void closeSubstanceListButton_onClick(View v) {
         Button closeSubstanceListButton = (Button)findViewById(R.id.closeSubstanceListButton);
         TextView psyTypeChooseTextView = (TextView)findViewById(R.id.psyTypeChooseTextView);
-        psyTypeChooseTextView.setText("Choose a type");
+        psyTypeChooseTextView.setText("Choose a substance type");
 
         psyChoiceListView.setVisibility(View.GONE);
         closeSubstanceListButton.setVisibility(View.GONE);
