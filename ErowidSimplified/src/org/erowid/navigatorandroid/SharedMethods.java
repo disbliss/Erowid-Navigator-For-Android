@@ -637,6 +637,9 @@ public class SharedMethods {
 
         //Parse for each <section-name>
         //Create a folder for the section
+        //File deleteRootFolderPath = new File("/chartXml/");
+        //deleteRecursive(absFilesDir);
+
         String[] chartSectionsSplit = chartXmlString.split("<section *>"); //assuming the start of the string is split
         File mainFolderPath = new File(absFilesDir+"/chartXml/");
         mainFolderPath.mkdir();

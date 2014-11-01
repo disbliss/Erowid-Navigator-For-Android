@@ -208,8 +208,11 @@ public class MainPageActivity extends Activity {
 	@Override
 	protected void onResume()
 	{
+
+//        choiceListView.setItemChecked(-1, true);
 //        if(searchPopulated) {
         super.onResume();
+//        ListView choiceListView = (ListView)findViewById(R.id.psyChoiceListView);
         Log.d("OnResume","happened");
         invalidateOptionsMenu();
         //PopulateViewsAndStuff();
@@ -392,7 +395,7 @@ public class MainPageActivity extends Activity {
 //				TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
 //				loadingTextView.setVisibility(View.VISIBLE);
                 dialog = ProgressDialog.show(this, "",
-                        "Downloading the Erowid index, please leave this screen open and wait. . .", true);
+                        "Downloading the Erowid index, please wait", true);
                 webFetchBigChartAsyncTask webFetchBigChartFetch = new webFetchBigChartAsyncTask();
                 webFetchBigChartFetch.execute();
 			}

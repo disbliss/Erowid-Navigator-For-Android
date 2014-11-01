@@ -100,8 +100,8 @@
                     android:background="@android:drawable/btn_default"
                     android:scaleType="center"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/health_button"
-                    android:src="@drawable/erowid_button_health"/>
+                    android:id="@+id/dose_button"
+                    android:src="@drawable/erowid_button_dose"/>
                 <ImageButton
                     android:layout_width="75dp"
                     android:layout_height="75dp"
@@ -116,9 +116,8 @@
                     android:background="@android:drawable/btn_default"
                     android:scaleType="center"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/dose_button"
-                    android:src="@drawable/erowid_button_dose"/>
-
+                    android:id="@+id/health_button"
+                    android:src="@drawable/erowid_button_health"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
