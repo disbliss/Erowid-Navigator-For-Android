@@ -11,11 +11,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.util.Log;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
-
-import org.erowid.navigatorandroid.xmlXstream.ErowidPsychoactiveVaults;
 
 public class PsychoSuggestionProvider extends ContentProvider {
 	//SQLiteDatabase db;

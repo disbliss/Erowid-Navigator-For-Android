@@ -3,21 +3,16 @@ package org.erowid.navigatorandroid;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.ActionBar;
-import org.apache.commons.lang3.text.WordUtils;
+
 import org.erowid.navigatorandroid.xmlXstream.ErowidPsychoactiveVaults;
-import org.erowid.navigatorandroid.xmlXstream.Substance;
+
 //import android.R;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Application;
-import android.app.Instrumentation;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -31,7 +26,6 @@ import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -213,6 +207,10 @@ public class MainPageActivity extends Activity {
 //        if(searchPopulated) {
         super.onResume();
 //        ListView choiceListView = (ListView)findViewById(R.id.psyChoiceListView);
+//        if(theMenu != null) {
+//            SearchView searchItem = (SearchView) theMenu.findItem(R.id.action_search).getActionView();
+//            searchItem.setIconified(true);
+//        }
         Log.d("OnResume","happened");
         invalidateOptionsMenu();
         //PopulateViewsAndStuff();
@@ -334,6 +332,7 @@ public class MainPageActivity extends Activity {
         }
     };
 
+
 	/**
 	 * This is to be called to populate the search bar for the menu
 	 * It is called after the psyName table has been populated, otherwise it will break. 
@@ -395,7 +394,7 @@ public class MainPageActivity extends Activity {
 //				TextView loadingTextView = (TextView)findViewById(R.id.loadingTextView);
 //				loadingTextView.setVisibility(View.VISIBLE);
                 dialog = ProgressDialog.show(this, "",
-                        "Downloading the Erowid index, please wait", true);
+                        "Downloading the Erowid index, may take a minute, please wait . . .", true);
                 webFetchBigChartAsyncTask webFetchBigChartFetch = new webFetchBigChartAsyncTask();
                 webFetchBigChartFetch.execute();
 			}

@@ -21,20 +21,14 @@ import org.erowid.navigatorandroid.xmlXstream.ImageEntry;
 import org.erowid.navigatorandroid.xmlXstream.ImageSet;
 import org.erowid.navigatorandroid.xmlXstream.Section;
 import org.erowid.navigatorandroid.xmlXstream.Substance;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.thoughtworks.xstream.XStream;
-
-import static org.apache.commons.lang3.StringEscapeUtils.escapeXml10;
 
 public class SharedMethods {
  	

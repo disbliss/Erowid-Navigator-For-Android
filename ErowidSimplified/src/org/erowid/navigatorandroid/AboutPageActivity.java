@@ -1,4 +1,4 @@
-package org.erowid.navigatorandroid;   
+package org.erowid.navigatorandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
