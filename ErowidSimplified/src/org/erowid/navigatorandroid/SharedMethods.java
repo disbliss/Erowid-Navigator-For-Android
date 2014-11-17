@@ -534,7 +534,7 @@ public class SharedMethods {
             vault = (ErowidPsychoactiveVaults) xstream.fromXML(chartXmlString);
 
             long endTime = System.nanoTime();
-            Log.d("Time Test.", (endTime - startTime) / 1000000000.0 + " s");
+            //Log.d("Time Test.", (endTime - startTime) / 1000000000.0 + " s");
             return vault;
         } catch (Exception e) {
             Log.d("Error shared!.", " " + e);
@@ -656,8 +656,8 @@ public class SharedMethods {
                 String[] chartSubstanceSplit = chartSectionsSplit[i].split("<substance>"); //assuming the start of the string is split
                 for(int j = 1; j < chartSubstanceSplit.length; j++)
                 {
-                    String substanceName = chartSubstanceSplit[j].substring(chartSubstanceSplit[j].indexOf("<name>") + 6, chartSubstanceSplit[j].indexOf("</name>"));
-
+                    String substanceName = chartSubstanceSplit[j].substring(chartSubstanceSplit[j].indexOf("<name>") + 6, chartSubstanceSplit[j].indexOf("</name>"));//[^a-zA-Z]
+                    Log.d("Split Name: ", substanceType +" | " + substanceName );
                     String subFileName = absFilesDir+"/chartXml/" + substanceType.toLowerCase() + "/" + substanceName;
                     File subFile = new File(subFileName);
 
@@ -785,9 +785,18 @@ public class SharedMethods {
 
 	void clearPsyChoicesList(Context context)
     {
-        SharedPreferences.Editor edit= context.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor edit= context.getSharedPreferences("VAULTTABLENEW", Context.MODE_PRIVATE).edit();
         edit.remove("table");
         edit.commit();
+    }
+
+    void clearOldPsyChoicesList(Context context)
+    {
+        SharedPreferences.Editor edit= context.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE).edit();
+        if(null != edit) {
+            edit.remove("table");
+            edit.commit();
+        }
     }
 
     /**
@@ -795,14 +804,14 @@ public class SharedMethods {
 	 */
 	void storePsyChoicesList(List<String[]> psyTable, Context passedContext)
 	{
-		SharedPreferences.Editor edit= passedContext.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor edit= passedContext.getSharedPreferences("VAULTTABLENEW", Context.MODE_PRIVATE).edit();
 		StringBuilder tableStringB = new StringBuilder();
 		for(int i = 0; i < psyTable.size(); i++)
 		{
 			StringBuilder row = new StringBuilder();
 			for(int j = 0; j < psyTable.get(0).length; j++)
 			{
-				row.append(psyTable.get(i)[j]).append(",");
+				row.append(psyTable.get(i)[j]).append("|");
 			}
 			row.append("\n");
 			tableStringB.append(row);
@@ -815,10 +824,12 @@ public class SharedMethods {
 	
 	/**
 	 * Pulls the stored psychoactive CSV from SharedPreferences and parses it into a List.
+     * Checks to see if there is an old version of the list, to redownload list after a bugfix/update
 	 */
 	List<String[]> getStoredPsyChoicesList(Context passedContext)
 	{
-		SharedPreferences prefs = passedContext.getSharedPreferences("VAULTTABLE", Context.MODE_PRIVATE);
+        clearOldPsyChoicesList(passedContext);
+        SharedPreferences prefs = passedContext.getSharedPreferences("VAULTTABLENEW", Context.MODE_PRIVATE);
 		String tableString = prefs.getString("table", "");
 		if(tableString.equals(""))
 		{	//if there is no table to pull
@@ -829,7 +840,7 @@ public class SharedMethods {
 		
 		for (int i = 0; i < splitTableStringArray.length; i++) {
 			//this probably adds an extra row of "" values on the end, after the last ,
-			psyTable.add(splitTableStringArray[i].split(","));
+			psyTable.add(splitTableStringArray[i].split("\\|"));
 		}
 		
 		return psyTable;

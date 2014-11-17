@@ -240,11 +240,11 @@ public class MainPageActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-        Log.d("OnCreateOptionsMenu","happened");
+        //Log.d("OnCreateOptionsMenu","happened");
         theMenu = menu;
 		if(vaultTable != null)
 		{
-            Log.d("OnCreateOptionsMenuActually","happened");
+            //Log.d("OnCreateOptionsMenuActually","happened");
 			populateSearchLater(theMenu);
 		}
 		return true;		 
@@ -269,20 +269,20 @@ public class MainPageActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Do something after 5s = 5000ms
-                File storagePath = new File(getFilesDir().getAbsolutePath()+"/chartXml/");
-                m.deleteRecursive(storagePath); //clear out the old
-                m.clearPsyChoicesList(getBaseContext());
-                clearVariables();
+            // Do something after 5s = 5000ms
+            File storagePath = new File(getFilesDir().getAbsolutePath()+"/chartXml/");
+            m.deleteRecursive(storagePath); //clear out the old
+            m.clearPsyChoicesList(getBaseContext());
+            clearVariables();
 
-                Intent mStartActivity = new Intent(getBaseContext(), MainPageActivity.class);
-                mStartActivity.putExtra("PAGE_UPDATED", true);
-                int mPendingIntentId = 123456;
-                PendingIntent mPendingIntent = PendingIntent.getActivity(getBaseContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                AlarmManager mgr = (AlarmManager)getBaseContext().getSystemService(Context.ALARM_SERVICE);
-                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+            Intent mStartActivity = new Intent(getBaseContext(), MainPageActivity.class);
+            mStartActivity.putExtra("PAGE_UPDATED", true);
+            int mPendingIntentId = 123456;
+            PendingIntent mPendingIntent = PendingIntent.getActivity(getBaseContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager mgr = (AlarmManager)getBaseContext().getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
 
-                System.exit(0);
+            System.exit(0);
 
             }
         }, 1500);
@@ -382,7 +382,8 @@ public class MainPageActivity extends Activity {
 	 */ 
 	private void createMenu() 
 	{ 
-		vaultTable = m.getStoredPsyChoicesList(getBaseContext());
+		m.clearOldPsyChoicesList(getBaseContext());
+        vaultTable = m.getStoredPsyChoicesList(getBaseContext());
 
         if(vaultTable == null || vaultTable.isEmpty())
 		{   
@@ -441,6 +442,7 @@ public class MainPageActivity extends Activity {
 //                }
 //                joinedAltNames.replaceAll("(\\r|\\n)", "").replaceAll("| $", "");
 //                System.out.println("Names: " + joinedAltNames);
+
                 String[] substance = {
                     "" + vault.getSection().get(i).getSubstance().get(j).getName(),                  //name
                     "" + vault.getSection().get(i).getSubstance().get(j).getNiceName(),              //nice name
@@ -449,6 +451,7 @@ public class MainPageActivity extends Activity {
                     "" + vault.getSection().get(i).getSubstance().get(j).getSummaryEffects()         //summary effects description""
                        // ,         + joinedAltNames
                 };
+                //Log.d("substancePrintOut",vault.getSection().get(i).getSectionName()  + " !! " +  vault.getSection().get(i).getSubstance().get(j).getName());
                 vaultTable.add(substance);
             }
         }

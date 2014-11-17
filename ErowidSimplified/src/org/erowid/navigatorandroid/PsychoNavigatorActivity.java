@@ -158,10 +158,10 @@ public class PsychoNavigatorActivity extends FragmentActivity {
 //            psyType = vault.getSection().get(subTypeIndex).getSectionName().toLowerCase();
 //            psyName = tempPsyName.replaceAll(" ", "_").toLowerCase();
 
-            Log.d("SubFrag Test", "Substance not created");
+            //Log.d("SubFrag Test", "Substance not created");
             substance =  m.getSubstanceFromShortXML(psyType, psyName, getFilesDir().getAbsolutePath()); //m.getSubstanceFromXML(m.getSubXML(m.getSubstancesClassString(this), psyName)); //this still takes a while, maybe async it?
-            Log.d("Substance in Nav", substance.getName());
-            Log.d("SubFrag Test", "Substance Created");
+            //Log.d("Substance in Nav", substance.getName());
+            //Log.d("SubFrag Test", "Substance Created");
 
             ActionBar actionBar = getActionBar();
             actionBar.setTitle("Substance Info");
