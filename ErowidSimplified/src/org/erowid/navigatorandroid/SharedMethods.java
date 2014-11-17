@@ -117,10 +117,25 @@ public class SharedMethods {
 			//Extracts the body, adds back a head
 			//Currently this code is unused since chemistry is loaded externally.
 			//If used, need to fix offset in code here, try using shared indexAfter()
-			htmlText = htmlText.substring(0,htmlText.indexOf("</head>")+7)
-					 + "<body>" 
-					 + htmlText.substring(htmlText.indexOf("<div id=\"content-body-frame\">"),htmlText.indexOf("</div><!-- end content-body-frame-->"))
-					 + "</body></html>";
+            try {
+                //not sure if when these break they cause an exception or if they just insert null text. Covering all bases.
+                String text1 = htmlText.substring(0, htmlText.indexOf("</head>") + 7);
+                String text2 = htmlText.substring(htmlText.indexOf("<div id=\"content-body-frame\">"), htmlText.indexOf("</div><!-- end content-body-frame-->"));
+                if(null != text1 && null != text2) {
+                    htmlText = text1
+                            + "<body>"
+                            + text2
+                            + "</body></html>";
+                }
+                else
+                {
+                    htmlText = "Page error, please reopen page. If this does not work, try loading the page externally using the top menu.";
+                }
+            }
+            catch(Exception e)
+            {
+                htmlText = "Page error, please reopen page. If this does not work, try loading the page externally using the top menu.";
+            }//empty because it should fail elegantly
 		}
 		return htmlText;
 	}

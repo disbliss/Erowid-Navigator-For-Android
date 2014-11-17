@@ -71,14 +71,14 @@
       <file leaf-file-name="SharedMethods.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/SharedMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7826087" vertical-offset="2643" max-vertical-offset="13890">
-              <caret line="211" column="22" selection-start-line="211" selection-start-column="22" selection-end-line="211" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.57459676" vertical-offset="1920" max-vertical-offset="14115">
+              <caret line="147" column="70" selection-start-line="147" selection-start-column="70" selection-end-line="147" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#29552#29568#0" expanded="true" />
-                <element signature="e#33132#33142#0" expanded="true" />
-                <element signature="e#33488#33496#0" expanded="true" />
-                <element signature="e#33897#33907#0" expanded="true" />
+                <element signature="e#30376#30392#0" expanded="true" />
+                <element signature="e#33956#33966#0" expanded="true" />
+                <element signature="e#34312#34320#0" expanded="true" />
+                <element signature="e#34721#34731#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,7 +97,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ErowidSimplified/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="734" max-vertical-offset="1230">
+            <state vertical-scroll-proportion="0.0" vertical-offset="695" max-vertical-offset="1230">
               <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
               <folding />
             </state>
@@ -107,8 +107,8 @@
       <file leaf-file-name="MainPageActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.307692" vertical-offset="9507" max-vertical-offset="10200">
-              <caret line="693" column="16" selection-start-line="693" selection-start-column="16" selection-end-line="693" selection-end-column="16" />
+            <state vertical-scroll-proportion="-6.3461537" vertical-offset="1935" max-vertical-offset="10200">
+              <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -129,8 +129,8 @@
       <file leaf-file-name="WebDisplayActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/WebDisplayActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.3461537" vertical-offset="26" max-vertical-offset="6450">
-              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            <state vertical-scroll-proportion="23.615385" vertical-offset="5864" max-vertical-offset="6450">
+              <caret line="381" column="0" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -837,8 +837,8 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20100144" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32010242" sideWeight="0.33235294" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.060179256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27912933" sideWeight="0.80735296" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.060179256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27912933" sideWeight="0.80735296" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49167734" sideWeight="0.12867647" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -851,7 +851,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32904148" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3111588" sideWeight="0.89694655" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15164521" sideWeight="0.89694655" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24455826" sideWeight="0.44338235" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -933,38 +933,14 @@
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/SharedMethods.java</url>
-          <line>590</line>
-          <properties />
-          <option name="timeStamp" value="272" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/PsychoNavigatorActivity.java</url>
           <line>116</line>
           <properties />
           <option name="timeStamp" value="274" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java</url>
-          <line>149</line>
-          <properties />
-          <option name="timeStamp" value="276" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java</url>
-          <line>145</line>
-          <properties />
-          <option name="timeStamp" value="277" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java</url>
-          <line>121</line>
-          <properties />
-          <option name="timeStamp" value="284" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/SharedMethods.java</url>
-          <line>805</line>
+          <line>820</line>
           <properties />
           <option name="timeStamp" value="287" />
         </line-breakpoint>
@@ -982,15 +958,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/SharedMethods.java</url>
-          <line>840</line>
+          <line>121</line>
           <properties />
-          <option name="timeStamp" value="294" />
+          <option name="timeStamp" value="295" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="295" />
+      <option name="time" value="296" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1369,26 +1345,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ErowidSimplified/res/xml/searchable.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-          <caret line="6" column="63" selection-start-line="6" selection-start-column="63" selection-end-line="6" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ErowidSimplified/bin/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1245">
           <caret line="72" column="61" selection-start-line="72" selection-start-column="61" selection-end-line="72" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ErowidSimplified/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="734" max-vertical-offset="1230">
-          <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1409,13 +1369,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java">
+    <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/WebDisplayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.307692" vertical-offset="9507" max-vertical-offset="10200">
-          <caret line="693" column="16" selection-start-line="693" selection-start-column="16" selection-end-line="693" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="23.615385" vertical-offset="5864" max-vertical-offset="6450">
+          <caret line="381" column="0" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1427,24 +1385,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/WebDisplayActivity.java">
+    <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/MainPageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3461537" vertical-offset="26" max-vertical-offset="6450">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        <state vertical-scroll-proportion="-6.3461537" vertical-offset="1935" max-vertical-offset="10200">
+          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ErowidSimplified/res/xml/searchable.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <caret line="6" column="63" selection-start-line="6" selection-start-column="63" selection-end-line="6" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ErowidSimplified/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="734" max-vertical-offset="1230">
+          <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ErowidSimplified/src/org/erowid/navigatorandroid/SharedMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7826087" vertical-offset="2643" max-vertical-offset="13890">
-          <caret line="211" column="22" selection-start-line="211" selection-start-column="22" selection-end-line="211" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.57459676" vertical-offset="1920" max-vertical-offset="14115">
+          <caret line="147" column="70" selection-start-line="147" selection-start-column="70" selection-end-line="147" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#29552#29568#0" expanded="true" />
-            <element signature="e#33132#33142#0" expanded="true" />
-            <element signature="e#33488#33496#0" expanded="true" />
-            <element signature="e#33897#33907#0" expanded="true" />
+            <element signature="e#30376#30392#0" expanded="true" />
+            <element signature="e#33956#33966#0" expanded="true" />
+            <element signature="e#34312#34320#0" expanded="true" />
+            <element signature="e#34721#34731#0" expanded="true" />
           </folding>
         </state>
       </provider>
